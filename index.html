@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Corrections - Technologies Web & Mobile | IG3/AIP</title>
+    <link
+      rel="stylesheet"
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+      <div class="navbar__brand">
+        <span class="navbar__icon">&#9670;</span> TWM Corrections
+      </div>
+      <ul class="navbar__links">
+        <li><a href="#corrections" class="nav-link active" data-section="corrections">Corrections</a></li>
+        <li><a href="#qcm" class="nav-link" data-section="qcm">QCM</a></li>
+      </ul>
+    </nav>
+
+
+    <!-- CORRECTIONS -->
+    <section class="section" id="corrections">
+      <div class="section__header">
+        <h2>Corrig&eacute;s d&eacute;taill&eacute;s</h2>
+        <p>Devoir de Programmation Mobile d'Application &mdash; Dr. Wahabou TABA CHABI K.</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="ex1">Exercice 1</button>
+        <button class="tab" data-tab="ex2">Exercice 2</button>
+        <button class="tab" data-tab="ex3">Exercice 3</button>
+        <button class="tab" data-tab="ex4">Exercice 4</button>
+        <button class="tab" data-tab="ex5">Exercice 5</button>
+      </div>
+
+      <div class="tab-panels">
+        <!-- EX1 -->
+        <div class="tab-panel active" id="panel-ex1">
+          <h3>Exercice 1 &mdash; Questions de cours <span class="pts">6 pts</span></h3>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>Diff&eacute;rence StatelessWidget / StatefulWidget ?</strong>
+              <p><em>StatelessWidget</em> est immuable : une fois construit, il ne change pas. <em>StatefulWidget</em> poss&egrave;de un objet <code>State</code> qui permet de modifier l'interface dynamiquement via <code>setState()</code>.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>R&ocirc;le de build() ?</strong>
+              <p>La m&eacute;thode <code>build(BuildContext context)</code> d&eacute;crit l'interface utilisateur &agrave; afficher. Elle est appel&eacute;e chaque fois que le widget doit &ecirc;tre redessin&eacute;.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">3</span>
+            <div>
+              <strong>R&ocirc;le de Navigator.push() ?</strong>
+              <p><code>Navigator.push()</code> empile une nouvelle route (page) sur la pile de navigation et y navigue. L'utilisateur peut revenir avec <code>Navigator.pop()</code>.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">4</span>
+            <div>
+              <strong>setState() dans un StatelessWidget ?</strong>
+              <p>C'est impossible. Un <em>StatelessWidget</em> n'a pas d'objet <code>State</code> associ&eacute;. Appeler <code>setState()</code> provoque une erreur de compilation car la m&eacute;thode n'existe pas dans ce contexte.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">5</span>
+            <div>
+              <strong>R&ocirc;le de pubspec.yaml ?</strong>
+              <p>Fichier de configuration du projet Flutter : d&eacute;clare les d&eacute;pendances (packages), les assets (images, polices), le nom du projet, la version SDK, et les m&eacute;tadonn&eacute;es.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">6</span>
+            <div>
+              <strong>Deux avantages de Flutter ?</strong>
+              <p>1) <strong>Code unique multi-plateforme</strong> : un seul code Dart pour iOS, Android, Web et Desktop.<br>
+              2) <strong>Hot Reload</strong> : mise &agrave; jour instantan&eacute;e de l'UI pendant le d&eacute;veloppement sans perdre l'&eacute;tat.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- EX2 -->
+        <div class="tab-panel" id="panel-ex2">
+          <h3>Exercice 2 &mdash; QCM Dart <span class="pts">3 pts</span></h3>
+          <p class="note">Programme Dart analys&eacute; : <code>List&lt;int&gt; notes = [12, 8, 15, 9, 10];</code></p>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>Type de la variable notes ?</strong>
+              <p>R&eacute;ponse : <mark>B) List</mark> &mdash; C'est une liste d'entiers (<code>List&lt;int&gt;</code>).</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>notes.length repr&eacute;sente ?</strong>
+              <p>R&eacute;ponse : <mark>B) Le nombre d'&eacute;l&eacute;ments dans la liste</mark> &mdash; Ici 5 &eacute;l&eacute;ments.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">3</span>
+            <div>
+              <strong>Combien de fois la boucle for ?</strong>
+              <p>R&eacute;ponse : <mark>C) 5 fois</mark> &mdash; La boucle it&egrave;re sur chaque &eacute;l&eacute;ment de la liste (5 &eacute;l&eacute;ments).</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">4</span>
+            <div>
+              <strong>Valeur affich&eacute;e pour Max ?</strong>
+              <p>R&eacute;ponse : <mark>B) 15</mark> &mdash; Le maximum parmi [12, 8, 15, 9, 10].</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">5</span>
+            <div>
+              <strong>Valeur affich&eacute;e pour Min ?</strong>
+              <p>R&eacute;ponse : <mark>A) 8</mark> &mdash; Le minimum parmi [12, 8, 15, 9, 10].</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">6</span>
+            <div>
+              <strong>Nombre d'&eacute;tudiants admis (note &ge; 10) ?</strong>
+              <p>R&eacute;ponse : <mark>B) 3</mark> &mdash; Les notes 12, 15 et 10 sont &ge; 10.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- EX3 -->
+        <div class="tab-panel" id="panel-ex3">
+          <h3>Exercice 3 &mdash; Dart <span class="pts">2 pts</span></h3>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>R&eacute;sultat du programme (1 pt)</strong>
+              <p>Le code source exact n'est pas visible dans le PDF. En g&eacute;n&eacute;ral, il s'agit d'un programme manipulant des variables et des boucles dont le r&eacute;sultat est &agrave; tracer manuellement.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>&Eacute;crire un programme Dart (1 pt)</strong>
+              <p>Le programme doit demander le nom et afficher "Bienvenue NOM &agrave; IFRI" :</p>
+              <pre><code>import 'dart:io';
+
+void main() {
+  stdout.write('Entrez votre nom : ');
+  String nom = stdin.readLineSync() ?? '';
+  print('Bienvenue $nom &agrave; IFRI');
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- EX4 -->
+        <div class="tab-panel" id="panel-ex4">
+          <h3>Exercice 4 &mdash; Flutter <span class="pts">3 pts</span></h3>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>R&ocirc;le de MaterialApp (0,5 pt) ?</strong>
+              <p><code>MaterialApp</code> est le widget racine d'une application Material Design. Il configure le th&egrave;me, les routes, la navigation, le titre de l'app et la page d'accueil (<code>home</code>).</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>R&ocirc;le de Column (0,5 pt) ?</strong>
+              <p><code>Column</code> est un widget de mise en page qui aligne ses enfants <strong>verticalement</strong> (du haut vers le bas).</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">3</span>
+            <div>
+              <strong>Ce qui s'affiche (1 pt) ?</strong>
+              <p>L'&eacute;cran affiche les widgets enfants de <code>Column</code> dispos&eacute;s verticalement dans un <code>Scaffold</code> avec une <code>AppBar</code> en haut. Le contenu pr&eacute;cis d&eacute;pend du code fourni dans le sujet.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- EX5 -->
+        <div class="tab-panel" id="panel-ex5">
+          <h3>Exercice 5 &mdash; POO Dart + UML <span class="pts">6 pts</span></h3>
+          <div class="correction-item">
+            <span class="num">A</span>
+            <div>
+              <strong>Code Dart de la classe Agent</strong>
+              <pre><code>class Agent {
+  String _name;
+  String _idNum;
+  int _age;
+
+  Agent(this._name, this._idNum, this._age);
+
+  // Getters
+  String get name => _name;
+  String get idNum => _idNum;
+  int get age => _age;
+
+  // Setters
+  set name(String newName) => _name = newName;
+  set idNum(String newId) => _idNum = newId;
+  set age(int newAge) => _age = newAge;
+}</code></pre>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">B</span>
+            <div>
+              <strong>M&eacute;thode getAire</strong>
+              <pre><code>double getAire(double longueur, double largeur) {
+  return longueur * largeur;
+}</code></pre>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">C</span>
+            <div>
+              <strong>Diagramme UML de la classe Agent</strong>
+              <div class="uml-box">
+                <div class="uml-title">Agent</div>
+                <div class="uml-section">
+                  - _name : String<br>
+                  - _idNum : String<br>
+                  - _age : int
+                </div>
+                <div class="uml-section">
+                  + Agent(name, idNum, age)<br>
+                  + get name() : String<br>
+                  + get idNum() : String<br>
+                  + get age() : int<br>
+                  + set name(String) : void<br>
+                  + set idNum(String) : void<br>
+                  + set age(int) : void
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QCM -->
+    <section class="section section--dark section--hidden" id="qcm">
+      <div class="section__header">
+        <h2>QCM Interactifs</h2>
+        <p>S&eacute;lectionne un QCM et r&eacute;ponds question par question. Score calcul&eacute; en temps r&eacute;el.</p>
+      </div>
+
+      <div class="quiz-selector">
+        <button class="quiz-tab active" data-quiz="revision70">
+          <span class="quiz-tab__icon">&#128218;</span>
+          <span class="quiz-tab__label">QCM R&eacute;vision<br><small>70 questions &mdash; 5 parties</small></span>
+        </button>
+        <button class="quiz-tab" data-quiz="devoir6">
+          <span class="quiz-tab__icon">&#128187;</span>
+          <span class="quiz-tab__label">QCM Dart<br><small>6 questions &mdash; Devoir</small></span>
+        </button>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="progress-wrapper">
+        <div class="progress-bar">
+          <div class="progress-bar__fill" id="progress-fill"></div>
+        </div>
+        <span class="progress-text" id="progress-text">0%</span>
+      </div>
+
+      <!-- Quiz card -->
+      <div class="quiz-card" id="quiz-card">
+        <div class="quiz-card__header">
+          <span id="quiz-category" class="quiz-category"></span>
+          <span id="quiz-counter" class="quiz-counter"></span>
+        </div>
+
+        <h3 id="question-text" class="quiz-card__question"></h3>
+
+        <div id="answers" class="quiz-card__answers"></div>
+
+        <div id="feedback" class="quiz-card__feedback" aria-live="polite"></div>
+
+        <div class="quiz-card__actions">
+          <button type="button" id="prev-btn" class="btn btn--ghost" disabled>
+            &#8592; Pr&eacute;c&eacute;dent
+          </button>
+          <button type="button" id="validate-btn" class="btn btn--primary">
+            Valider
+          </button>
+          <button type="button" id="next-btn" class="btn btn--ghost">
+            Suivant &#8594;
+          </button>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div id="result" class="quiz-result hidden">
+        <div class="quiz-result__icon" id="result-icon"></div>
+        <h3 id="result-title"></h3>
+        <p id="result-score"></p>
+        <button type="button" id="restart-btn" class="btn btn--primary">Recommencer</button>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>Technologies Web &amp; Mobile &mdash; IG3/AIP &mdash; IFRI 2025-2026</p>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
