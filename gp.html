@@ -15,7 +15,18 @@
       <div class="navbar__brand">
         <span class="navbar__icon">&#9670;</span> GP Informatique
       </div>
-      <ul class="navbar__links">
+      <button
+        class="navbar__toggle"
+        type="button"
+        aria-label="Ouvrir le menu"
+        aria-expanded="false"
+        aria-controls="navbar-menu"
+      >
+        <span class="navbar__toggle-bar"></span>
+        <span class="navbar__toggle-bar"></span>
+        <span class="navbar__toggle-bar"></span>
+      </button>
+      <ul class="navbar__links" id="navbar-menu">
         <li><a href="index.html" class="nav-link nav-link--page">Technologies Web &amp; Mobile</a></li>
         <li><a href="#cours" class="nav-link active" data-section="cours">Cours</a></li>
         <li><a href="#qcm" class="nav-link" data-section="qcm">QCM (100)</a></li>
@@ -272,6 +283,7 @@
       <p>Gestion de Projet Informatique &mdash; M1-GL/SIRI &mdash; IFRI 2024-2025</p>
     </footer>
 
+    <script src="./nav.js"></script>
     <script src="./gp-data.js"></script>
     <script src="./gp-script.js"></script>
   </body>
