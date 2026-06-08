@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestion de Projet Informatique | M1-GL/SIRI</title>
+    <link
+      rel="stylesheet"
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar__brand">
+        <span class="navbar__icon">&#9670;</span> GP Informatique
+      </div>
+      <ul class="navbar__links">
+        <li><a href="index.html" class="nav-link nav-link--page">Technologies Web &amp; Mobile</a></li>
+        <li><a href="#cours" class="nav-link active" data-section="cours">Cours</a></li>
+        <li><a href="#qcm" class="nav-link" data-section="qcm">QCM (100)</a></li>
+      </ul>
+    </nav>
+
+    <!-- COURS -->
+    <section class="section" id="cours">
+      <div class="section__header">
+        <h2>Gestion de Projet Informatique</h2>
+        <p>M1-GL/SIRI &mdash; Dr. Arnaud AHOUANDJINOU &mdash; PMBOK 6 &amp; 7</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="ch1">Projet</button>
+        <button class="tab" data-tab="ch2">Phases</button>
+        <button class="tab" data-tab="ch3">Acteurs</button>
+        <button class="tab" data-tab="ch4">Chef de projet</button>
+        <button class="tab" data-tab="ch5">PMI &amp; PMBOK</button>
+        <button class="tab" data-tab="ch6">Agile</button>
+        <button class="tab" data-tab="ch7">Conflits</button>
+      </div>
+
+      <div class="tab-panels">
+        <div class="tab-panel active" id="panel-ch1">
+          <h3>Projet vs Management de projet</h3>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>D&eacute;finition d'un projet</strong>
+              <p>Un projet est une entreprise <strong>temporaire</strong>, d&eacute;cid&eacute;e en vue d'un <strong>r&eacute;sultat unique</strong> (produit ou service). Il poss&egrave;de un <strong>objectif</strong> &agrave; atteindre avec des <strong>ressources limit&eacute;es</strong> dans un <strong>d&eacute;lai donn&eacute;</strong>.</p>
+              <p>Caract&eacute;ristiques : unicit&eacute; du produit, progressivit&eacute;, changement, b&eacute;n&eacute;fice quantifiable.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>Management de projet</strong>
+              <p>D&eacute;marche visant &agrave; <strong>structurer, assurer et optimiser</strong> le bon d&eacute;roulement d'un projet. Ensemble de techniques et outils pour <strong>planifier</strong>, <strong>estimer</strong> et <strong>contr&ocirc;ler</strong> les activit&eacute;s (d&eacute;lais, budget, p&eacute;rim&egrave;tre).</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">3</span>
+            <div>
+              <strong>Programme vs Portefeuille</strong>
+              <p><strong>Programme</strong> : groupe de projets li&eacute;s, g&eacute;r&eacute;s de mani&egrave;re coordonn&eacute;e pour obtenir des gains sup&eacute;rieurs.</p>
+              <p><strong>Portefeuille</strong> : ensemble de projets et programmes regroup&eacute;s pour atteindre les <strong>objectifs strat&eacute;giques</strong> de l'organisation.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">4</span>
+            <div>
+              <strong>Projet : OUI ou NON ?</strong>
+              <p><mark>OUI</mark> : nouveau mod&egrave;le d'avion, application, campagne &eacute;lectorale, lancement produit high-tech.</p>
+              <p><mark>NON</mark> : activit&eacute;s op&eacute;rationnelles r&eacute;currentes (production quotidienne, maintenance courante).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-ch2">
+          <h3>Phases &amp; Cycle de vie</h3>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>Phase de projet</strong>
+              <p>Ensemble d'activit&eacute;s li&eacute;es logiquement aboutissant &agrave; un ou plusieurs <strong>livrables</strong>. Les phases peuvent &ecirc;tre <strong>s&eacute;quentielles</strong> ou se <strong>chevaucher</strong>.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>Porte de phase (GO-NO-GO)</strong>
+              <p>Revue en fin de phase : d&eacute;cision de passer &agrave; la phase suivante, modifier ou <strong>clore le projet</strong>. &Eacute;galement appel&eacute;e porte de gouvernance ou point d'arr&ecirc;t.</p>
+              <p>R&eacute;sultat possible de l'&eacute;tude de faisabilit&eacute; : <strong>d&eacute;cision de clore le projet</strong>.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">3</span>
+            <div>
+              <strong>Relations entre phases</strong>
+              <p><strong>S&eacute;quentielle</strong> : r&eacute;duit l'incertitude, une phase d&eacute;marre apr&egrave;s la fin de la pr&eacute;c&eacute;dente.</p>
+              <p><strong>Chevauchement</strong> : peut raccourcir l'&eacute;ch&eacute;ancier mais augmente le risque de reprises.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-ch3">
+          <h3>Acteurs du projet</h3>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>Principaux acteurs</strong>
+              <p>Chef de projet, &eacute;quipe projet, <strong>sponsor/commanditaire</strong>, comit&eacute; de pilotage (COPIL), client/utilisateurs finaux, PMO, parties prenantes internes et externes, fournisseurs et sous-traitants.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>Documents cl&eacute;s</strong>
+              <p><strong>Business case</strong> : justification &eacute;conomique (TIR, VAN, ROI).</p>
+              <p><strong>Charte du projet</strong> : autorise le projet, d&eacute;finit objectifs, sponsor, &eacute;quipe, niveau d'autorit&eacute; du chef de projet.</p>
+              <p><strong>&Eacute;nonc&eacute; de p&eacute;rim&egrave;tre</strong> : base d'accord entre parties prenantes.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-ch4">
+          <h3>Le Chef de Projet</h3>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>R&ocirc;le</strong>
+              <p>Chef d'orchestre : dirige l'&eacute;quipe pour atteindre les objectifs. Priorit&eacute; &agrave; la <strong>communication</strong> (~90% du temps). N'est pas cens&eacute; r&eacute;aliser toutes les t&acirc;ches techniques.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>Comp&eacute;tences &amp; pouvoirs</strong>
+              <p>Leadership, motivation, communication, n&eacute;gociation, r&eacute;solution de conflits, intelligence &eacute;motionnelle.</p>
+              <p>Pouvoirs : position, expert, r&eacute;f&eacute;rence, r&eacute;compense, coercitif, relationnel, charismatique.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">3</span>
+            <div>
+              <strong>Motivation &amp; &eacute;quipe</strong>
+              <p><strong>Objectifs SMART</strong> : Sp&eacute;cifique, Mesurable, Atteignable, R&eacute;aliste, Temporellement d&eacute;fini.</p>
+              <p><strong>Maslow</strong> : pyramide des besoins. <strong>Herzberg</strong> : facteurs d'hygi&egrave;ne vs facteurs de motivation.</p>
+              <p><strong>Charte d'&eacute;quipe</strong> et <strong>r&egrave;gles de base</strong> (ground rules) pour les r&eacute;unions.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-ch5">
+          <h3>PMI &amp; PMBOK</h3>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>PMI</strong>
+              <p><strong>Project Management Institute</strong> : standards, publications et certifications (PMP, CAPM, etc.).</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>PMBOK 6 vs 7</strong>
+              <p><strong>6&egrave;me &eacute;dition</strong> : 10 domaines de management (Int&eacute;gration, P&eacute;rim&egrave;tre, Temps, Co&ucirc;t, Qualit&eacute;, Ressources, Communications, Risques, Approvisionnement, Parties prenantes).</p>
+              <p><strong>7&egrave;me &eacute;dition</strong> : 12 principes + 8 domaines de performance + 3 domaines (Personnes, Processus, Environnement commercial).</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">3</span>
+            <div>
+              <strong>Code &eacute;thique</strong>
+              <p>Responsabilit&eacute;, respect, &eacute;quit&eacute;, honn&ecirc;tet&eacute;. Le chef de projet agit avec int&eacute;grit&eacute; et dans l'int&eacute;r&ecirc;t du projet et des parties prenantes.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-ch6">
+          <h3>Pr&eacute;dictif vs Agile</h3>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>Approche pr&eacute;dictive (cascade)</strong>
+              <p>Plan d&eacute;taill&eacute; en amont, p&eacute;rim&egrave;tre stable, phases s&eacute;quentielles. Triangle de fer : <strong>Co&ucirc;t &mdash; D&eacute;lai &mdash; P&eacute;rim&egrave;tre/Qualit&eacute;</strong>.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>Approche Agile</strong>
+              <p>Livraisons it&eacute;ratives, adaptation au changement, <strong>servant leader</strong>, backlog prioris&eacute;, sprints (timeboxing), daily stand-ups, r&eacute;trospectives.</p>
+              <p><strong>KANBAN</strong> : suit le travail en cours (WIP). <strong>Scrum</strong> : framework avec r&ocirc;les, &eacute;v&eacute;nements, artefacts.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">3</span>
+            <div>
+              <strong>Hybride</strong>
+              <p>Combinaison sur mesure : planification pr&eacute;dictive + r&eacute;trospectives et engagement Agile pour optimiser la performance de l'&eacute;quipe.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-ch7">
+          <h3>Gestion des conflits</h3>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>Causes de conflit</strong>
+              <p>Priorit&eacute;s divergentes, ressources limit&eacute;es, styles de travail diff&eacute;rents, pressions temporelles, malentendus de communication.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>Approches de r&eacute;solution</strong>
+              <p><strong>Collaborer</strong> (gagnant-gagnant), compromis, lisser/accommoder, forcer, &eacute;viter. Le chef de projet facilite la r&eacute;solution.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">3</span>
+            <div>
+              <strong>Outils</strong>
+              <p>Matrice d'Eisenhower (urgent/important), facilitation, n&eacute;gociation, intelligence &eacute;motionnelle.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QCM -->
+    <section class="section section--dark section--hidden" id="qcm">
+      <div class="section__header">
+        <h2>QCM &mdash; 100 questions</h2>
+        <p>Examen + Rattrapage + Cours &mdash; Mode step-by-step avec score final</p>
+      </div>
+
+      <div class="progress-wrapper">
+        <div class="progress-bar">
+          <div class="progress-bar__fill" id="progress-fill"></div>
+        </div>
+        <span class="progress-text" id="progress-text">0%</span>
+      </div>
+
+      <div class="quiz-card" id="quiz-card">
+        <div class="quiz-card__header">
+          <span id="quiz-category" class="quiz-category"></span>
+          <span id="quiz-counter" class="quiz-counter"></span>
+        </div>
+
+        <h3 id="question-text" class="quiz-card__question"></h3>
+        <div id="answers" class="quiz-card__answers"></div>
+        <div id="feedback" class="quiz-card__feedback" aria-live="polite"></div>
+
+        <div class="quiz-card__actions">
+          <button type="button" id="prev-btn" class="btn btn--ghost" disabled>&#8592; Pr&eacute;c&eacute;dent</button>
+          <button type="button" id="validate-btn" class="btn btn--primary">Valider</button>
+          <button type="button" id="next-btn" class="btn btn--ghost">Suivant &#8594;</button>
+        </div>
+      </div>
+
+      <div id="result" class="quiz-result hidden">
+        <div class="quiz-result__icon" id="result-icon"></div>
+        <h3 id="result-title"></h3>
+        <p id="result-score"></p>
+        <button type="button" id="restart-btn" class="btn btn--primary">Recommencer</button>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>Gestion de Projet Informatique &mdash; M1-GL/SIRI &mdash; IFRI 2024-2025</p>
+    </footer>
+
+    <script src="./gp-data.js"></script>
+    <script src="./gp-script.js"></script>
+  </body>
+</html>

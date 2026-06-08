@@ -260,7 +260,7 @@ restartBtn.addEventListener("click", () => {
 });
 
 /* ===== NAV SECTIONS ===== */
-const navLinks = document.querySelectorAll(".nav-link");
+const navLinks = document.querySelectorAll(".nav-link[data-section]");
 const pageSections = document.querySelectorAll(".section[id]");
 
 function showSection(sectionId) {

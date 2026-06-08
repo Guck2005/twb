@@ -75,6 +75,18 @@ a {
   color: #a5b4fc;
 }
 
+.navbar__links a.nav-link--page {
+  color: #c7d2fe;
+  border: 1px solid rgba(129, 140, 248, 0.35);
+  border-radius: 8px;
+  padding: 0.35rem 0.75rem;
+}
+
+.navbar__links a.nav-link--page:hover {
+  background: rgba(99, 102, 241, 0.15);
+  border-color: rgba(129, 140, 248, 0.6);
+}
+
 
 /* ===== BUTTONS ===== */
 .btn {
