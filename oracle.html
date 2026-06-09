@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Base de Donn&eacute;es Oracle | PL/SQL &amp; Administration</title>
+    <link
+      rel="stylesheet"
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar__brand">
+        <span class="navbar__icon">&#9670;</span> BD Oracle
+      </div>
+      <button
+        class="navbar__toggle"
+        type="button"
+        aria-label="Ouvrir le menu"
+        aria-expanded="false"
+        aria-controls="navbar-menu"
+      >
+        <span class="navbar__toggle-bar"></span>
+        <span class="navbar__toggle-bar"></span>
+        <span class="navbar__toggle-bar"></span>
+      </button>
+      <ul class="navbar__links" id="navbar-menu">
+        <li><a href="index.html" class="nav-link nav-link--page">Technologies Web &amp; Mobile</a></li>
+        <li><a href="gp.html" class="nav-link nav-link--page">Gestion de Projet</a></li>
+        <li><a href="#corrections" class="nav-link active" data-section="corrections">Examen 2025</a></li>
+        <li><a href="#revisions" class="nav-link" data-section="revisions">R&eacute;visions PL/SQL</a></li>
+        <li><a href="#qcm" class="nav-link" data-section="qcm">QCM</a></li>
+        <li><a href="#supports" class="nav-link" data-section="supports">Supports</a></li>
+      </ul>
+    </nav>
+
+    <!-- CORRIGES EXAMEN -->
+    <section class="section" id="corrections">
+      <div class="section__header">
+        <h2>Examen Final &mdash; Mai 2025</h2>
+        <p>Base de Donn&eacute;es Oracle &mdash; Dur&eacute;e : 02h30 &mdash; Corrig&eacute;s d&eacute;taill&eacute;s</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="ex1">Exercice 1 &mdash; QCM</button>
+        <button class="tab" data-tab="ex2">Exercice 2 &mdash; PL/SQL</button>
+        <button class="tab" data-tab="ex3">Exercice 3 &mdash; Trigger</button>
+        <button class="tab" data-tab="ex4">Exercice 4 &mdash; Transactions</button>
+      </div>
+
+      <div class="tab-panels">
+        <!-- EX1 -->
+        <div class="tab-panel active" id="panel-ex1">
+          <h3>Exercice 1 &mdash; QCM Administration Oracle</h3>
+          <p class="note">Tu peux aussi t'entra&icirc;ner sur ces questions en mode interactif dans l'onglet <strong>QCM</strong>.</p>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>D&eacute;finitions de poste d'un DBA Oracle ?</strong>
+              <p>R&eacute;ponse : <mark>D) Tout ce qui pr&eacute;c&egrave;de</mark> &mdash; Le DBA installe et configure le logiciel, met en &oelig;uvre la strat&eacute;gie de sauvegarde/restauration et g&egrave;re les utilisateurs et leurs privil&egrave;ges.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>Utilit&eacute; d'un Tablespace ?</strong>
+              <p>R&eacute;ponse : <mark>D) Toutes les r&eacute;ponses</mark> &mdash; Un tablespace organise tables et index en groupes logiques, peut &ecirc;tre mis en lecture seule (les donn&eacute;es ne changent plus) et permet le transport de donn&eacute;es (transportable tablespaces).</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">3</span>
+            <div>
+              <strong>Composants de l'architecture Oracle ?</strong>
+              <p>R&eacute;ponse : <mark>D) Toutes les r&eacute;ponses sont bonnes</mark> &mdash; L'architecture Oracle comprend les processus d'arri&egrave;re-plan, les datafiles (structure physique) et les tablespaces (structure logique).</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">4</span>
+            <div>
+              <strong>Collection d'informations stock&eacute;es &agrave; un moment donn&eacute; ?</strong>
+              <p>R&eacute;ponse : <mark>A) Instance de la base de donn&eacute;es</mark> &mdash; L'ensemble des informations stock&eacute;es dans la base &agrave; un instant pr&eacute;cis est appel&eacute; <em>instance</em> (&eacute;tat) de la base de donn&eacute;es. Le <em>sch&eacute;ma</em> en est la description structurelle.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">5</span>
+            <div>
+              <strong>Tables physiquement stock&eacute;es ensemble partageant une colonne commune ?</strong>
+              <p>R&eacute;ponse : <mark>D) Cluster</mark> &mdash; Un cluster regroupe physiquement plusieurs tables qui partagent une ou plusieurs colonnes communes (cl&eacute; de cluster).</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">6</span>
+            <div>
+              <strong>Regrouper des donn&eacute;es de mani&egrave;re logique ?</strong>
+              <p>R&eacute;ponse : <mark>B) Tablespace</mark> &mdash; Le tablespace est l'unit&eacute; de stockage <em>logique</em> d'Oracle (par opposition aux datafiles, physiques).</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">7</span>
+            <div>
+              <strong>Quelle ligne produira une erreur ?</strong>
+              <p>R&eacute;ponse : <mark>D) Aucune de ces r&eacute;ponses</mark> &mdash; Les trois requ&ecirc;tes <code>SELECT</code> sont syntaxiquement correctes.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">8</span>
+            <div>
+              <strong>Qu'est-ce qu'un SGBD ?</strong>
+              <p>R&eacute;ponse : <mark>A) Collection de nombreux programmes pour acc&eacute;der aux donn&eacute;es</mark> &mdash; Un SGBD est un ensemble de logiciels permettant de cr&eacute;er, g&eacute;rer et interroger des bases de donn&eacute;es.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">9</span>
+            <div>
+              <strong>Avantages d'une vue ?</strong>
+              <p>R&eacute;ponse : <mark>D) Toutes les r&eacute;ponses sont vraies</mark> &mdash; Une vue offre des colonnes d&eacute;riv&eacute;es, renforce la s&eacute;curit&eacute; des donn&eacute;es et masque la complexit&eacute; des requ&ecirc;tes.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">10</span>
+            <div>
+              <strong>Type de donn&eacute;es de caract&egrave;re inexistant ?</strong>
+              <p>R&eacute;ponse : <mark>D) String</mark> &mdash; <code>String</code> n'existe pas en Oracle. Les types caract&egrave;res valides sont <code>CHAR</code>, <code>VARCHAR/VARCHAR2</code> et <code>NVARCHAR2</code>.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">11</span>
+            <div>
+              <strong>Utilisation du &laquo; Library cache &raquo; ?</strong>
+              <p>R&eacute;ponse : <mark>B) Utilis&eacute; pour stocker le shared SQL</mark> &mdash; Le library cache (dans la Shared Pool de la SGA) conserve les requ&ecirc;tes SQL analys&eacute;es et les plans d'ex&eacute;cution partag&eacute;s.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">12</span>
+            <div>
+              <strong>Quels processus composent une instance Oracle ?</strong>
+              <p>R&eacute;ponse : <mark>D) Toutes les r&eacute;ponses sont vraies</mark> &mdash; Une instance Oracle = structures m&eacute;moire (SGA) + processus d'arri&egrave;re-plan qui g&egrave;rent les donn&eacute;es.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- EX2 -->
+        <div class="tab-panel" id="panel-ex2">
+          <h3>Exercice 2 &mdash; PL/SQL sur la base EventRequest</h3>
+          <p class="note">Sch&eacute;ma : <code>Facility(facNo, facName)</code> &mdash; <code>Customer(custNo, custName, custContact, custPhone, custAddress, custCity, custState, custZip)</code> &mdash; <code>EventRequest(eventNo, facNo#, custNo#, dateHeld, dateReq, dateAuth, status, estCost, estAudience)</code></p>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>Proc&eacute;dure custProfile</strong>
+              <p>Affiche toutes les caract&eacute;ristiques du client dont le num&eacute;ro est pass&eacute; en param&egrave;tre.</p>
+              <pre><code>CREATE OR REPLACE PROCEDURE custProfile (
+    p_custNo IN Customer.custNo%TYPE
+)
+IS
+    v_cust Customer%ROWTYPE;                          -- (1)
+BEGIN
+    SELECT *
+    INTO v_cust
+    FROM Customer
+    WHERE custNo = p_custNo;                          -- (2)
+
+    DBMS_OUTPUT.PUT_LINE('Numero   : ' || v_cust.custNo);
+    DBMS_OUTPUT.PUT_LINE('Nom      : ' || v_cust.custName);
+    DBMS_OUTPUT.PUT_LINE('Contact  : ' || v_cust.custContact);
+    DBMS_OUTPUT.PUT_LINE('Tel      : ' || v_cust.custPhone);
+    DBMS_OUTPUT.PUT_LINE('Adresse  : ' || v_cust.custAddress);
+    DBMS_OUTPUT.PUT_LINE('Ville    : ' || v_cust.custCity);
+    DBMS_OUTPUT.PUT_LINE('Etat     : ' || v_cust.custState);
+    DBMS_OUTPUT.PUT_LINE('Zip      : ' || v_cust.custZip);
+                                                      -- (3)
+END;
+/</code></pre>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>Traitement d'exception (client inexistant)</strong>
+              <p>Il suffit d'ins&eacute;rer une section <code>EXCEPTION</code> &agrave; l'endroit <strong>(3)</strong>, juste avant le <code>END;</code>. Le <code>SELECT ... INTO</code> en <strong>(2)</strong> l&egrave;ve automatiquement <code>NO_DATA_FOUND</code> si le num&eacute;ro n'existe pas :</p>
+              <pre><code>-- Code a inserer en (3) :
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'Le client ' || p_custNo || ' n''existe pas.'
+        );
+        -- ou : RAISE_APPLICATION_ERROR(-20001, 'Client inexistant');</code></pre>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">3</span>
+            <div>
+              <strong>Bloc anonyme &mdash; affichage tri&eacute; par co&ucirc;t estim&eacute; d&eacute;croissant</strong>
+              <pre><code>BEGIN
+    FOR r IN (
+        SELECT e.eventNo, f.facName, c.custName, e.estCost, e.status
+        FROM EventRequest e
+        JOIN Facility f ON f.facNo  = e.facNo
+        JOIN Customer c ON c.custNo = e.custNo
+        ORDER BY e.estCost DESC
+    ) LOOP
+        DBMS_OUTPUT.PUT_LINE(
+            r.eventNo  || ' - ' || r.facName || ' - ' ||
+            r.custName || ' - ' || r.estCost || ' - ' || r.status
+        );
+    END LOOP;
+END;
+/</code></pre>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">4</span>
+            <div>
+              <strong>D&eacute;clencheur eventCheck</strong>
+              <p>V&eacute;rifie &agrave; chaque insertion ou modification que <code>dateAuth</code> est renseign&eacute;e, puis que <code>dateReq &le; dateAuth &le; dateHeld</code>.</p>
+              <pre><code>CREATE OR REPLACE TRIGGER eventCheck
+BEFORE INSERT OR UPDATE
+ON EventRequest
+FOR EACH ROW
+BEGIN
+    IF :NEW.dateAuth IS NULL THEN
+        RAISE_APPLICATION_ERROR(
+            -20001, 'Erreur d''autorisation'
+        );
+    END IF;
+
+    IF :NEW.dateAuth &lt; :NEW.dateReq
+       OR :NEW.dateHeld &lt; :NEW.dateAuth THEN
+        RAISE_APPLICATION_ERROR(
+            -20002, 'Erreur de date'
+        );
+    END IF;
+END;
+/</code></pre>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">5</span>
+            <div>
+              <strong>Bloc anonyme &mdash; cr&eacute;ation d'une vue par &eacute;tablissement</strong>
+              <p>On utilise du <strong>SQL dynamique</strong> (<code>EXECUTE IMMEDIATE</code>). Les noms d'&eacute;tablissements pouvant contenir des espaces, on les remplace par des underscores (ou on entoure le nom de guillemets doubles).</p>
+              <pre><code>BEGIN
+    FOR f IN (SELECT facNo, facName FROM Facility) LOOP
+        EXECUTE IMMEDIATE
+            'CREATE OR REPLACE VIEW facility' ||
+            REPLACE(f.facName, ' ', '_') ||
+            ' AS SELECT eventNo, status, estCost, estAudience' ||
+            ' FROM EventRequest WHERE facNo = ' || f.facNo;
+    END LOOP;
+END;
+/</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- EX3 -->
+        <div class="tab-panel" id="panel-ex3">
+          <h3>Exercice 3 &mdash; Trigger de contr&ocirc;le de capacit&eacute; disque</h3>
+          <p class="note">Sch&eacute;ma : <code>DISQUE(CodeDisque, nom, capacite, vitesse, fabricant)</code> &mdash; <code>PARTITION(NumPartition, nomPartition, taille, #CodeDisque)</code></p>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>Principe</strong>
+              <p>Avant chaque insertion dans <code>PARTITION</code>, on calcule la somme des tailles des partitions d&eacute;j&agrave; pr&eacute;sentes sur le disque concern&eacute;, on y ajoute la taille de la nouvelle partition, et on compare &agrave; la capacit&eacute; du disque. Si la capacit&eacute; est d&eacute;pass&eacute;e, on l&egrave;ve une erreur : l'insertion est annul&eacute;e.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>Code du trigger</strong>
+              <pre><code>CREATE OR REPLACE TRIGGER verif_taille_partition
+BEFORE INSERT ON PARTITION
+FOR EACH ROW
+DECLARE
+    v_capacite     DISQUE.capacite%TYPE;
+    v_taille_totale NUMBER;
+BEGIN
+    -- Capacite du disque concerne
+    SELECT capacite
+    INTO v_capacite
+    FROM DISQUE
+    WHERE CodeDisque = :NEW.CodeDisque;
+
+    -- Taille deja occupee par les partitions existantes
+    SELECT NVL(SUM(taille), 0)
+    INTO v_taille_totale
+    FROM PARTITION
+    WHERE CodeDisque = :NEW.CodeDisque;
+
+    -- Verification (y compris la nouvelle partition)
+    IF v_taille_totale + :NEW.taille &gt; v_capacite THEN
+        RAISE_APPLICATION_ERROR(
+            -20010,
+            'Insertion impossible : la taille totale des partitions (' ||
+            (v_taille_totale + :NEW.taille) ||
+            ') depasse la capacite du disque (' || v_capacite || ').'
+        );
+    END IF;
+END;
+/</code></pre>
+              <p><em>Remarque :</em> <code>RAISE_APPLICATION_ERROR</code> interrompt l'instruction <code>INSERT</code> en cours, donc l'enregistrement n'est pas effectu&eacute; et le message d'anomalie est affich&eacute;.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- EX4 -->
+        <div class="tab-panel" id="panel-ex4">
+          <h3>Exercice 4 &mdash; Transactions (COMMIT / ROLLBACK)</h3>
+          <p class="note">Table <code>ETIQUETTES(Et1, Et2)</code> initialement vide.</p>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>Trace pas &agrave; pas</strong>
+              <p><strong>&Eacute;tape 1</strong> &mdash; 5 insertions : (A,A) (A,B) (A,C) (B,A) (B,B), puis <code>ROLLBACK</code> &rarr; table <mark>vide</mark> (rien n'&eacute;tait valid&eacute;).</p>
+              <p><strong>&Eacute;tape 2</strong> &mdash; <code>INSERT (B,C)</code> puis <code>COMMIT</code> &rarr; table = {(B,C)}.</p>
+              <p><strong>&Eacute;tape 3</strong> &mdash; <code>UPDATE Et2='Z' WHERE Et1='B'</code> &rarr; (B,C) devient (B,Z). <code>INSERT (B,B)</code> puis <code>COMMIT</code> &rarr; table = <mark>{(B,Z), (B,B)}</mark> (point de validation).</p>
+              <p><strong>&Eacute;tape 4</strong> &mdash; Insertions (C,A) (C,B) (C,C) puis <code>DELETE FROM ETIQUETTES</code> puis <code>ROLLBACK</code> &rarr; retour au dernier COMMIT : table = {(B,Z), (B,B)}.</p>
+              <p><strong>&Eacute;tape 5</strong> &mdash; Mises &agrave; jour finales :</p>
+              <p>
+                <code>UPDATE Et1='Z'</code> &rarr; {(Z,Z), (Z,B)}<br>
+                <code>UPDATE Et1='B' WHERE Et2='B'</code> &rarr; {(Z,Z), (B,B)}<br>
+                <code>UPDATE Et1='C' WHERE Et2='C'</code> &rarr; aucune ligne avec Et2='C' &rarr; inchang&eacute;<br>
+                <code>UPDATE Et2='B' WHERE Et1='A'</code> &rarr; aucune ligne avec Et1='A' &rarr; inchang&eacute;<br>
+                <code>COMMIT</code>
+              </p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>Contenu final de la table</strong>
+              <div class="uml-box">
+                <div class="uml-title">ETIQUETTES</div>
+                <div class="uml-section">
+                  Et1 = 'Z' &nbsp;|&nbsp; Et2 = 'Z'<br>
+                  Et1 = 'B' &nbsp;|&nbsp; Et2 = 'B'
+                </div>
+              </div>
+              <p>La table contient <mark>2 lignes : (Z, Z) et (B, B)</mark>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVISIONS PL/SQL -->
+    <section class="section section--hidden" id="revisions">
+      <div class="section__header">
+        <h2>Exercices de r&eacute;vision PL/SQL</h2>
+        <p>Proc&eacute;dures, fonctions et triggers &mdash; &eacute;nonc&eacute;s et solutions compl&egrave;tes</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="proc">Proc&eacute;dures</button>
+        <button class="tab" data-tab="fonc">Fonctions</button>
+        <button class="tab" data-tab="trig">Triggers</button>
+      </div>
+
+      <div class="tab-panels">
+        <!-- PROCEDURES -->
+        <div class="tab-panel active" id="panel-proc">
+          <h3>Partie 1 &mdash; Proc&eacute;dures <span class="pts">Ex. 1 &agrave; 4</span></h3>
+          <p class="note">Sch&eacute;ma : <code>Departement(id_dept, nom_dept)</code> &mdash; <code>Employe(id_emp, nom, salaire, date_embauche, id_dept)</code> &mdash; <code>Historique_Salaire(id_hist, id_emp, ancien_salaire, nouveau_salaire, date_modification)</code></p>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>Augmentation de salaire</strong>
+              <p>Re&ccedil;oit l'identifiant d'un employ&eacute; et un pourcentage, et augmente son salaire d'autant.</p>
+              <pre><code>CREATE OR REPLACE PROCEDURE augmenter_salaire (
+    p_id_emp IN Employe.id_emp%TYPE,
+    p_pourcentage IN NUMBER
+)
+IS
+BEGIN
+    UPDATE Employe
+    SET salaire = salaire + (salaire * p_pourcentage / 100)
+    WHERE id_emp = p_id_emp;
+
+    COMMIT;
+END;
+/</code></pre>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>Prime d&eacute;partementale</strong>
+              <p>Augmente de 5 % le salaire de tous les employ&eacute;s d'un d&eacute;partement.</p>
+              <pre><code>CREATE OR REPLACE PROCEDURE prime_departement (
+    p_id_dept IN Departement.id_dept%TYPE
+)
+IS
+BEGIN
+    UPDATE Employe
+    SET salaire = salaire * 1.05
+    WHERE id_dept = p_id_dept;
+
+    COMMIT;
+END;
+/</code></pre>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">3</span>
+            <div>
+              <strong>Embauche d'un employ&eacute;</strong>
+              <p>Ajoute un employ&eacute; apr&egrave;s avoir v&eacute;rifi&eacute; que le d&eacute;partement existe ; sinon, l&egrave;ve une exception personnalis&eacute;e.</p>
+              <pre><code>CREATE OR REPLACE PROCEDURE embaucher_employe (
+    p_id_emp IN NUMBER,
+    p_nom IN VARCHAR2,
+    p_salaire IN NUMBER,
+    p_id_dept IN NUMBER
+)
+IS
+    v_count NUMBER;
+    dept_inexistant EXCEPTION;
+BEGIN
+    SELECT COUNT(*)
+    INTO v_count
+    FROM Departement
+    WHERE id_dept = p_id_dept;
+
+    IF v_count = 0 THEN
+        RAISE dept_inexistant;
+    END IF;
+
+    INSERT INTO Employe(id_emp, nom, salaire, date_embauche, id_dept)
+    VALUES(p_id_emp, p_nom, p_salaire, SYSDATE, p_id_dept);
+
+    COMMIT;
+
+EXCEPTION
+    WHEN dept_inexistant THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Departement inexistant');
+END;
+/</code></pre>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">4</span>
+            <div>
+              <strong>Rapport d&eacute;partemental</strong>
+              <p>Affiche le nombre d'employ&eacute;s, le salaire moyen et le salaire maximum d'un d&eacute;partement avec <code>DBMS_OUTPUT.PUT_LINE</code>.</p>
+              <pre><code>CREATE OR REPLACE PROCEDURE rapport_departement (
+    p_id_dept IN NUMBER
+)
+IS
+    v_nb NUMBER;
+    v_moyenne NUMBER;
+    v_max NUMBER;
+BEGIN
+    SELECT COUNT(*), AVG(salaire), MAX(salaire)
+    INTO v_nb, v_moyenne, v_max
+    FROM Employe
+    WHERE id_dept = p_id_dept;
+
+    DBMS_OUTPUT.PUT_LINE('Nombre employes : ' || v_nb);
+    DBMS_OUTPUT.PUT_LINE('Salaire moyen   : ' || NVL(v_moyenne, 0));
+    DBMS_OUTPUT.PUT_LINE('Salaire maximum : ' || NVL(v_max, 0));
+END;
+/</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- FONCTIONS -->
+        <div class="tab-panel" id="panel-fonc">
+          <h3>Partie 2 &mdash; Fonctions <span class="pts">Ex. 5 &agrave; 8</span></h3>
+          <div class="correction-item">
+            <span class="num">5</span>
+            <div>
+              <strong>Salaire annuel</strong>
+              <p>Retourne le salaire annuel d'un employ&eacute; (salaire mensuel &times; 12).</p>
+              <pre><code>CREATE OR REPLACE FUNCTION salaire_annuel (
+    p_id_emp IN NUMBER
+)
+RETURN NUMBER
+IS
+    v_salaire Employe.salaire%TYPE;
+BEGIN
+    SELECT salaire
+    INTO v_salaire
+    FROM Employe
+    WHERE id_emp = p_id_emp;
+
+    RETURN v_salaire * 12;
+END;
+/</code></pre>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">6</span>
+            <div>
+              <strong>Anciennet&eacute;</strong>
+              <p>Retourne le nombre d'ann&eacute;es d'anciennet&eacute; d'un employ&eacute;.</p>
+              <pre><code>CREATE OR REPLACE FUNCTION anciennete (
+    p_id_emp IN NUMBER
+)
+RETURN NUMBER
+IS
+    v_date DATE;
+BEGIN
+    SELECT date_embauche
+    INTO v_date
+    FROM Employe
+    WHERE id_emp = p_id_emp;
+
+    RETURN TRUNC(MONTHS_BETWEEN(SYSDATE, v_date) / 12);
+END;
+/</code></pre>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">7</span>
+            <div>
+              <strong>Classification salariale</strong>
+              <p>&lt; 1000 &rarr; Junior &mdash; 1000 &agrave; 3000 &rarr; Confirm&eacute; &mdash; &gt; 3000 &rarr; Senior.</p>
+              <pre><code>CREATE OR REPLACE FUNCTION classification_salariale (
+    p_salaire IN NUMBER
+)
+RETURN VARCHAR2
+IS
+BEGIN
+    IF p_salaire &lt; 1000 THEN
+        RETURN 'Junior';
+    ELSIF p_salaire &lt;= 3000 THEN
+        RETURN 'Confirme';
+    ELSE
+        RETURN 'Senior';
+    END IF;
+END;
+/</code></pre>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">8</span>
+            <div>
+              <strong>Masse salariale</strong>
+              <p>Retourne la masse salariale totale d'un d&eacute;partement.</p>
+              <pre><code>CREATE OR REPLACE FUNCTION masse_salariale (
+    p_id_dept IN NUMBER
+)
+RETURN NUMBER
+IS
+    v_total NUMBER;
+BEGIN
+    SELECT NVL(SUM(salaire), 0)
+    INTO v_total
+    FROM Employe
+    WHERE id_dept = p_id_dept;
+
+    RETURN v_total;
+END;
+/</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- TRIGGERS -->
+        <div class="tab-panel" id="panel-trig">
+          <h3>Partie 3 &mdash; Triggers <span class="pts">Ex. 9 &agrave; 12</span></h3>
+          <div class="correction-item">
+            <span class="num">9</span>
+            <div>
+              <strong>Historisation des salaires</strong>
+              <p>Avant toute modification de salaire, enregistre le changement dans <code>Historique_Salaire</code>. Comme <code>id_hist</code> est une cl&eacute; primaire, on cr&eacute;e d'abord une s&eacute;quence.</p>
+              <pre><code>CREATE SEQUENCE seq_hist
+START WITH 1
+INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER trg_historique_salaire
+BEFORE UPDATE OF salaire
+ON Employe
+FOR EACH ROW
+BEGIN
+    INSERT INTO Historique_Salaire(
+        id_hist, id_emp, ancien_salaire,
+        nouveau_salaire, date_modification
+    )
+    VALUES(
+        seq_hist.NEXTVAL, :OLD.id_emp, :OLD.salaire,
+        :NEW.salaire, SYSDATE
+    );
+END;
+/</code></pre>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">10</span>
+            <div>
+              <strong>Contr&ocirc;le du salaire</strong>
+              <p>Emp&ecirc;che l'insertion ou la mise &agrave; jour d'un salaire n&eacute;gatif.</p>
+              <pre><code>CREATE OR REPLACE TRIGGER trg_controle_salaire
+BEFORE INSERT OR UPDATE OF salaire
+ON Employe
+FOR EACH ROW
+BEGIN
+    IF :NEW.salaire &lt; 0 THEN
+        RAISE_APPLICATION_ERROR(
+            -20002, 'Salaire negatif interdit'
+        );
+    END IF;
+END;
+/</code></pre>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">11</span>
+            <div>
+              <strong>Date d'embauche automatique</strong>
+              <p>Renseigne <code>date_embauche</code> avec <code>SYSDATE</code> si elle n'est pas fournie &agrave; l'insertion.</p>
+              <pre><code>CREATE OR REPLACE TRIGGER trg_date_embauche
+BEFORE INSERT
+ON Employe
+FOR EACH ROW
+BEGIN
+    IF :NEW.date_embauche IS NULL THEN
+        :NEW.date_embauche := SYSDATE;
+    END IF;
+END;
+/</code></pre>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">12</span>
+            <div>
+              <strong>Limitation des augmentations (max 30 %)</strong>
+              <pre><code>CREATE OR REPLACE TRIGGER trg_limite_augmentation
+BEFORE UPDATE OF salaire
+ON Employe
+FOR EACH ROW
+BEGIN
+    IF :NEW.salaire &gt; :OLD.salaire * 1.30 THEN
+        RAISE_APPLICATION_ERROR(
+            -20003,
+            'Augmentation superieure a 30% interdite'
+        );
+    END IF;
+END;
+/</code></pre>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">12b</span>
+            <div>
+              <strong>Suppression prot&eacute;g&eacute;e (d&eacute;partement &lt; 3 employ&eacute;s)</strong>
+              <pre><code>CREATE OR REPLACE TRIGGER trg_interdire_suppression
+BEFORE DELETE
+ON Employe
+FOR EACH ROW
+DECLARE
+    v_nb NUMBER;
+BEGIN
+    SELECT COUNT(*)
+    INTO v_nb
+    FROM Employe
+    WHERE id_dept = :OLD.id_dept;
+
+    IF v_nb &lt; 3 THEN
+        RAISE_APPLICATION_ERROR(
+            -20004,
+            'Suppression interdite : moins de 3 employes dans le departement'
+        );
+    END IF;
+END;
+/</code></pre>
+              <p><em>Remarque importante :</em> ce trigger peut provoquer une erreur de <strong>table mutante</strong> (mutating table) car il interroge la table <code>Employe</code> pendant une suppression sur cette m&ecirc;me table. Solution classique : utiliser un <strong>trigger compos&eacute;</strong> (compound trigger) ou un trigger de niveau instruction (<code>BEFORE DELETE</code> sans <code>FOR EACH ROW</code>).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QCM -->
+    <section class="section section--dark section--hidden" id="qcm">
+      <div class="section__header">
+        <h2>QCM Oracle &mdash; 40 questions</h2>
+        <p>Examen + architecture, administration, PL/SQL, triggers et transactions &mdash; score calcul&eacute; en temps r&eacute;el</p>
+      </div>
+
+      <div class="progress-wrapper">
+        <div class="progress-bar">
+          <div class="progress-bar__fill" id="progress-fill"></div>
+        </div>
+        <span class="progress-text" id="progress-text">0%</span>
+      </div>
+
+      <div class="quiz-card" id="quiz-card">
+        <div class="quiz-card__header">
+          <span id="quiz-category" class="quiz-category"></span>
+          <span id="quiz-counter" class="quiz-counter"></span>
+        </div>
+
+        <h3 id="question-text" class="quiz-card__question"></h3>
+        <div id="answers" class="quiz-card__answers"></div>
+        <div id="feedback" class="quiz-card__feedback" aria-live="polite"></div>
+
+        <div class="quiz-card__actions">
+          <button type="button" id="prev-btn" class="btn btn--ghost" disabled>&#8592; Pr&eacute;c&eacute;dent</button>
+          <button type="button" id="validate-btn" class="btn btn--primary">Valider</button>
+          <button type="button" id="next-btn" class="btn btn--ghost">Suivant &#8594;</button>
+        </div>
+      </div>
+
+      <div id="result" class="quiz-result hidden">
+        <div class="quiz-result__icon" id="result-icon"></div>
+        <h3 id="result-title"></h3>
+        <p id="result-score"></p>
+        <button type="button" id="restart-btn" class="btn btn--primary">Recommencer</button>
+      </div>
+    </section>
+
+    <!-- SUPPORTS -->
+    <section class="section section--hidden" id="supports">
+      <div class="section__header">
+        <h2>Supports de cours</h2>
+        <p>Tous les documents PDF du cours Base de Donn&eacute;es Oracle</p>
+      </div>
+
+      <div class="resource-grid">
+        <a class="resource-card" href="./oracle/Support_Cours_Module1.pdf" target="_blank" rel="noopener">
+          <span class="resource-card__icon">&#128218;</span>
+          <span class="resource-card__title">Module 1</span>
+          <span class="resource-card__desc">Support de cours &mdash; PDF</span>
+        </a>
+        <a class="resource-card" href="./oracle/Support_Cours_Module2.pdf" target="_blank" rel="noopener">
+          <span class="resource-card__icon">&#128218;</span>
+          <span class="resource-card__title">Module 2</span>
+          <span class="resource-card__desc">Support de cours &mdash; PDF</span>
+        </a>
+        <a class="resource-card" href="./oracle/Support_Cours_Module3.pdf" target="_blank" rel="noopener">
+          <span class="resource-card__icon">&#128218;</span>
+          <span class="resource-card__title">Module 3</span>
+          <span class="resource-card__desc">Support de cours &mdash; PDF</span>
+        </a>
+        <a class="resource-card" href="./oracle/Support_Cours_Module4.pdf" target="_blank" rel="noopener">
+          <span class="resource-card__icon">&#128218;</span>
+          <span class="resource-card__title">Module 4</span>
+          <span class="resource-card__desc">Support de cours &mdash; PDF</span>
+        </a>
+        <a class="resource-card" href="./oracle/CoursSQL.pdf" target="_blank" rel="noopener">
+          <span class="resource-card__icon">&#128209;</span>
+          <span class="resource-card__title">Cours SQL</span>
+          <span class="resource-card__desc">Rappels SQL &mdash; PDF</span>
+        </a>
+        <a class="resource-card" href="./oracle/EXECRICE%20PROCEDURE%20FONCTION%20IFRI%202026.pdf" target="_blank" rel="noopener">
+          <span class="resource-card__icon">&#9999;&#65039;</span>
+          <span class="resource-card__title">Exercices PL/SQL</span>
+          <span class="resource-card__desc">Proc&eacute;dures &amp; fonctions IFRI 2026 &mdash; PDF</span>
+        </a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>Base de Donn&eacute;es Oracle &mdash; IFRI 2025-2026</p>
+    </footer>
+
+    <script src="./nav.js"></script>
+    <script src="./oracle-data.js"></script>
+    <script src="./oracle-script.js"></script>
+  </body>
+</html>

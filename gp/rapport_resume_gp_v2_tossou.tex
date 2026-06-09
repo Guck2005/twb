@@ -1,0 +1,190 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{xcolor}
+
+\geometry{margin=2.2cm}
+\setlength{\parskip}{0.35em}
+\setlist[itemize]{noitemsep, topsep=2pt, leftmargin=1.2em}
+\setlist[enumerate]{noitemsep, topsep=2pt, leftmargin=1.5em}
+
+\definecolor{ifriblue}{RGB}{45,55,120}
+\definecolor{ifrigray}{RGB}{245,246,250}
+
+\titleformat{\section}{\color{ifriblue}\normalfont\bfseries\large}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalfont\bfseries\normalsize}{\thesubsection}{0.5em}{}
+
+\hypersetup{colorlinks=true, linkcolor=ifriblue, urlcolor=ifriblue}
+
+\newcommand{\metarow}[2]{#1 & #2 \\}
+
+\begin{document}
+
+% ===== PAGE DE GARDE =====
+\begin{center}
+    \colorbox{ifriblue}{\parbox{\dimexpr\textwidth-2\fboxsep}{
+        \centering
+        \color{white}
+        \vspace{0.5em}
+        {\LARGE \textbf{Rapport d'exercice --- V2}}\\[0.35em]
+        {\large Gestion de Projet Informatique}
+        \vspace{0.5em}
+    }}
+\end{center}
+
+\vspace{0.8em}
+
+\noindent
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|}
+    \hline
+    \rowcolor{ifrigray}
+    \metarow{Étudiant}{Juste TOSSOU}
+    \metarow{Filière}{M1-GL / SIRI / SI}
+    \metarow{Établissement}{IFRI --- Institut de Formation et de Recherche en Informatique}
+    \metarow{Enseignant}{Dr. Arnaud AHOUANDJINOU}
+    \metarow{Année académique}{2024--2025}
+    \metarow{Objectif}{Rappels du cours}
+    \metarow{Consigne}{Rédiger un résumé de 2 à 3 pages maximum des notions essentielles vues en cours}
+    \metarow{Données}{Support de cours (PMBOK\textsuperscript{\textregistered} 6\textsuperscript{e} et 7\textsuperscript{e} éditions, PMI)}
+    \hline
+\end{tabularx}
+
+\vspace{0.8em}
+\hrule
+\vspace{0.6em}
+
+% ===== CORPS =====
+
+\section{Fondamentaux : projet, programme et portefeuille}
+
+Un \textbf{projet} est une initiative \textbf{temporaire} orientée vers un \textbf{résultat unique}. Il vise un objectif précis avec des ressources limitées et un échéancier défini. On le distingue d'une activité opérationnelle par son caractère non répétitif, son unicité et sa capacité à induire le changement.
+
+Le \textbf{management de projet} regroupe l'ensemble des méthodes permettant de \textbf{planifier}, \textbf{estimer} et \textbf{piloter} les activités pour livrer dans les délais, le budget et le périmètre convenus. Le travail est structuré en \textbf{phases} produisant des \textbf{livrables}, l'ensemble formant le \textbf{cycle de vie}.
+
+\begin{itemize}
+    \item \textbf{Programme} : coordination de projets liés pour maximiser les synergies.
+    \item \textbf{Portefeuille} : alignement des projets/programmes sur la stratégie de l'organisation.
+    \item \textbf{Porte de phase (GO/NO-GO)} : point de décision en fin de phase (continuer, ajuster ou arrêter).
+\end{itemize}
+
+\section{Acteurs clés et documents de référence}
+
+\textbf{Acteurs principaux} : sponsor, chef de projet, équipe projet, comité de pilotage (COPIL), PMO, clients, utilisateurs finaux, fournisseurs et parties prenantes.
+
+\textbf{Documents incontournables} :
+\begin{itemize}
+    \item \textbf{Business case} : viabilité économique (TIR, VAN, ROI).
+    \item \textbf{Charte de projet} : autorisation officielle, objectifs, sponsor, autorité du chef de projet.
+    \item \textbf{Énoncé de périmètre} : description détaillée et base d'accord entre parties prenantes.
+    \item \textbf{Exigences} : besoins formalisés, quantifiés et traçables.
+\end{itemize}
+
+\section{Le chef de projet : rôle, leadership et équipe}
+
+Le chef de projet est un \textbf{coordinateur} : il assure la vision globale, la communication (environ 90\,\% de son temps) et l'atteinte des objectifs sans exécuter seul toutes les tâches métiers. Il arbitre le triangle \textbf{coût -- délai -- périmètre/qualité}.
+
+\textbf{Leadership vs management} : inspirer et mobiliser (leadership) ; organiser et contrôler (management).
+
+Outils et référentiels utiles :
+\begin{itemize}
+    \item Objectifs \textbf{SMART} (Spécifique, Mesurable, Atteignable, Réaliste, Temporellement défini).
+    \item \textbf{Charte d'équipe} et \textbf{règles de base} (ground rules).
+    \item Motivation : pyramide de \textbf{Maslow}, deux facteurs de \textbf{Herzberg}.
+    \item \textbf{Servant leader} (Agile) : répondre aux besoins de l'équipe et du client.
+\end{itemize}
+
+\section{Gestion des conflits}
+
+Les conflits sont fréquents en projet (ressources, priorités, méthodes, cultures). Le chef de projet doit les anticiper et les traiter constructivement.
+
+\textbf{Origines} : concurrence, désaccords sur les rôles, divergences d'objectifs, mauvaise communication.
+
+\textbf{Stratégies} : évitement, accommodement, compromis, forçage, \textbf{collaboration} (solution gagnant-gagnant, recommandée).
+
+\section{PMI et évolution PMBOK 6 $\rightarrow$ 7}
+
+Le \textbf{PMI} (Project Management Institute) publie le \textbf{PMBOK\textsuperscript{\textregistered}} et certifie les praticiens (ex. \textbf{PMP}).
+
+\vspace{0.3em}
+\noindent
+\small
+\begin{tabularx}{\textwidth}{|>{\bfseries}p{2.8cm}|X|X|}
+    \hline
+    \rowcolor{ifrigray}
+    & \textbf{PMBOK 6} & \textbf{PMBOK 7} \\
+    \hline
+    Logique & Processus (EOTS) & Principes et valeur \\
+    Structure & 10 domaines de connaissance & 8 domaines de performance \\
+    Pilotage & 5 groupes de processus & 12 principes de gestion \\
+    Focus & Livrables & Résultats et valeur métier \\
+    Approches & Prédictif dominant & Prédictif, Agile, Hybride \\
+    \hline
+\end{tabularx}
+\normalsize
+
+\vspace{0.4em}
+\textbf{5 groupes de processus (V6)} : initialisation, planification, exécution, maîtrise, clôture.
+
+\section{Prédictif, Agile, Scrum et cycles de vie}
+
+\textbf{Prédictif (Waterfall)} : périmètre stable, planification complète en amont. Structuré mais peu flexible.
+
+\textbf{Agile} : itérations courtes, adaptation continue. Le \textbf{Manifeste Agile} privilégie les personnes, le produit fonctionnel, la collaboration et l'accueil du changement.
+
+\textbf{Scrum} en bref :
+\begin{itemize}
+    \item \textbf{Rôles} : Product Owner, Scrum Master, Développeurs.
+    \item \textbf{Artéfacts} : Product Backlog, Sprint Backlog, Incrément.
+    \item \textbf{Cérémonies} : Sprint Planning, Daily Scrum, Sprint Review, Sprint Retrospective.
+    \item \textbf{User story} : \textit{En tant que [utilisateur], je veux [action], afin de [bénéfice]}.
+\end{itemize}
+
+\textbf{Hybride} : combinaison contextualisée (ex. planification classique + rétrospectives agiles).
+
+\textbf{Cycles de vie possibles} : prédictif, itératif, incrémental, agile, hybride.
+
+\section{Organisation, PMO, EEF et OPA}
+
+\textbf{Structures} :
+\begin{itemize}
+    \item \textbf{Fonctionnelle} --- faible autorité du chef de projet.
+    \item \textbf{Orientée projet} --- forte autorité, équipe dédiée.
+    \item \textbf{Matricielle} --- compromis entre les deux (faible, équilibrée, forte).
+\end{itemize}
+
+\textbf{PMO} : bureau de projet (soutenant, conformité, directif) standardisant méthodes, outils et gouvernance.
+
+\textbf{EEF} : facteurs environnementaux hors contrôle direct (culture, normes, infrastructure).
+
+\textbf{OPA} : actifs organisationnels réutilisables (modèles, procédures, leçons apprises, archives).
+
+\section{Code éthique et conduite professionnelle (PMI)}
+
+Quatre valeurs fondamentales :
+\begin{itemize}
+    \item \textbf{Responsabilité} : assumer ses choix et leurs conséquences.
+    \item \textbf{Respect} : considération envers soi, les autres et les ressources.
+    \item \textbf{Équité} : impartialité et absence de favoritisme.
+    \item \textbf{Honnêteté} : transparence et intégrité dans toutes les interactions.
+\end{itemize}
+
+\vspace{0.8em}
+\hrule
+\vspace{0.5em}
+
+\noindent
+\begin{flushright}
+    \textbf{Juste TOSSOU}\\
+    \textit{Résumé de cours --- Gestion de Projet Informatique (V2)}
+\end{flushright}
+
+\end{document}
