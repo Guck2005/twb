@@ -1,6 +1,6 @@
 /* ===== DATA ===== */
 
-const revision70 = [
+const revision100 = [
   { q: "Une API est qualifi\u00e9e de RESTful lorsqu'elle respecte :", options: ["L'utilisation obligatoire de JSON", "Les contraintes architecturales de Roy Fielding (stateless, uniform interface, cacheability...)", "L'usage exclusif de SOAP", "L'utilisation de GraphQL comme standard"], correct: 1, part: "REST & GraphQL" },
   { q: "Le principe REST \u00abstateless\u00bb signifie que :", options: ["Le serveur conserve l'\u00e9tat de session client", "Chaque requ\u00eate contient toutes les informations n\u00e9cessaires sans d\u00e9pendance serveur", "Les donn\u00e9es doivent \u00eatre mises en cache syst\u00e9matiquement", "Les requ\u00eates doivent \u00eatre synchrones"], correct: 1, part: "REST & GraphQL" },
   { q: "Une op\u00e9ration HTTP est dite idempotente lorsqu'elle :", options: ["Change toujours l'\u00e9tat du serveur", "Produit un r\u00e9sultat identique apr\u00e8s plusieurs ex\u00e9cutions identiques", "Est toujours ex\u00e9cut\u00e9e une seule fois", "Est asynchrone"], correct: 1, part: "REST & GraphQL" },
@@ -71,6 +71,38 @@ const revision70 = [
   { q: "Scalabilit\u00e9 signifie :", options: ["R\u00e9duction", "Support d'une charge croissante", "UI scaling", "CSS"], correct: 1, part: "Architecture avanc\u00e9e" },
   { q: "Cloud-native utilise :", options: ["Microservices", "Monolithes", "Desktop apps", "Local DB"], correct: 0, part: "Architecture avanc\u00e9e" },
   { q: "Couplage faible signifie :", options: ["Forte d\u00e9pendance", "Ind\u00e9pendance des services", "UI dependency", "DB dependency"], correct: 1, part: "Architecture avanc\u00e9e" },
+  // --- QCM Devoir / Flutter (16 questions) ---
+  { q: "Que fait la m\u00e9thode setState() dans un StatefulWidget ?", options: ["Supprime le widget de l'arbre", "Notifie le framework pour reconstruire l'interface", "Change la couleur du th\u00e8me", "Ex\u00e9cute un Timer"], correct: 1, part: "Flutter & Dart" },
+  { q: "Quel widget permet d'afficher une liste d\u00e9roulante ?", options: ["ListView", "DropdownButton", "TextField", "Checkbox"], correct: 1, part: "Flutter & Dart" },
+  { q: "Quelle fonction permet d'afficher une bo\u00eete de dialogue modale ?", options: ["AlertDialog", "Dialog", "showSnackBar", "showDialog"], correct: 3, part: "Flutter & Dart" },
+  { q: "Quelle est la bonne syntaxe pour cr\u00e9er une classe Dart avec un constructeur nomm\u00e9 ?", options: ["class C { C.named(this.x); }", "class C { named(this.x); }", "class C { C::named(x); }", "class C { void named(this.x); }"], correct: 0, part: "Flutter & Dart" },
+  { q: "Dans un DropdownButton, quel attribut contient la valeur s\u00e9lectionn\u00e9e ?", options: ["value", "current", "selected", "choice"], correct: 0, part: "Flutter & Dart" },
+  { q: "\u00c0 quoi sert le widget MaterialApp dans Flutter ?", options: ["G\u00e9rer uniquement les couleurs", "Afficher un bouton", "Configurer l'application racine (th\u00e8me, routes, navigation)", "Cr\u00e9er un conteneur de mise en page"], correct: 2, part: "Flutter & Dart" },
+  { q: "Quel widget Flutter permet de g\u00e9rer une page compl\u00e8te avec AppBar, body, etc. ?", options: ["Container", "Scaffold", "MaterialApp", "Column"], correct: 1, part: "Flutter & Dart" },
+  { q: "Quel m\u00e9canisme permet de naviguer entre deux \u00e9crans ?", options: ["AppBar", "Navigator", "DropdownButton", "SnackBar"], correct: 1, part: "Flutter & Dart" },
+  { q: "Quel est le point d'entr\u00e9e d'une application Flutter ?", options: ["runApp()", "main()", "build()", "create()"], correct: 1, part: "Flutter & Dart" },
+  { q: "Quelle diff\u00e9rence existe entre final et const en Dart ?", options: ["final est plus rapide", "const est \u00e9valu\u00e9 \u00e0 l'ex\u00e9cution", "final peut \u00eatre \u00e9valu\u00e9 \u00e0 l'ex\u00e9cution, const \u00e0 la compilation", "Aucune diff\u00e9rence"], correct: 2, part: "Flutter & Dart" },
+  { q: "Quel widget permet d'organiser des \u00e9l\u00e9ments verticalement ?", options: ["Row", "Column", "Stack", "Container"], correct: 1, part: "Flutter & Dart" },
+  { q: "Lequel de ces widgets est un StatefulWidget ?", options: ["Text", "Image", "TextField", "Icon"], correct: 2, part: "Flutter & Dart" },
+  { q: "Quel widget ajoute un espace interne autour de son enfant ?", options: ["Margin", "Padding", "SizedBox", "Expanded"], correct: 1, part: "Flutter & Dart" },
+  { q: "Quel constructeur Image permet d'afficher une image depuis les assets ?", options: ["Image.network", "Image.asset", "Image.file", "Image.memory"], correct: 1, part: "Flutter & Dart" },
+  { q: "Quelle m\u00e9thode du State est appel\u00e9e une seule fois \u00e0 la cr\u00e9ation du widget ?", options: ["build()", "setState()", "initState()", "dispose()"], correct: 2, part: "Flutter & Dart" },
+  { q: "Quel symbole Dart indique qu'un type peut \u00eatre null (null safety) ?", options: ["var", "late", "?", "!"], correct: 2, part: "Flutter & Dart" },
+  // --- Compl\u00e9ments Flutter & Dart (14 questions) ---
+  { q: "Quel widget permet d'organiser des \u00e9l\u00e9ments horizontalement ?", options: ["Row", "Column", "Stack", "ListView"], correct: 0, part: "Flutter & Dart" },
+  { q: "Quelle m\u00e9thode permet de revenir \u00e0 l'\u00e9cran pr\u00e9c\u00e9dent ?", options: ["Navigator.push()", "Navigator.pop()", "Navigator.replace()", "Navigator.open()"], correct: 1, part: "Flutter & Dart" },
+  { q: "\u00c0 quoi sert le fichier pubspec.yaml ?", options: ["Compiler le code Dart", "Configurer le projet (d\u00e9pendances, assets, SDK)", "G\u00e9rer la navigation entre \u00e9crans", "D\u00e9finir les widgets Material"], correct: 1, part: "Flutter & Dart" },
+  { q: "\u00c0 quoi sert la m\u00e9thode dispose() dans un State ?", options: ["Initialiser les variables", "Lib\u00e9rer les ressources avant destruction du widget", "Reconstruire l'interface", "Naviguer vers un autre \u00e9cran"], correct: 1, part: "Flutter & Dart" },
+  { q: "Le mot-cl\u00e9 late en Dart permet de :", options: ["D\u00e9clarer une constante compile-time", "Reporter l'initialisation d'une variable non nullable", "Rendre un type nullable", "Cr\u00e9er un constructeur nomm\u00e9"], correct: 1, part: "Flutter & Dart" },
+  { q: "Le widget Stack sert principalement \u00e0 :", options: ["Aligner des enfants verticalement", "Superposer des widgets les uns sur les autres", "Cr\u00e9er une liste scrollable", "G\u00e9rer la navigation"], correct: 1, part: "Flutter & Dart" },
+  { q: "Le widget Expanded est utilis\u00e9 pour :", options: ["Ajouter une marge externe", "Occuper l'espace disponible dans un Row ou Column", "Afficher une image r\u00e9seau", "Cr\u00e9er un bouton"], correct: 1, part: "Flutter & Dart" },
+  { q: "Quel est le r\u00f4le principal de l'AppBar ?", options: ["Afficher la barre de navigation sup\u00e9rieure d'un \u00e9cran", "G\u00e9rer les requ\u00eates HTTP", "Stocker l'\u00e9tat global de l'application", "Compiler le projet Flutter"], correct: 0, part: "Flutter & Dart" },
+  { q: "\u00c0 quoi sert la fonction runApp() ?", options: ["D\u00e9marrer la boucle d'\u00e9v\u00e9nements Dart", "Attacher le widget racine \u00e0 l'\u00e9cran", "Charger pubspec.yaml", "Cr\u00e9er un StatefulWidget"], correct: 1, part: "Flutter & Dart" },
+  { q: "Hot Restart diff\u00e8re de Hot Reload car il :", options: ["Conserve toujours l'\u00e9tat de l'application", "Red\u00e9marre l'application et r\u00e9initialise l'\u00e9tat", "Ne modifie que le CSS", "Compile uniquement le backend"], correct: 1, part: "Flutter & Dart" },
+  { q: "ListView.builder est pr\u00e9f\u00e9r\u00e9 \u00e0 une ListView simple pour :", options: ["Afficher une seule image", "Construire efficacement de longues listes \u00e0 la demande", "G\u00e9rer la navigation", "D\u00e9finir le th\u00e8me Material"], correct: 1, part: "Flutter & Dart" },
+  { q: "Le widget Center sert \u00e0 :", options: ["Centrer son enfant dans l'espace disponible", "Cr\u00e9er une colonne verticale", "Afficher un dialogue", "G\u00e9rer les routes nomm\u00e9es"], correct: 0, part: "Flutter & Dart" },
+  { q: "Quel widget affiche un message temporaire en bas de l'\u00e9cran ?", options: ["AlertDialog", "SnackBar", "AppBar", "Drawer"], correct: 1, part: "Flutter & Dart" },
+  { q: "Dans Dart, une fonction async retourne g\u00e9n\u00e9ralement :", options: ["void", "Stream", "Future", "List"], correct: 2, part: "Flutter & Dart" },
 ];
 
 const devoir6 = [
@@ -83,7 +115,7 @@ const devoir6 = [
 ];
 
 const quizzes = {
-  revision70: { title: "QCM R\u00e9vision Technologies Web & Mobile", items: revision70 },
+  revision100: { title: "QCM R\u00e9vision Technologies Web & Mobile", items: revision100 },
   devoir6: { title: "QCM Dart \u2014 Devoir Mobile", items: devoir6 },
 };
 
@@ -108,7 +140,7 @@ const quizTabs = document.querySelectorAll(".quiz-tab");
 const tabs = document.querySelectorAll(".tab");
 
 /* ===== STATE ===== */
-let currentQuizKey = "revision70";
+let currentQuizKey = "revision100";
 let currentIndex = 0;
 let answers = [];
 let validated = new Set();
@@ -288,4 +320,4 @@ document.querySelector(".navbar__brand").addEventListener("click", () => {
 
 /* ===== INIT ===== */
 showSection("corrections");
-setQuiz("revision70");
+setQuiz("revision100");

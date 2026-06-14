@@ -1,0 +1,1544 @@
+\documentclass[12pt,a4paper]{article}
+
+%% ── Encodage & langue ──────────────────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+
+%% ── Mise en page ────────────────────────────────────────────────────────────
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
+\setlength{\headheight}{14pt}
+\usepackage{setspace}
+\setstretch{1.15}
+
+%% ── Mathématiques ───────────────────────────────────────────────────────────
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+
+%% ── Graphiques & figures ────────────────────────────────────────────────────
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+%% ── Mise en forme ───────────────────────────────────────────────────────────
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+%% ── Couleurs définies ───────────────────────────────────────────────────────
+\definecolor{coursbleu}{RGB}{0,70,127}
+\definecolor{coursgris}{RGB}{240,240,240}
+\definecolor{corrvert}{RGB}{0,100,50}
+\definecolor{alertrouge}{RGB}{180,0,0}
+\definecolor{formulejaune}{RGB}{255,248,220}
+\definecolor{reponsevert}{RGB}{230,255,230}
+
+%% ── Boîtes thématiques (style léger pour compilation rapide) ────────────────
+\tcbset{
+  coursbox/.style={
+    colback=coursgris, colframe=coursbleu,
+    fonttitle=\bfseries\color{coursbleu},
+    arc=2mm, boxrule=0.8pt
+  },
+  formbox/.style={
+    colback=formulejaune, colframe=orange!80!black,
+    fonttitle=\bfseries,
+    arc=2mm, boxrule=0.8pt
+  },
+  corrbox/.style={
+    colback=reponsevert, colframe=corrvert,
+    fonttitle=\bfseries\color{corrvert},
+    arc=2mm, boxrule=0.8pt
+  },
+  methbox/.style={
+    colback=blue!5, colframe=blue!60!black,
+    fonttitle=\bfseries,
+    arc=2mm, boxrule=0.8pt
+  },
+  alertbox/.style={
+    colback=red!5, colframe=alertrouge,
+    fonttitle=\bfseries\color{alertrouge},
+    arc=2mm, boxrule=0.8pt
+  }
+}
+
+%% ── En-têtes / pieds de page ────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textbf{Traitement Numérique du Signal}}
+\fancyhead[R]{\small\textbf{IFRI -- Master 1 GL}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+%% ── Titre de sections ───────────────────────────────────────────────────────
+\titleformat{\section}[block]
+  {\Large\bfseries\color{coursbleu}}
+  {\thesection.}{0.5em}{}[\titlerule]
+
+\titleformat{\subsection}[block]
+  {\large\bfseries\color{coursbleu!80!black}}
+  {\thesubsection.}{0.5em}{}
+
+\titleformat{\subsubsection}[block]
+  {\normalsize\bfseries\color{black}}
+  {\thesubsubsection.}{0.5em}{}
+
+%% ── Commandes utilitaires ───────────────────────────────────────────────────
+\newcommand{\TF}{\mathcal{F}}
+\newcommand{\TZ}{\mathcal{Z}}
+\newcommand{\TFD}{\mathrm{TFD}}
+\newcommand{\rect}{\mathrm{rect}}
+\newcommand{\sinc}{\mathrm{sinc}}
+\newcommand{\step}[1]{\textcolor{coursbleu}{\textbf{Étape #1 :}}}
+\newcommand{\explication}[1]{\textit{\textcolor{gray}{(#1)}}}
+\newcommand{\encadre}[1]{\boxed{#1}}
+
+%% ── Hyperref (doit être chargé en dernier) ──────────────────────────────────
+\usepackage{hyperref}
+\usepackage{bookmark}
+\hypersetup{colorlinks=true, linkcolor=coursbleu, urlcolor=coursbleu}
+
+%% ════════════════════════════════════════════════════════════════════════════
+\begin{document}
+%% ════════════════════════════════════════════════════════════════════════════
+
+%% ── PAGE DE TITRE ────────────────────────────────────────────────────────────
+\begin{titlepage}
+  \centering
+  \vspace*{1cm}
+  {\Huge\bfseries\color{coursbleu}
+   Traitement Numérique du Signal\\[0.4em]
+   \large Cours complet, TD \& Corrections détaillées}\\[2em]
+  \rule{\textwidth}{1.5pt}\\[1em]
+  {\large Université d'Abomey-Calavi\\
+   Institut de Formation et de Recherche en Informatique (IFRI)\\[0.5em]
+   Master 1 -- Génie Logiciel / SI\&RI}\\[2em]
+  \rule{\textwidth}{0.5pt}\\[1.5em]
+  {\normalsize Basé sur la Fiche de Révision, les TD et les Examens de Rattrapage\\
+   du cours de \textbf{Traitement Numérique du Signal}}\\[3cm]
+  {\small\itshape Document pédagogique complet -- ligne par ligne}
+  \vfill
+  {\large\bfseries Année universitaire 2024--2025}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+%% ════════════════════════════════════════════════════════════════════════════
+\section{Cours -- Fondements du Traitement Numérique du Signal}
+%% ════════════════════════════════════════════════════════════════════════════
+
+\subsection{Signaux : définitions et types}
+
+\begin{tcolorbox}[coursbox, title=Définition -- Signal]
+Un \textbf{signal} est une grandeur physique qui transporte de l'information et varie
+en fonction du temps (ou d'une autre variable indépendante).
+Un signal peut être :
+\begin{itemize}[leftmargin=1.5em]
+  \item \textbf{Continu en temps} : défini pour tout $t \in \mathbb{R}$ (ex. : température ambiante).
+  \item \textbf{Discret en temps} : défini uniquement aux instants $t = nT_e$, $n \in \mathbb{Z}$.
+  \item \textbf{Analogique} : valeurs dans un intervalle continu (amplitude continue).
+  \item \textbf{Numérique} : valeurs quantifiées sur un ensemble fini (amplitude discrète).
+\end{itemize}
+\end{tcolorbox}
+
+\begin{tcolorbox}[methbox, title=Méthode -- Identifier le type d'un signal]
+Poser deux questions indépendantes :
+\begin{enumerate}
+  \item \textbf{La variable temps est-elle continue ou discrète ?}
+        (mesuré en continu $\Rightarrow$ continu ; mesuré à intervalles fixes $\Rightarrow$ discret)
+  \item \textbf{L'amplitude est-elle continue ou discrète ?}
+        (mesure réelle $\Rightarrow$ analogique ; codée sur bits $\Rightarrow$ numérique)
+\end{enumerate}
+\end{tcolorbox}
+
+\subsection{Échantillonnage et quantification}
+
+\subsubsection{Échantillonnage}
+
+\begin{tcolorbox}[formbox, title=Formules clés -- Échantillonnage]
+\[
+  \underbrace{N = f_e \times T}_{\text{nombre d'échantillons}}
+  \qquad
+  \underbrace{f_e > 2\,f_{\max}}_{\text{théorème de Shannon}}
+  \qquad
+  \underbrace{df = \frac{f_e}{N_{\text{points}}}}_{\text{résolution FFT}}
+\]
+\end{tcolorbox}
+
+\paragraph{Qu'est-ce que l'échantillonnage ?}
+C'est l'opération qui consiste à \textit{prélever} des valeurs du signal continu $x(t)$
+à des instants réguliers espacés de $T_e = 1/f_e$.
+On obtient la suite $x[n] = x(nT_e)$.
+
+\begin{tcolorbox}[alertbox, title=Attention -- Théorème de Shannon (Nyquist)]
+Pour reconstruire parfaitement le signal original à partir des échantillons,
+il faut que la fréquence d'échantillonnage vérifie $f_e > 2\,f_{\max}$.
+Si cette condition n'est pas respectée, il y a \textbf{repliement spectral} (aliasing).
+\end{tcolorbox}
+
+\paragraph{Calcul du nombre d'échantillons.}
+\[
+  \text{Durée } T \text{ (s)},\; \text{fréquence } f_e \text{ (Hz)}
+  \;\Longrightarrow\;
+  N = f_e \times T
+\]
+\textit{Exemple :} $f_e = 80\,\text{kHz}$, $T = 20\,\text{s}$
+$\Rightarrow N = 80\,000 \times 20 = 1\,600\,000$ échantillons.
+
+\subsubsection{Quantification}
+
+\begin{tcolorbox}[formbox, title=Formules -- Quantification]
+Avec $b$ bits :
+\[
+  \text{Nombre de niveaux} : L = 2^b
+  \qquad
+  \text{Pas de quantification} : Q = \frac{x_{\max} - x_{\min}}{2^b}
+\]
+\[
+  \text{Taille mémoire} = N \times b \text{ bits}
+  = \frac{N \times b}{8} \text{ octets}
+\]
+\end{tcolorbox}
+
+\paragraph{Comment trouver le pas de quantification $Q$ ?}
+\begin{enumerate}
+  \item Identifier l'amplitude max $x_{\max}$ et min $x_{\min}$ du signal.
+  \item Calculer la plage totale : $\Delta = x_{\max} - x_{\min}$.
+  \item Diviser par le nombre de niveaux : $Q = \Delta / 2^b$.
+\end{enumerate}
+
+\textit{Exemple :} Signal $\in [-1.1, 1]$, $b = 2$ bits ($L = 4$ niveaux) :
+\[
+  Q = \frac{1 - (-1.1)}{4} = \frac{2.1}{4} = 0.525
+\]
+
+\subsection{Convolution discrète}
+
+\begin{tcolorbox}[formbox, title=Définition -- Convolution discrète]
+\[
+  y[n] = (x * h)[n] = \sum_{k=-\infty}^{+\infty} h[k]\cdot x[n-k]
+\]
+\end{tcolorbox}
+
+\subsubsection{Méthode polynomiale}
+
+\begin{tcolorbox}[methbox, title=Méthode polynomiale (à retenir)]
+\begin{enumerate}
+  \item Écrire $x[n]$ comme polynôme en $z$ : si $x = [x_0, x_1, x_2, \ldots]$,
+        alors $X(z) = x_0 + x_1 z^{-1} + x_2 z^{-2} + \ldots$
+  \item Faire de même pour $h$.
+  \item Multiplier les deux polynômes (multiplication algébrique ordinaire).
+  \item Les coefficients du produit donnent directement $y[n]$.
+\end{enumerate}
+\textit{Avantage :} rapide, pas de boucle à faire.
+\end{tcolorbox}
+
+\subsubsection{Méthode « somme de colonnes »}
+
+\begin{tcolorbox}[methbox, title=Méthode somme de colonnes (tableau)]
+\begin{enumerate}
+  \item Écrire les coefficients de $x$ sur une ligne.
+  \item Pour chaque coefficient de $h$, multiplier toute la ligne de $x$ par ce coefficient,
+        puis décaler d'un rang vers la droite par rapport au précédent.
+  \item Sommer colonne par colonne : chaque somme donne un $y[n]$.
+\end{enumerate}
+\end{tcolorbox}
+
+\subsection{Transformée de Fourier}
+
+\subsubsection{Transformée de Fourier continue (TF)}
+
+\begin{tcolorbox}[formbox, title=TF continue]
+\[
+  X(f) = \int_{-\infty}^{+\infty} x(t)\,e^{-j2\pi ft}\,dt
+  \qquad\text{(directe)}
+\]
+\[
+  x(t) = \int_{-\infty}^{+\infty} X(f)\,e^{+j2\pi ft}\,df
+  \qquad\text{(inverse)}
+\]
+\end{tcolorbox}
+
+\paragraph{Propriétés fondamentales de la TF.}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Propriété} & \textbf{Domaine temporel} & \textbf{Domaine fréquentiel} \\
+\midrule
+Linéarité & $\alpha x(t) + \beta y(t)$ & $\alpha X(f) + \beta Y(f)$ \\
+Translation & $x(t-t_0)$ & $e^{-j2\pi f t_0}\cdot X(f)$ \\
+Dualité & $X(t)$ & $x(-f)$ \\
+Convolution & $x(t) * h(t)$ & $X(f)\cdot H(f)$ \\
+Produit & $x(t)\cdot h(t)$ & $X(f) * H(f)$ \\
+Dilatation & $x(at)$ & $\frac{1}{|a|}X\!\left(\frac{f}{a}\right)$ \\
+Parseval & $\int|x(t)|^2\,dt$ & $= \int|X(f)|^2\,df$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Paires de Fourier classiques.}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}ll@{}}
+\toprule
+$x(t)$ & $X(f)$ \\
+\midrule
+$e^{-\alpha|t|}$ & $\dfrac{2\alpha}{\alpha^2 + (2\pi f)^2}$ \\[0.5em]
+$e^{-\alpha t}u(t),\; \alpha>0$ & $\dfrac{1}{\alpha + j2\pi f}$ \\[0.5em]
+$\rect(t/T)$ & $T\cdot\sinc(fT)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection{Transformée de Fourier discrète (TFD)}
+
+\begin{tcolorbox}[formbox, title=TFD]
+\[
+  X(k) = \sum_{n=0}^{N-1} x(n)\,e^{-j2\pi nk/N}
+  \qquad\text{(directe)}
+\]
+\[
+  x(n) = \frac{1}{N}\sum_{k=0}^{N-1} X(k)\,e^{+j2\pi nk/N}
+  \qquad\text{(inverse)}
+\]
+\end{tcolorbox}
+
+\subsubsection{Transformée de Fourier à temps discret (TFTD)}
+
+La TFTD d'un signal discret $\{x_n\}$ est :
+\[
+  \TFD(x(n)) = \sum_{n=-\infty}^{+\infty} x_n\,e^{-j2\pi fn}
+\]
+C'est un cas particulier de la Transformée en $z$ lorsque $|z|=1$ (cercle unité).
+
+\subsection{Transformée en Z}
+
+\begin{tcolorbox}[formbox, title=Transformée en Z]
+\[
+  X(z) = \sum_{k=-\infty}^{+\infty} x(k)\,z^{-k}
+  \qquad\qquad
+  H(z) = \frac{Y(z)}{X(z)} \quad \text{(fonction de transfert)}
+\]
+\end{tcolorbox}
+
+\paragraph{Propriétés essentielles.}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Propriété} & \textbf{Temporel} & \textbf{En Z} \\
+\midrule
+Retard de $k_0$ & $x(n-k_0)$ & $z^{-k_0} X(z)$ \\
+Linéarité & $\lambda x(k) + y(k)$ & $\lambda X(z) + Y(z)$ \\
+Convolution & $x(k)*h(k)$ & $X(z)\cdot H(z)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Paires classiques en Z.}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}lll@{}}
+\toprule
+$x(n)$ & $X(z)$ & Condition \\
+\midrule
+$\delta[n]$ & $1$ & \\
+$\delta[n-k]$ & $z^{-k}$ & \\
+$a^n u[n]$ & $\dfrac{1}{1-az^{-1}}$ & $|z|>|a|$ \\[0.5em]
+$u[n]$ & $\dfrac{1}{1-z^{-1}}$ & $|z|>1$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{tcolorbox}[methbox, title=Lien TZ $\leftrightarrow$ TFTD]
+La réponse fréquentielle s'obtient en posant $z = e^{j2\pi f}$ dans $H(z)$ :
+\[
+  H(f) = H(z)\Big|_{z=e^{j2\pi f}}
+\]
+\textit{Explication :} Sur le cercle unité $|z|=1$, la TZ coïncide avec la TF discrète.
+\end{tcolorbox}
+
+\subsection{Étude des systèmes discrets linéaires invariants (LTI)}
+
+\subsubsection{Équation de récurrence générale}
+
+Un système LTI discret est défini par :
+\[
+  s_n = \sum_{k=0}^{P} a_k\,e(n-k) - \sum_{k=1}^{Q} b_k\,s(n-k)
+\]
+où $\{e(n)\}$ est l'entrée et $\{s(n)\}$ la sortie.
+
+\subsubsection{Fonction de transfert}
+
+\begin{tcolorbox}[formbox, title=Démarche -- Calcul de $H(z)$]
+\textbf{Rappel :} La TZ d'un retard $x(n-k)$ est $z^{-k}X(z)$ (conditions initiales nulles).
+
+\medskip
+\step{1} Prendre la TZ des deux membres de l'équation de récurrence.\\
+\step{2} Regrouper les termes en $S(z)$ et en $E(z)$.\\
+\step{3} Extraire $H(z) = \dfrac{S(z)}{E(z)}\Big|_{\text{conditions initiales} = 0}$.
+\end{tcolorbox}
+
+\subsubsection{Réponse impulsionnelle}
+
+Appliquer $\delta[n]$ à l'entrée : $\TZ(\delta) = 1 \Rightarrow E(z) = 1$, donc $S(z) = H(z)$.
+La réponse impulsionnelle est :
+\[
+  \{h_n\} = \TZ^{-1}\bigl(H(z)\bigr)
+\]
+
+\subsubsection{Réponse indicielle}
+
+Appliquer l'échelon $\{u_n\}$ : $\TZ(u_n) = \dfrac{1}{1-z^{-1}}$, donc :
+\[
+  S(z) = H(z)\cdot\frac{1}{1-z^{-1}}
+\]
+La réponse indicielle est $\TZ^{-1}(S(z))$.
+
+\textbf{Valeur finale :} $\lim_{n\to\infty} s_n = H(z)\big|_{z=1}$ (théorème de la valeur finale).
+
+\subsubsection{Types de filtres}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Filtre} & \textbf{Équation} & \textbf{Rôle} \\
+\midrule
+Moyenneur & $y_t = \dfrac{u_{t-1}+u_t+u_{t+1}}{3}$ & Passe-bas (lisse) \\[0.5em]
+Dérivateur & $y_t = \dfrac{u_t - u_{t-1}}{2}$ & Passe-haut (dérive) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Numérisation d'un filtre analogique}
+
+Pour convertir un filtre analogique de transmittance $T_{\text{an}}(p)$ en filtre numérique,
+on utilise la \textbf{dérivation numérique d'Euler} :
+\[
+  p \;\longleftarrow\; \frac{1-z^{-1}}{T_e}
+\]
+On substitue cette expression à $p$ dans $T_{\text{an}}(p)$ pour obtenir $T_{\text{nu}}(z)$.
+
+\textit{Remarque :} La transformation bilinéaire (Tustin) est plus précise :
+\[
+  p \;\longleftarrow\; \frac{2}{T_e}\cdot\frac{1-z^{-1}}{1+z^{-1}}
+\]
+
+%% ════════════════════════════════════════════════════════════════════════════
+\newpage
+\section{Correction -- TD de base (Exercices 1 à 5)}
+%% ════════════════════════════════════════════════════════════════════════════
+
+\subsection{Exercice 1 -- Signal discret
+  \texorpdfstring{$x_n = \delta_{n-1} - 1.1\,\delta_{n-4}$, $f_e = 2\,\text{Hz}$}%
+  {xn = delta(n-1) - 1.1 delta(n-4), fe = 2 Hz}}
+
+\begin{tcolorbox}[coursbox, title=Énoncé]
+Signal : $x_n = \delta_{n-1} - 1.1\,\delta_{n-4}$, fréquence d'échantillonnage $f_e = 2\,\text{Hz}$.
+\end{tcolorbox}
+
+\subsubsection*{Question 1 : Amplification par un facteur 2}
+
+\begin{tcolorbox}[corrbox, title=Correction Q1]
+\step{1} L'opération d'amplification par 2 multiplie \textit{tous} les coefficients par 2.\\[3pt]
+\step{2} On applique la linéarité :
+\[
+  y_n = 2\,x_n = 2\,\delta_{n-1} - 2.2\,\delta_{n-4}
+\]
+\explication{On multiplie chaque amplitude par 2. Le support (positions $n=1$ et $n=4$) ne change pas.}
+\end{tcolorbox}
+
+\subsubsection*{Question 2 : Ajout de 2}
+
+\begin{tcolorbox}[corrbox, title=Correction Q2]
+\step{1} Ajouter 2 à un signal discret revient à ajouter 2 à chaque échantillon.
+Mathématiquement : $y_n = x_n + 2$.\\[3pt]
+\step{2}
+\[
+  y_n = \delta_{n-1} - 1.1\,\delta_{n-4} + 2
+\]
+\explication{Le signal prend la valeur $+2$ partout sauf en $n=1$ où il vaut $1+2=3$,
+et en $n=4$ où il vaut $-1.1+2=0.9$.}
+\end{tcolorbox}
+
+\subsubsection*{Question 3 : Dilatation temporelle par un facteur 2}
+
+\begin{tcolorbox}[corrbox, title=Correction Q3]
+\step{1} La dilatation de l'axe temporel par 2 remplace $n$ par $n/2$.\\[3pt]
+\step{2} Pour un signal discret, cela revient à intercaler des zéros :
+\[
+  y_n = x_{n/2} = \delta_{n/2 - 1} - 1.1\,\delta_{n/2-4} = \delta_{n-2} - 1.1\,\delta_{n-8}
+\]
+\explication{L'impulsion en $n=1$ se déplace en $n=2$, celle en $n=4$ en $n=8$.
+L'effet visuel est un « étirement » du signal vers la droite.}
+\end{tcolorbox}
+
+\subsubsection*{Question 4 : Retard d'une seconde}
+
+\begin{tcolorbox}[corrbox, title=Correction Q4]
+\step{1} Un retard d'une seconde correspond à un retard de $T_e = 1/f_e = 1/2\,\text{s}$
+par échantillon.\\[3pt]
+\step{2} Un retard de 1 seconde correspond à $1/T_e = 1/(0.5) = 2$ échantillons.\\[3pt]
+\step{3} On remplace $n$ par $n-2$ :
+\[
+  y_n = x_{n-2} = \delta_{(n-2)-1} - 1.1\,\delta_{(n-2)-4} = \delta_{n-3} - 1.1\,\delta_{n-6}
+\]
+\explication{L'impulsion initialement en $n=1$ se retrouve en $n=3$,
+celle en $n=4$ se retrouve en $n=6$.}
+\end{tcolorbox}
+
+\subsubsection*{Question 5a : Montrer que $x_n \in [-1.1, 1]$}
+
+\begin{tcolorbox}[corrbox, title=Correction Q5a]
+\step{1} Identifier toutes les valeurs non nulles du signal :
+\[
+  x_1 = 1 \qquad (\delta_{n-1}\text{ vaut 1 en }n=1)
+\]
+\[
+  x_4 = -1.1 \qquad (\delta_{n-4}\text{ vaut 1 en }n=4, \text{ et on a }-1.1\times 1)
+\]
+\[
+  x_n = 0 \quad \text{pour tout autre } n
+\]
+\step{2} La valeur minimale est $-1.1$ et la valeur maximale est $1$.\\[3pt]
+\step{3} Donc $x_n \in [-1.1, 1]$. \quad \explication{CQFD.}
+\end{tcolorbox}
+
+\subsubsection*{Question 5b : Pas de quantification sur 2 bits}
+
+\begin{tcolorbox}[corrbox, title=Correction Q5b]
+\step{1} Rappeler la formule du pas : $Q = \dfrac{x_{\max} - x_{\min}}{2^b}$.\\[6pt]
+\step{2} Substituer les valeurs connues :
+\begin{align*}
+  x_{\max} &= 1, \quad x_{\min} = -1.1, \quad b = 2 \text{ bits}\\[4pt]
+  Q &= \frac{1 - (-1.1)}{2^2} = \frac{1 + 1.1}{4} = \frac{2.1}{4}
+\end{align*}
+\step{3} Calculer :
+\[
+  \encadre{Q = 0.525}
+\]
+\explication{Avec 4 niveaux ($2^2$), on divise la plage totale de 2.1 V en 4 intervalles
+égaux de 0.525 V chacun.}
+\end{tcolorbox}
+
+%% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Exercice 2 -- Signaux
+  \texorpdfstring{$s_1(t) = \cos(2\pi t)$ et $s_2(t) = |\cos(2\pi t)|$}%
+  {s1(t) = cos(2 pi t) et s2(t) = |cos(2 pi t)|}}
+
+\subsubsection*{Question 1 : Représentation graphique}
+
+\begin{tcolorbox}[corrbox, title=Correction Q1]
+$s_1(t) = \cos(2\pi t)$ est le cosinus classique de période $T=1$\,s.\\
+$s_2(t) = |\cos(2\pi t)|$ est la valeur absolue du cosinus : toutes les valeurs négatives
+sont « retournées » vers le haut, ce qui donne une courbe toujours positive de période $T=0.5$\,s.
+\end{tcolorbox}
+
+\subsubsection*{Question 2 : Périodicité de $s_1$}
+
+\begin{tcolorbox}[corrbox, title=Correction Q2]
+\step{1} Vérifier que $s_1(t+T) = s_1(t)$ pour $T=1$ :
+\[
+  s_1(t+1) = \cos(2\pi(t+1)) = \cos(2\pi t + 2\pi) = \cos(2\pi t) = s_1(t)
+\]
+\step{2} On utilise la propriété $\cos(\theta + 2\pi) = \cos(\theta)$.\\[3pt]
+\step{3} Donc $s_1$ est bien périodique de période $T = 1$ s. \quad \explication{CQFD.}
+\end{tcolorbox}
+
+\subsubsection*{Question 3 : Formule de la puissance}
+
+\begin{tcolorbox}[corrbox, title=Correction Q3]
+Pour un signal périodique de période $T$, la puissance moyenne est :
+\[
+  P = \frac{1}{T}\int_0^T [s(t)]^2\,dt
+\]
+\explication{On intègre le carré du signal sur une période puis on divise par $T$.}
+\end{tcolorbox}
+
+\subsubsection*{Question 4 : Formule trigonométrique $\cos^2(2\pi t) = \frac{1 + \cos(4\pi t)}{2}$}
+
+\begin{tcolorbox}[corrbox, title=Correction Q4]
+\step{1} Partir de la formule de l'angle double : $\cos(2\theta) = 2\cos^2(\theta) - 1$.\\[4pt]
+\step{2} Isoler $\cos^2(\theta)$ :
+\[
+  \cos^2(\theta) = \frac{1 + \cos(2\theta)}{2}
+\]
+\step{3} Poser $\theta = 2\pi t$ :
+\[
+  \cos^2(2\pi t) = \frac{1 + \cos(4\pi t)}{2}
+\]
+\explication{C'est la formule de linéarisation du carré du cosinus. Très utile pour calculer des puissances.}
+\end{tcolorbox}
+
+\subsubsection*{Question 5 : Puissance de $s_1$}
+
+\begin{tcolorbox}[corrbox, title=Correction Q5]
+\step{1} Appliquer la formule :
+\[
+  P = \frac{1}{1}\int_0^1 \cos^2(2\pi t)\,dt
+\]
+\step{2} Utiliser la formule de Q4 :
+\[
+  P = \int_0^1 \frac{1 + \cos(4\pi t)}{2}\,dt
+   = \frac{1}{2}\int_0^1 1\,dt + \frac{1}{2}\int_0^1 \cos(4\pi t)\,dt
+\]
+\step{3} Calculer chaque intégrale :
+\[
+  \frac{1}{2}\int_0^1 1\,dt = \frac{1}{2}
+\]
+\[
+  \frac{1}{2}\int_0^1 \cos(4\pi t)\,dt = \frac{1}{2}\left[\frac{\sin(4\pi t)}{4\pi}\right]_0^1
+  = \frac{1}{2}\cdot\frac{\sin(4\pi)-\sin(0)}{4\pi} = 0
+\]
+\step{4} Conclusion :
+\[
+  \encadre{P = \frac{1}{2} \text{ W}}
+\]
+\explication{L'intégrale du cosinus sur une période entière est toujours nulle.
+La puissance du cosinus vaut donc $1/2$, quelle que soit sa fréquence.}
+\end{tcolorbox}
+
+\subsubsection*{Question 6 : Périodicité de $s_2$ de période $1/2$}
+
+\begin{tcolorbox}[corrbox, title=Correction Q6]
+\step{1} Vérifier $s_2(t + 1/2) = s_2(t)$ :
+\[
+  s_2\!\left(t+\tfrac{1}{2}\right) = \left|\cos\!\left(2\pi\!\left(t+\tfrac{1}{2}\right)\right)\right|
+  = \left|\cos(2\pi t + \pi)\right| = \left|-\cos(2\pi t)\right| = \left|\cos(2\pi t)\right| = s_2(t)
+\]
+\step{2} On a utilisé $\cos(\theta + \pi) = -\cos(\theta)$, et $|-\cos| = |\cos|$.\\[3pt]
+\step{3} Donc $s_2$ est périodique de période $T_2 = 1/2$ s. \quad \explication{CQFD.}
+\end{tcolorbox}
+
+%% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Exercice 3 -- Modélisation du robinet qui goutte}
+
+\begin{tcolorbox}[coursbox, title=Données du problème]
+Gouttes d'eau de volume $V_0 = 1/20\,\text{mL}$, débit moyen $= 0.3\,\text{L/h}$.\\
+Nombre de gouttes par heure : $0.3\,\text{L/h} \div 0.00005\,\text{L} = 6000$ gouttes/heure
+$= 100$ gouttes/minute $\approx$ 1 goutte toutes les $36$ secondes.\\
+Période d'une goutte : $T_{\text{goutte}} = 3600/6000 = 0.6\,\text{s}$.
+\end{tcolorbox}
+
+\subsubsection*{Q1 : Signal temps continu à valeurs réelles}
+
+\begin{tcolorbox}[corrbox, title=Correction Q1]
+\textbf{Modèle :} Le volume d'eau $V(t)$ qui s'écoule par le robinet en fonction du temps continu $t$.
+C'est une suite d'impulsions régulièrement espacées, mais \textit{le temps $t$ est continu}
+et \textit{le volume peut prendre n'importe quelle valeur réelle}.\\[3pt]
+Formellement : $V(t) = V_0 \sum_{k=0}^{\infty} \delta(t - kT_{\text{goutte}})$
+où $T_{\text{goutte}} = 0.6$ s.
+\end{tcolorbox}
+
+\subsubsection*{Q2 : Signal temps continu à valeurs discrètes}
+
+\begin{tcolorbox}[corrbox, title=Correction Q2]
+\textbf{Modèle :} On mesure le volume total $V_{\text{cumulé}}(t)$ en continu, mais ce volume
+est un \textit{multiple de $V_0$} (valeurs discrètes : $0, V_0, 2V_0, \ldots$).
+Cela donne une fonction en escalier : le temps est continu, l'amplitude est discrète.
+\end{tcolorbox}
+
+\subsubsection*{Q3 : Signal temps discret à valeurs réelles}
+
+\begin{tcolorbox}[corrbox, title=Correction Q3]
+\textbf{Modèle :} On échantillonne le débit à intervalles réguliers $T_e$.
+Si $T_e < T_{\text{goutte}} = 0.6$ s, on respecte Shannon.
+Les échantillons peuvent prendre des valeurs réelles continues (ex. mesure de débit instantané).\\[3pt]
+\textbf{Période d'échantillonnage :} $T_e < 0.3$ s
+(critère Shannon : $f_e > 2 \times 1/T_{\text{goutte}} = 2/0.6 \approx 3.33$ Hz).
+\end{tcolorbox}
+
+\subsubsection*{Q4 : Signal temps discret à valeurs discrètes (numérique)}
+
+\begin{tcolorbox}[corrbox, title=Correction Q4]
+\textbf{Modèle :} On compte le nombre de gouttes tombées à chaque intervalle de temps fixe.
+Le temps est discret ET la valeur (comptage) est un entier.
+C'est un signal \textbf{numérique pur}.\\[3pt]
+\textbf{Période d'échantillonnage :} $T_e = T_{\text{goutte}} = 0.6$ s (on compte une goutte par intervalle),
+$f_e = 1/0.6 \approx 1.67$ Hz.
+\end{tcolorbox}
+
+%% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Exercice 5 -- Filtre
+  \texorpdfstring{$y_n = x_{n-1}$, $f_e = 100\,\text{Hz}$}%
+  {yn = x(n-1), fe = 100 Hz}}
+
+\subsubsection*{Question 1 : Réponse impulsionnelle}
+
+\begin{tcolorbox}[corrbox, title=Correction Q1]
+\step{1} Appliquer $x_n = \delta_n$ (impulsion en $n=0$) :
+\[
+  h_n = y_n\Big|_{x=\delta} = x_{n-1}\Big|_{x=\delta} = \delta_{n-1}
+\]
+\step{2} Interprétation : la réponse impulsionnelle est une impulsion décalée d'un rang.
+\[
+  \encadre{h_n = \delta_{n-1}}
+\]
+\explication{Un filtre retard pur de 1 échantillon : en $n=0$ la sortie vaut 0, en $n=1$ elle vaut 1,
+et 0 partout ailleurs.}
+\end{tcolorbox}
+
+\subsubsection*{Question 2 : Tracé de la réponse impulsionnelle}
+
+La réponse impulsionnelle est une impulsion unitaire en $n=1$ :
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    width=8cm, height=4cm,
+    xlabel={$n$}, ylabel={$h_n$},
+    xmin=-1, xmax=5, ymin=-0.3, ymax=1.5,
+    xtick={-1,0,1,2,3,4,5},
+    ytick={0,1},
+    axis lines=center,
+    clip=false
+  ]
+    \addplot[ycomb, mark=*, mark options={fill=black}, thick, black]
+      coordinates {(-1,0)(0,0)(1,1)(2,0)(3,0)(4,0)};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Question 3 : Réponse fréquentielle $H(f)$}
+
+\begin{tcolorbox}[corrbox, title=Correction Q3]
+\step{1} La réponse fréquentielle s'obtient en calculant la TF à temps discret de $h_n$ :
+\[
+  H(f) = \sum_{n=-\infty}^{+\infty} h_n\,e^{-j2\pi fn}
+\]
+\step{2} Substituer $h_n = \delta_{n-1}$ (la somme se réduit au terme $n=1$) :
+\[
+  H(f) = \sum_{n=-\infty}^{+\infty} \delta_{n-1}\,e^{-j2\pi fn}
+       = 1 \times e^{-j2\pi f \cdot 1}
+\]
+\step{3} Résultat :
+\[
+  \encadre{H(f) = e^{-j2\pi f}}
+\]
+\explication{Un retard pur de 1 échantillon correspond à une multiplication par $e^{-j2\pi f}$
+dans le domaine fréquentiel, ce qui est exactement la propriété de translation de la TF.}
+\end{tcolorbox}
+
+\subsubsection*{Question 4 : Module de la réponse fréquentielle}
+
+\begin{tcolorbox}[corrbox, title=Correction Q4]
+\step{1} Calculer le module de $H(f) = e^{-j2\pi f}$ :
+\[
+  |H(f)| = |e^{-j2\pi f}| = 1 \quad \text{pour tout } f
+\]
+\step{2} Le module est constant et vaut 1 : c'est un \textbf{filtre passe-tout}.\\[3pt]
+\explication{Un retard pur ne modifie pas les amplitudes, seulement les phases.
+$|e^{j\theta}| = 1$ quelle que soit la valeur réelle de $\theta$.}
+\end{tcolorbox}
+
+\subsubsection*{Question 5 : Démonstration de $Y(f) = H(f)\cdot X(f)$}
+
+\begin{tcolorbox}[corrbox, title=Correction Q5]
+\step{1} Partir de l'équation du filtre : $y_n = x_{n-1}$.\\[4pt]
+\step{2} Prendre la TFTD des deux membres. En utilisant la propriété de retard ($x_{n-k} \to e^{-j2\pi fk}\,X(f)$) :
+\[
+  Y(f) = e^{-j2\pi f}\cdot X(f)
+\]
+\step{3} Or on a montré que $H(f) = e^{-j2\pi f}$, donc :
+\[
+  \encadre{Y(f) = H(f)\cdot X(f)}
+\]
+\explication{C'est la propriété fondamentale des systèmes LTI : dans le domaine fréquentiel,
+la convolution temporelle devient un simple produit.}
+\end{tcolorbox}
+
+%% ════════════════════════════════════════════════════════════════════════════
+\newpage
+\section{Correction -- Filtrage numérique (Exercices 1, 2, 3)}
+%% ════════════════════════════════════════════════════════════════════════════
+
+\subsection{Exercice 1 -- Filtre
+  \texorpdfstring{$y_t = u_t - u_{t-N}$}{yt = ut - u(t-N)}}
+
+\subsubsection*{Question 1 : Transmittance $T(z)$}
+
+\begin{tcolorbox}[corrbox, title=Correction Q1]
+\step{1} Écrire l'équation de récurrence : $y_t = u_t - u_{t-N}$.\\[4pt]
+\step{2} Prendre la TZ des deux membres (conditions initiales nulles). En utilisant
+la propriété de retard $\TZ(u_{t-N}) = z^{-N}\,U(z)$ :
+\[
+  Y(z) = U(z) - z^{-N}\,U(z) = U(z)\left(1 - z^{-N}\right)
+\]
+\step{3} Extraire la fonction de transfert :
+\[
+  \encadre{T(z) = \frac{Y(z)}{U(z)} = 1 - z^{-N}}
+\]
+\end{tcolorbox}
+
+\subsubsection*{Question 2 : Réponse impulsionnelle}
+
+\begin{tcolorbox}[corrbox, title=Correction Q2]
+\step{1} La réponse impulsionnelle est $\TZ^{-1}(T(z))$.\\[4pt]
+\step{2} Utiliser la linéarité :
+\[
+  T(z) = 1 - z^{-N}
+       = \underbrace{\TZ(\delta[n])}_{1} - \underbrace{\TZ(\delta[n-N])}_{z^{-N}}
+\]
+\step{3} Donc :
+\[
+  \encadre{h[n] = \delta[n] - \delta[n-N]}
+\]
+\explication{Le signal vaut $+1$ en $n=0$, $-1$ en $n=N$, et $0$ partout ailleurs.}
+\end{tcolorbox}
+
+\subsubsection*{Question 3 : Réponse fréquentielle}
+
+\begin{tcolorbox}[corrbox, title=Correction Q3]
+\step{1} Poser $z = e^{j2\pi f}$ dans $T(z)$ :
+\[
+  T(f) = 1 - \left(e^{j2\pi f}\right)^{-N} = 1 - e^{-j2\pi fN}
+\]
+\step{2} Résultat :
+\[
+  \encadre{T(f) = 1 - e^{-j2\pi fN}}
+\]
+\end{tcolorbox}
+
+\subsubsection*{Question 4 : Module du gain pour $N = 8$}
+
+\begin{tcolorbox}[corrbox, title=Correction Q4]
+\step{1} Calculer $|T(f)|$ :
+\[
+  T(f) = 1 - e^{-j2\pi fN}
+       = 1 - \cos(2\pi fN) + j\sin(2\pi fN)
+\]
+\step{2} Module :
+\begin{align*}
+  |T(f)|^2 &= (1-\cos(2\pi fN))^2 + \sin^2(2\pi fN) \\
+            &= 1 - 2\cos(2\pi fN) + \cos^2(2\pi fN) + \sin^2(2\pi fN) \\
+            &= 2 - 2\cos(2\pi fN) = 4\sin^2(\pi fN)
+\end{align*}
+\step{3} Donc :
+\[
+  \encadre{|T(f)| = 2\left|\sin(\pi fN)\right|}
+\]
+\step{4} Pour $N = 8$ : $|T(f)| = 2|\sin(8\pi f)|$.
+Ce filtre s'annule pour $f = k/8$ ($k$ entier) et atteint le maximum 2 pour $f = (2k+1)/16$.
+C'est un filtre \textbf{passe-bande multiple} (peigne).
+\end{tcolorbox}
+
+%% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Exercice 2 -- Filtres moyenneur et dérivateur}
+
+\subsubsection*{Cas a) : Filtre moyenneur $y_t = \frac{u_{t-1}+u_t+u_{t+1}}{3}$}
+
+\begin{tcolorbox}[corrbox, title=Correction -- Cas a : Moyenneur]
+\textbf{1) Réponse impulsionnelle.}
+
+\step{1} Appliquer $u_t = \delta_t$ :
+\[
+  h_t = \frac{\delta_{t-1}+\delta_t+\delta_{t+1}}{3}
+      = \frac{1}{3}\bigl[\delta(n+1) + \delta(n) + \delta(n-1)\bigr]
+\]
+\explication{Note : $\delta_{t+1}$ signifie que le filtre regarde \textit{dans le futur} ($n+1$) :
+c'est un filtre \textbf{non causal}.}
+
+\medskip
+\textbf{2) Rôle du filtre.}
+
+Ce filtre fait la \textbf{moyenne de 3 échantillons consécutifs} (présent, passé et futur).
+Il atténue les hautes fréquences et laisse passer les basses : c'est un \textbf{filtre passe-bas (lisseur)}.
+
+\medskip
+\textbf{3) Réponse fréquentielle.}
+
+\step{1} Prendre la TZ :
+\[
+  T(z) = \frac{1}{3}\bigl(z^{1} + 1 + z^{-1}\bigr)
+       = \frac{1}{3}\bigl(z + 1 + z^{-1}\bigr)
+\]
+\step{2} Poser $z = e^{j2\pi f}$ :
+\begin{align*}
+  T(f) &= \frac{1}{3}\bigl(e^{j2\pi f} + 1 + e^{-j2\pi f}\bigr) \\
+       &= \frac{1}{3}\bigl(1 + 2\cos(2\pi f)\bigr)
+\end{align*}
+\explication{On utilise $e^{j\theta} + e^{-j\theta} = 2\cos\theta$.}
+
+\step{3} Module :
+\[
+  \encadre{|T(f)| = \frac{1}{3}\left|1 + 2\cos(2\pi f)\right|}
+\]
+Le module s'annule quand $\cos(2\pi f) = -1/2$, soit $f = \pm 1/3$.
+\end{tcolorbox}
+
+\subsubsection*{Cas b) : Filtre dérivateur $y_t = \frac{u_t - u_{t-1}}{2}$}
+
+\begin{tcolorbox}[corrbox, title=Correction -- Cas b : Dérivateur]
+\textbf{1) Réponse impulsionnelle.}
+
+\step{1} Appliquer $u_t = \delta_t$ :
+\[
+  h_t = \frac{\delta_t - \delta_{t-1}}{2} = \frac{1}{2}\bigl[\delta(n) - \delta(n-1)\bigr]
+\]
+\explication{Le filtre est causal (regarde uniquement le passé).}
+
+\medskip
+\textbf{2) Rôle du filtre.}
+
+Ce filtre calcule une \textbf{différence finie} (approximation de la dérivée).
+Il amplifie les hautes fréquences et atténue les basses : c'est un \textbf{filtre passe-haut (dérivateur)}.
+
+\medskip
+\textbf{3) Réponse fréquentielle.}
+
+\step{1} TZ :
+\[
+  T(z) = \frac{1 - z^{-1}}{2}
+\]
+\step{2} Poser $z = e^{j2\pi f}$ :
+\begin{align*}
+  T(f) &= \frac{1 - e^{-j2\pi f}}{2} \\
+       &= \frac{1}{2}\bigl[(1 - \cos(2\pi f)) + j\sin(2\pi f)\bigr]
+\end{align*}
+\step{3} Module :
+\begin{align*}
+  |T(f)|^2 &= \frac{1}{4}\bigl[(1-\cos(2\pi f))^2 + \sin^2(2\pi f)\bigr] \\
+            &= \frac{1}{4}\bigl[2 - 2\cos(2\pi f)\bigr] = \frac{1}{2}(1-\cos(2\pi f))
+\end{align*}
+En utilisant $1 - \cos\theta = 2\sin^2(\theta/2)$ :
+\[
+  \encadre{|T(f)| = \left|\sin(\pi f)\right|}
+\]
+\explication{Ce filtre s'annule en $f=0$ (basses fréquences atténuées)
+et vaut 1 pour $f=1/2$ (hautes fréquences amplifiées) : comportement dérivateur.}
+\end{tcolorbox}
+
+%% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Exercice 3 -- Numérisation du filtre
+  \texorpdfstring{$T_{\text{an}}(p) = \frac{1}{1 + 0.2p}$}{Tan(p) = 1/(1 + 0.2p)}}
+
+\subsubsection*{Question 1 : Réponse indicielle et module de $T_{\text{an}}$}
+
+\begin{tcolorbox}[corrbox, title=Correction Q1]
+\textbf{Réponse indicielle.}
+
+\step{1} Appliquer l'échelon $e(t) = u(t)$, donc $E(p) = 1/p$ (dans le domaine de Laplace).\\[4pt]
+\step{2} Calculer la sortie $Y(p) = T_{\text{an}}(p)\cdot E(p)$ :
+\[
+  Y(p) = \frac{1}{1+0.2p}\cdot\frac{1}{p} = \frac{1}{p(1+0.2p)}
+\]
+\step{3} Décomposition en éléments simples :
+\[
+  Y(p) = \frac{A}{p} + \frac{B}{1+0.2p}
+\]
+Calculer $A$ : multiplier par $p$ et poser $p=0$ :
+$A(1+0) = 1 \Rightarrow A = 1$.\\
+Calculer $B$ : multiplier par $(1+0.2p)$ et poser $p = -5$ :
+$B\cdot(-5) = 1/(-5) \Rightarrow B = 1/(-5)\cdot(-5)^{-1}$\ldots
+
+En fait, $0.2\cdot A + B = 0$ (résidu en $p=-5$) :
+$B = -0.2\,A = -0.2$.\\[4pt]
+\step{4} Donc :
+\[
+  Y(p) = \frac{1}{p} - \frac{0.2}{1+0.2p}
+       = \frac{1}{p} - \frac{1}{5+p}
+\]
+\step{5} Transformée inverse (signal causal, $t>0$) :
+\[
+  \encadre{y(t) = 1 - e^{-5t}} \quad (t > 0)
+\]
+La réponse indicielle monte exponentiellement de 0 vers 1 avec une constante de temps $\tau = 0.2$ s.
+
+\bigskip
+\textbf{Module de la réponse fréquentielle.}
+
+\step{1} Poser $p = j\omega$ :
+\[
+  T_{\text{an}}(j\omega) = \frac{1}{1 + j\,\omega/5}
+\]
+\step{2} Module :
+\[
+  |T_{\text{an}}(j\omega)| = \frac{1}{\sqrt{1 + (\omega/5)^2}}
+\]
+\step{3} En dB : $20\log|T| = -10\log(1 + (\omega/5)^2)$.
+
+Fréquence de coupure : $|T| = 1/\sqrt{2}$ quand $\omega_0 = 5$ rad/s ($f_0 = 5/(2\pi)$ Hz),
+soit $20\log|T| = -3$ dB.
+\end{tcolorbox}
+
+\subsubsection*{Question 2 : Filtre numérique par équivalence $p = (1-z^{-1})/T_e$}
+
+\begin{tcolorbox}[corrbox, title=Correction Q2]
+\step{1} Substituer $p = (1-z^{-1})/T_e$ dans $T_{\text{an}}(p)$ avec $T_e = 0.2$ :
+\[
+  T_{\text{nu}}(z) = \frac{1}{1 + 0.2 \cdot \frac{1-z^{-1}}{0.2}}
+                   = \frac{1}{1 + (1 - z^{-1})}
+                   = \frac{1}{2 - z^{-1}}
+\]
+\step{2} Résultat :
+\[
+  \encadre{T_{\text{nu}}(z) = \frac{1}{2 - z^{-1}}}
+\]
+
+\textbf{Réponse indicielle de $T_{\text{nu}}(z)$.}
+
+\step{1} Appliquer l'échelon discret $U(z) = 1/(1-z^{-1})$ :
+\[
+  Y(z) = T_{\text{nu}}(z)\cdot U(z) = \frac{1}{(2-z^{-1})(1-z^{-1})}
+\]
+\step{2} Retrouver l'équation de récurrence : de $T_{\text{nu}}(z) = Y(z)/U(z)$,
+on a $(2-z^{-1})\,Y(z) = U(z)$, ce qui donne :
+\[
+  2\,y_t - y_{t-1} = u_t
+  \quad\Longrightarrow\quad
+  y_t = 0.5\,u_t + 0.5\,y_{t-1} \quad \text{(avec } y_{-1} = 0\text{)}
+\]
+\step{3} Calculer récursivement pour $u_t = 1$ (échelon) :
+\begin{align*}
+  y_0 &= 0.5\cdot 1 + 0.5\cdot 0 = 0.5 \\
+  y_1 &= 0.5\cdot 1 + 0.5\cdot 0.5 = 0.75 \\
+  y_2 &= 0.5\cdot 1 + 0.5\cdot 0.75 = 0.875 \\
+  y_n &\to 1 \quad (n \to \infty)
+\end{align*}
+
+\textbf{Module en dB de $T_{\text{nu}}$.}
+
+\step{1} Poser $z = e^{j2\pi f\Delta}$ :
+\[
+  T_{\text{nu}}(f) = \frac{1}{2 - e^{-j2\pi f\Delta}}
+\]
+\step{2} Module :
+\[
+  |T_{\text{nu}}(f)| = \frac{1}{|2 - e^{-j2\pi f\Delta}|}
+  = \frac{1}{\sqrt{(2-\cos(2\pi f\Delta))^2 + \sin^2(2\pi f\Delta)}}
+  = \frac{1}{\sqrt{5 - 4\cos(2\pi f\Delta)}}
+\]
+La pulsation de coupure correspond à $2\pi f\Delta = 2\pi f \cdot 0.2 = 2\pi$ quand $f=5$,
+soit $|T_{\text{nu}}| = 1/\sqrt{5-4\cos(2\pi \cdot 1)} = 1/\sqrt{5+4} = 1/3$.
+\end{tcolorbox}
+
+%% ════════════════════════════════════════════════════════════════════════════
+\newpage
+\section{Correction -- Examens de rattrapage}
+%% ════════════════════════════════════════════════════════════════════════════
+
+\subsection{Examen 2022--2023 (IFRI, Théorie du Signal)}
+
+\subsubsection*{Questions de cours : Types de signaux}
+
+\begin{tcolorbox}[corrbox, title=Réponses Q1 -- Identification des signaux]
+\begin{enumerate}[label=\alph*)]
+  \item \textbf{Gouttes d'eau comptées chaque seconde} : C'est un signal. Temps discret (mesuré chaque seconde) + amplitude discrète (comptage entier) $\Rightarrow$ \textbf{signal numérique (discret-discret)}.
+  \item \textbf{Température du corps d'un mouton de 8h à 12h} : C'est un signal. Temps continu + amplitude continue $\Rightarrow$ \textbf{signal analogique (continu-continu)}.
+  \item \textbf{Nombre de SMS reçus par Paul chaque heure} : C'est un signal. Temps discret (chaque heure) + amplitude discrète (comptage) $\Rightarrow$ \textbf{signal numérique}.
+  \item \textbf{La couleur du ciel} : Peut être modélisée comme signal si on mesure une grandeur physique (longueur d'onde), mais telle quelle, ce n'est pas directement un signal au sens technique.
+  \item \textbf{Une émission de télévision} : C'est un signal (électromagnétique, lumineux). Continu $\Rightarrow$ \textbf{signal analogique ou numérique} selon le mode de transmission.
+  \item \textbf{Dialogue entre amis de 10h à 12h} : C'est un signal sonore, continu en temps et en amplitude $\Rightarrow$ \textbf{signal analogique}.
+\end{enumerate}
+\end{tcolorbox}
+
+\subsubsection*{Questions de cours Q2 : Échantillonnage et quantification}
+
+\begin{tcolorbox}[corrbox, title=Réponse Q2]
+\textbf{Échantillonnage :} Opération qui consiste à prélever des valeurs du signal continu
+à des instants réguliers espacés de la période d'échantillonnage $T_e = 1/f_e$.
+On obtient une suite discrète $x[n] = x(nT_e)$. La condition de Shannon ($f_e > 2f_{\max}$)
+garantit la reconstruction parfaite du signal.
+
+\medskip
+\textbf{Quantification :} Opération qui consiste à coder l'amplitude de chaque échantillon
+sur un nombre fini de niveaux (généralement $2^b$ niveaux avec $b$ bits).
+Cela introduit une \textit{erreur de quantification} bornée par $\pm Q/2$ où $Q$ est le pas.
+\end{tcolorbox}
+
+\subsubsection*{Exercice 1 -- Convolution graphique : $x[n]$ et $h[n]$ donnés par graphes}
+
+\begin{tcolorbox}[coursbox, title=Lecture des graphes]
+Des graphes indiquent :
+$x[n] = \delta_{n+1} + 3\,\delta_n + 2\,\delta_{n-2}$
+\quad (impulsion en $n=-1$ de valeur 1, en $n=0$ de valeur 3, en $n=2$ de valeur 2)
+
+$h[n] = \delta_n + \delta_{n-1}$
+\quad (impulsion de valeur 1 en $n=0$ et en $n=1$)
+\end{tcolorbox}
+
+\begin{tcolorbox}[corrbox, title=Correction Exercice 1 -- Convolution]
+\textbf{1) Expressions de $x[n]$ et $h[n]$.}
+
+D'après les graphes :
+\[
+  x[n] = \delta_{n+1} + 3\,\delta_n + 2\,\delta_{n-2}
+  \qquad
+  h[n] = \delta_n + \delta_{n-1}
+\]
+
+\textbf{2) Calcul de $y[n] = x[n] * h[n]$.}
+
+\step{1} Méthode polynomiale. Écrire $x$ et $h$ en polynômes en $z^{-1}$
+(l'exposant de $z^{-1}$ indique la position de l'échantillon, avec convention de retard) :
+
+Attention : pour $n=-1$, on a un \textit{avance}, donc $z^{+1}$ :
+\[
+  X(z) = z^1 + 3 + 0\cdot z^{-1} + 2\cdot z^{-2}
+  \qquad
+  H(z) = 1 + z^{-1}
+\]
+
+\step{2} Multiplier $X(z)$ par $H(z)$ :
+\begin{align*}
+  Y(z) &= (z + 3 + 2z^{-2})(1 + z^{-1}) \\
+       &= z\cdot 1 + z\cdot z^{-1} + 3\cdot 1 + 3\cdot z^{-1} + 2z^{-2}\cdot 1 + 2z^{-2}\cdot z^{-1} \\
+       &= z + 1 + 3 + 3z^{-1} + 2z^{-2} + 2z^{-3} \\
+       &= z + 4 + 3z^{-1} + 2z^{-2} + 2z^{-3}
+\end{align*}
+
+\step{3} Lire les coefficients (exposant de $z^{-n}$ = indice $n$) :
+\[
+  \encadre{y[n] = \delta_{n+1} + 4\,\delta_n + 3\,\delta_{n-1} + 2\,\delta_{n-2} + 2\,\delta_{n-3}}
+\]
+\explication{Résumé des valeurs : $y[-1]=1$, $y[0]=4$, $y[1]=3$, $y[2]=2$, $y[3]=2$, 0 ailleurs.}
+\end{tcolorbox}
+
+%% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Exercice 2 -- Examen IFRI 2022--2023}
+
+\begin{tcolorbox}[coursbox, title=Énoncé]
+$x(n) = 4\delta_n + 3\delta_{n-2} - \delta_{n+3} + 0.5\delta_{n+1} + \delta_{n+2}$\\
+$h(n) = 0.5(\delta_n + \delta_{n-1})$
+\end{tcolorbox}
+
+\begin{tcolorbox}[corrbox, title=Correction complète]
+\textbf{1) Représentation.}
+
+Valeurs de $x[n]$ : $x[-3] = 0$, $x[-2] = 0$, $x[-1] = 0$,
+$x[0] = 4$, $x[1] = 0.5$, $x[2] = 1$, $x[3] = 0$, $x[4] = 0$, \ldots
+
+Correction : $-\delta_{n+3}$ signifie valeur $-1$ en $n = -3$.
+Donc : $x[-3] = -1$, $x[-1] = 0$, $x[0] = 4$, $x[1] = 0.5$, $x[2] = 1$, $x[4] = 3$.
+
+Récapitulatif : $x[-3]=-1$, $x[1]=0.5$, $x[2]=1$, $x[0]=4$, $x[4]=3$.
+
+Valeurs de $h[n]$ : $h[0] = 0.5$, $h[1] = 0.5$, 0 ailleurs.
+
+\bigskip
+\textbf{2) Produit de convolution.}
+
+\step{1} Écrire les polynômes en $z$ (exposant $= -n$) :
+\[
+  X(z) = -z^3 + 4 + 0.5\,z^{-1} + z^{-2} + 3\,z^{-4}
+\]
+\[
+  H(z) = 0.5(1 + z^{-1})
+\]
+
+\step{2} Multiplier :
+\begin{align*}
+  Y(z) &= 0.5(-z^3 + 4 + 0.5z^{-1} + z^{-2} + 3z^{-4})(1 + z^{-1}) \\
+       &= 0.5\bigl[-z^3 - z^2 + 4 + 4z^{-1} + 0.5z^{-1} + 0.5z^{-2}
+          + z^{-2} + z^{-3} + 3z^{-4} + 3z^{-5}\bigr] \\
+       &= 0.5\bigl[-z^3 - z^2 + 4 + 4.5z^{-1} + 1.5z^{-2} + z^{-3} + 3z^{-4} + 3z^{-5}\bigr]
+\end{align*}
+
+\step{3} Résultat :
+\[
+  y[-3] = -0.5,\; y[-2] = -0.5,\; y[0] = 2,\; y[1] = 2.25,\;
+  y[2] = 0.75,\; y[3] = 0.5,\; y[4] = 1.5,\; y[5] = 1.5
+\]
+\end{tcolorbox}
+
+%% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Examen 2020--2021 (IMSP, M1 TIC) -- Exercice 3 : Stockage}
+
+\begin{tcolorbox}[corrbox, title=Correction Exercice 3]
+\textbf{Données :} $f_e = 80\,\text{kHz} = 80\,000\,\text{Hz}$,
+durée $T = 20\,\text{s}$, $b = 16$ bits.
+
+\medskip
+\step{1} Nombre d'échantillons :
+\[
+  N = f_e \times T = 80\,000 \times 20 = 1\,600\,000 \text{ échantillons}
+\]
+
+\step{2} Taille mémoire en bits :
+\[
+  \text{Taille} = N \times b = 1\,600\,000 \times 16 = 25\,600\,000 \text{ bits}
+\]
+
+\step{3} Conversion en octets puis Mo :
+\[
+  \frac{25\,600\,000}{8} = 3\,200\,000 \text{ octets} = 3.2 \text{ Mo}
+\]
+\explication{La taille mémoire nécessaire est 3.2 Mo.}
+\end{tcolorbox}
+
+%% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Examen 2020--2021 -- Exercice 2 : TF du signal
+  \texorpdfstring{$x(t) = 2e^t\,\mathbf{1}_{t\leq 0} + 2e^{-t}\,\mathbf{1}_{t\geq 0}$}%
+  {x(t) = 2 exp(t) sur t<=0 + 2 exp(-t) sur t>=0}}
+
+\begin{tcolorbox}[corrbox, title=Correction Exercice 2]
+\textbf{Données :} $x_1(t) = 2e^t$ pour $t\leq 0$, $x_2(t) = 2e^{-t}$ pour $t\geq 0$.
+Donc $x(t) = 2e^{-|t|}$.
+
+\bigskip
+\step{1} Calculer la TF de $x_1(t) = 2e^t\cdot\mathbf{1}_{t\leq 0}$ :
+\[
+  X_1(f) = \int_{-\infty}^{0} 2e^t e^{-j2\pi ft}\,dt
+          = 2\int_{-\infty}^{0} e^{t(1-j2\pi f)}\,dt
+          = 2\cdot\frac{1}{1-j2\pi f}
+\]
+\explication{L'intégrale converge car $\text{Re}(1-j2\pi f) = 1 > 0$.}
+
+\step{2} Calculer la TF de $x_2(t) = 2e^{-t}\cdot\mathbf{1}_{t\geq 0}$ :
+\[
+  X_2(f) = \int_{0}^{+\infty} 2e^{-t} e^{-j2\pi ft}\,dt
+          = 2\int_{0}^{+\infty} e^{-t(1+j2\pi f)}\,dt
+          = \frac{2}{1+j2\pi f}
+\]
+
+\step{3} Par linéarité, $X(f) = X_1(f) + X_2(f)$ :
+\begin{align*}
+  X(f) &= \frac{2}{1-j2\pi f} + \frac{2}{1+j2\pi f} \\
+       &= \frac{2(1+j2\pi f) + 2(1-j2\pi f)}{(1-j2\pi f)(1+j2\pi f)} \\
+       &= \frac{4}{1+(2\pi f)^2}
+\end{align*}
+
+\step{4} Résultat :
+\[
+  \encadre{X(f) = \frac{4}{1 + (2\pi f)^2}}
+\]
+\explication{C'est une lorentzienne (spectre réel, pair, positif).
+Le spectre d'amplitude $|X(f)|$ est une courbe en cloche centrée en $f=0$.
+La phase est nulle partout (signal pair).}
+\end{tcolorbox}
+
+%% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Examen intermédiaire -- Exercice 4 : Shannon et FFT}
+
+\begin{tcolorbox}[coursbox, title=Énoncé]
+$x(t) = \dfrac{\alpha}{\pi(\alpha^2 + t^2)}$ \quad
+dont on montre que $\TF(x(t)) = e^{-\alpha|\omega|}$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[corrbox, title=Correction Exercice 4]
+\textbf{Q1 : Démonstration par dualité.}
+
+\step{1} Rappeler la paire connue : $e^{-\alpha|t|} \xleftrightarrow{\TF} \dfrac{2\alpha}{\alpha^2 + (2\pi f)^2}$.
+
+\step{2} Appliquer la propriété de dualité : si $\TF\{g(t)\} = G(f)$, alors $\TF\{G(t)\} = g(-f)$.
+
+\step{3} Poser $g(t) = e^{-\alpha|t|}$ et $G(f) = \dfrac{2\alpha}{\alpha^2+(2\pi f)^2}$.
+
+Alors $\TF\{G(t)\} = g(-f) = e^{-\alpha|-f|} = e^{-\alpha|f|}$.
+
+\step{4} $G(t) = \dfrac{2\alpha}{\alpha^2 + (2\pi t)^2} = \dfrac{2\alpha}{\alpha^2 + 4\pi^2 t^2}$.
+
+En normalisant, $x(t) = \dfrac{\alpha}{\pi(\alpha^2+t^2)} = \dfrac{1}{2\pi}\cdot G(t)$
+
+(vérification : $\dfrac{2\alpha}{\alpha^2+(2\pi t)^2} = \dfrac{2\alpha}{\alpha^2+4\pi^2 t^2}$,
+donc $G(t) = \dfrac{2\alpha}{\alpha^2+4\pi^2 t^2}$
+et $x(t) = G(t)/(2\pi)$... 
+
+En utilisant la convention angulaire $\omega = 2\pi f$, on obtient directement $\TF(x) = e^{-\alpha|\omega|}$).
+
+\bigskip
+\textbf{Q2 : Condition d'échantillonnage.}
+
+Le spectre $e^{-\alpha|\omega|}$ décroît mais ne s'annule pas : spectre à bande illimitée.
+Cependant, il est négligeable pour $|\omega| > \omega_{\max}$.
+En pratique, on choisit $\omega_{\max}$ tel que $e^{-\alpha\omega_{\max}} \ll 1$.
+
+Pour une reconstruction exacte au sens de Shannon : $\Delta < \dfrac{\pi}{\omega_{\max}} = \dfrac{1}{2f_{\max}}$.
+
+\bigskip
+\textbf{Q3 : Spectre avec $\Delta = \alpha/10$.}
+
+$f_e = 1/\Delta = 10/\alpha$. Le spectre échantillonné $X_e(f)$ est la répétition de $X(f)$
+avec une période $f_e = 10/\alpha$ : pas de repliement visible car $X(f)$ est très petit
+pour $|f| > 5/\alpha$.
+
+\bigskip
+\textbf{Q4 : Résolution fréquentielle de la FFT sur 1024 points.}
+
+\[
+  df = \frac{f_e}{N_{\text{points}}} = \frac{10/\alpha}{1024}
+     = \frac{10}{1024\,\alpha} \approx \frac{0.00977}{\alpha}
+\]
+\end{tcolorbox}
+
+%% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Examen 2024--2025 (IFRI MIAD1) -- Problème 1 : Conversion A/N}
+
+\begin{tcolorbox}[corrbox, title=Correction Problème 1]
+\textbf{Données :} $x(t) \in [-1\text{ V}, +1\text{ V}]$, bande passante $f_{\max}=1\,\text{kHz}$,
+$f_e = 4\,\text{kHz}$, $b = 3$ bits, quantification uniforme centrée sur 0 V.
+
+Échantillons : $x[n] = \{-0.9, -0.775, 0.455, 0.995\}$ V.
+
+\bigskip
+\textbf{1a) Période d'échantillonnage -- deux méthodes.}
+
+\textit{Méthode 1 (directe)} :
+\[
+  T_e = \frac{1}{f_e} = \frac{1}{4000} = 0.25\,\text{ms}
+\]
+
+\textit{Méthode 2 (à partir des instants)} :
+Les instants donnés sont $t = 0, 0.25, 0.5, 0.75$ ms, donc l'intervalle entre deux
+échantillons consécutifs est $T_e = 0.25$ ms. \quad \explication{Même résultat, CQFD.}
+
+\bigskip
+\textbf{1b) Vérification du théorème de Shannon.}
+
+\step{1} Shannon impose : $f_e > 2\,f_{\max} = 2 \times 1000 = 2000\,\text{Hz}$.\\
+\step{2} On a $f_e = 4000\,\text{Hz} > 2000\,\text{Hz}$ : \textbf{Shannon est respecté}.
+
+\bigskip
+\textbf{2a) Nombre de niveaux de quantification.}
+
+\[
+  L = 2^b = 2^3 = 8 \text{ niveaux}
+\]
+
+\textbf{2b) Pas de quantification.}
+
+\[
+  Q = \frac{x_{\max} - x_{\min}}{L} = \frac{1 - (-1)}{8} = \frac{2}{8} = 0.25\,\text{V}
+\]
+
+\textbf{2c) Valeurs quantifiées.}
+
+Les niveaux de quantification centrés sur 0 V sont :
+$\{-0.875, -0.625, -0.375, -0.125, +0.125, +0.375, +0.625, +0.875\}$ V.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}cccc@{}}
+\toprule
+$n$ & $x[n]$ (V) & Niveau le plus proche & $x_q[n]$ (V)\\
+\midrule
+0 & $-0.900$ & $-0.875$ & $-0.875$ \\
+1 & $-0.775$ & $-0.875$ & $-0.875$ \\
+2 & $+0.455$ & $+0.375$ ou $+0.625$ & $+0.375$ \\
+3 & $+0.995$ & $+0.875$ & $+0.875$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\explication{Pour $x[1]=-0.775$ : la distance à $-0.875$ est $0.1$, à $-0.625$ est $0.15$ ; on choisit $-0.875$.
+Pour $x[2]=+0.455$ : distance à $+0.375$ est $0.08$, à $+0.625$ est $0.17$ ; on choisit $+0.375$.}
+
+\bigskip
+\textbf{3a) Représentation binaire (codification naturelle non signée).}
+
+Les 8 niveaux de $-0.875$ à $+0.875$ sont indexés de 0 à 7 :
+niveau $k$ correspond à $x = -0.875 + k \times 0.25$ V.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}cccc@{}}
+\toprule
+$x_q$ (V) & Indice $k$ & Code binaire (3 bits) \\
+\midrule
+$-0.875$ & 0 & 000 \\
+$-0.625$ & 1 & 001 \\
+$-0.375$ & 2 & 010 \\
+$-0.125$ & 3 & 011 \\
+$+0.125$ & 4 & 100 \\
+$+0.375$ & 5 & 101 \\
+$+0.625$ & 6 & 110 \\
+$+0.875$ & 7 & 111 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Donc :
+$x_q[0] = -0.875 \to 000$,\;
+$x_q[1] = -0.875 \to 000$,\;
+$x_q[2] = +0.375 \to 101$,\;
+$x_q[3] = +0.875 \to 111$.
+\end{tcolorbox}
+
+%% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Examen 2024--2025 -- Exercice 1 : Systèmes LTI}
+
+\begin{tcolorbox}[corrbox, title=Correction Exercice 1 -- Vérification linéarité, invariance, causalité]
+Deux systèmes :
+\begin{enumerate}
+  \item $y(n) = x(-n)$ \quad (retournement temporel)
+  \item $y(n) = x(n) + x(n-1)$ \quad (filtre récursif)
+\end{enumerate}
+
+\bigskip
+\textbf{Système 1 : $y(n) = x(-n)$}
+
+\textbf{a) Linéarité.}
+Tester avec $y_1(n) = x_1(-n)$ et $y_2(n) = x_2(-n)$.
+Pour $\alpha x_1 + \beta x_2$ :
+$y(n) = (\alpha x_1 + \beta x_2)(-n) = \alpha x_1(-n) + \beta x_2(-n) = \alpha y_1(n) + \beta y_2(n)$.
+\textbf{Oui, le système est linéaire.}
+
+\textbf{b) Invariance.} Tester si un retard $x(n-n_0)$ donne la sortie retardée :
+Sortie de $x(n-n_0)$ : $y(n) = x(-n - n_0)$.
+Sortie retardée de $y(n)$ : $y(n-n_0) = x(-(n-n_0)) = x(-n+n_0)$.
+Comme $x(-n-n_0) \neq x(-n+n_0)$ en général,
+\textbf{le système N'EST PAS invariant en temps.}
+
+\textbf{c) Causalité.} En $n=1$, $y(1) = x(-1)$ : la sortie dépend du futur du signal.
+\textbf{Le système N'EST PAS causal.}
+
+\bigskip
+\textbf{Système 2 : $y(n) = x(n) + x(n-1)$}
+
+\textbf{a) Linéarité.}
+$\alpha x_1 + \beta x_2 \to \alpha(x_1(n)+x_1(n-1)) + \beta(x_2(n)+x_2(n-1))$.
+\textbf{Oui, linéaire.}
+
+\textbf{b) Invariance.}
+Entrée $x(n-n_0)$ : sortie $= x(n-n_0) + x(n-1-n_0)$.
+Sortie retardée : $y(n-n_0) = x(n-n_0) + x(n-1-n_0)$.
+Identique. \textbf{Oui, invariant en temps.}
+
+\textbf{c) Causalité.}
+$y(n)$ dépend de $x(n)$ (présent) et $x(n-1)$ (passé uniquement).
+\textbf{Oui, causal.}
+\end{tcolorbox}
+
+%% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Examen 2023--2024 (IFRI, Rattrapage) -- Exercice 2 : Stockage}
+
+\begin{tcolorbox}[corrbox, title=Correction Exercice 2]
+\textbf{Données :} $f_e = 8000\,\text{kHz} = 8\times 10^6\,\text{Hz}$, durée $T = 5\,\text{min} = 300\,\text{s}$,
+$b = 16$ bits.
+
+\step{1} Nombre d'échantillons :
+\[
+  N = f_e \times T = 8\times 10^6 \times 300 = 2.4\times 10^9 \text{ échantillons}
+\]
+
+\step{2} Taille en bits :
+\[
+  \text{Taille} = N \times b = 2.4\times 10^9 \times 16 = 3.84\times 10^{10} \text{ bits}
+\]
+
+\step{3} Conversion en octets :
+\[
+  \frac{3.84\times 10^{10}}{8} = 4.8\times 10^9 \text{ octets} = 4.8 \text{ Go}
+\]
+
+\step{4} Comparaison avec la clé USB de 2 Go :
+\[
+  4.8\,\text{Go} > 2\,\text{Go}
+\]
+\textbf{Non, une clé USB de 2 Go ne suffit pas.} Il faudrait au moins une clé de 5 Go.
+\end{tcolorbox}
+
+%% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Examen intermédiaire -- Exercice 2 : Filtre à réponse impulsionnelle symétrique}
+
+\begin{tcolorbox}[corrbox, title=Correction Exercice 2 -- Filtre FIR symétrique]
+$h(n) = \alpha_0\delta(n) + \alpha_1\delta(n-1) + \alpha_2\delta(n-2) + \alpha_1\delta(n-3) + \alpha_0\delta(n-4)$
+
+\bigskip
+\textbf{1) Équation aux différences et $H(z)$.}
+
+\step{1} La convolution $y[n] = h[n] * u[n]$ donne directement :
+\[
+  y[n] = \alpha_0\,u[n] + \alpha_1\,u[n-1] + \alpha_2\,u[n-2] + \alpha_1\,u[n-3] + \alpha_0\,u[n-4]
+\]
+
+\step{2} TZ :
+\[
+  H(z) = \alpha_0 + \alpha_1 z^{-1} + \alpha_2 z^{-2} + \alpha_1 z^{-3} + \alpha_0 z^{-4}
+\]
+
+\bigskip
+\textbf{2) Réponse fréquentielle, module et phase.}
+
+\step{1} Poser $z = e^{j\Omega}$ :
+\[
+  H(e^{j\Omega}) = e^{-j2\Omega}\bigl[\alpha_0(e^{j2\Omega}+e^{-j2\Omega})
+                  + \alpha_1(e^{j\Omega}+e^{-j\Omega}) + \alpha_2\bigr]
+\]
+\step{2} En utilisant $e^{j\theta}+e^{-j\theta} = 2\cos\theta$ :
+\[
+  H(e^{j\Omega}) = e^{-j2\Omega}\bigl[2\alpha_0\cos(2\Omega) + 2\alpha_1\cos(\Omega) + \alpha_2\bigr]
+\]
+\step{3} Module et phase :
+\[
+  |H(e^{j\Omega})| = \left|2\alpha_0\cos(2\Omega) + 2\alpha_1\cos(\Omega) + \alpha_2\right|
+\]
+\[
+  \angle H(e^{j\Omega}) = -2\Omega \quad \text{(phase linéaire : retard pur de 2 échantillons)}
+\]
+
+\bigskip
+\textbf{3) Valeurs du module.}
+
+\begin{itemize}
+  \item $\Omega = 0$ : $|H| = |2\alpha_0 + 2\alpha_1 + \alpha_2|$
+  \item $\Omega = \pi$ : $|H| = |2\alpha_0\cos(2\pi) + 2\alpha_1\cos(\pi) + \alpha_2|
+                              = |2\alpha_0 - 2\alpha_1 + \alpha_2|$
+  \item $\Omega = 2\pi$ : idem à $\Omega = 0$ (périodicité $2\pi$) :
+        $|H| = |2\alpha_0 + 2\alpha_1 + \alpha_2|$
+\end{itemize}
+\end{tcolorbox}
+
+%% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Examen intermédiaire -- Exercice 5 : Stockage à 50 kHz}
+
+\begin{tcolorbox}[corrbox, title=Correction Exercice 5]
+\textbf{Données :} $f_e = 50\,\text{kHz} = 50\,000\,\text{Hz}$, durée $T = 10\,\text{s}$, $b = 8$ bits.
+
+\step{1} Nombre d'échantillons :
+\[
+  N = f_e \times T = 50\,000 \times 10 = 500\,000 \text{ échantillons}
+\]
+
+\step{2} Taille mémoire :
+\[
+  \text{Taille} = \frac{N \times b}{8} = \frac{500\,000 \times 8}{8} = 500\,000 \text{ octets} = 500\,\text{ko}
+\]
+\end{tcolorbox}
+
+%% ════════════════════════════════════════════════════════════════════════════
+\newpage
+\section{Aide-mémoire -- Formules essentielles}
+%% ════════════════════════════════════════════════════════════════════════════
+
+\begin{tcolorbox}[formbox, title=Tout en un -- Formules à maîtriser]
+\renewcommand{\arraystretch}{1.8}
+\begin{tabular}{@{}p{5cm}p{9cm}@{}}
+\toprule
+\textbf{Concept} & \textbf{Formule} \\
+\midrule
+Nombre d'échantillons & $N = f_e \times T$ \\
+Taille mémoire & $\dfrac{N \times b}{8}$ octets \\
+Shannon & $f_e > 2\,f_{\max}$ \\
+Pas de quantification & $Q = \dfrac{x_{\max}-x_{\min}}{2^b}$ \\
+Niveaux de quantification & $L = 2^b$ \\
+Résolution FFT & $df = f_e / N_{\text{points}}$ \\[6pt]
+TF continue & $X(f) = \int_{-\infty}^{+\infty} x(t)\,e^{-j2\pi ft}\,dt$ \\[6pt]
+TFD & $X(k) = \sum_{n=0}^{N-1} x(n)\,e^{-j2\pi nk/N}$ \\[6pt]
+Transformée en Z & $X(z) = \sum_{k=-\infty}^{+\infty} x(k)\,z^{-k}$ \\[6pt]
+Retard en Z & $x(n-k) \xrightarrow{\TZ} z^{-k}\,X(z)$ \\[6pt]
+Réponse fréquentielle & $H(f) = H(z)\big|_{z=e^{j2\pi f}}$ \\[6pt]
+Convolution discrète & $y[n] = \sum_k h[k]\,x[n-k]$ \\[6pt]
+Module moyenneur 3 pts & $|T(f)| = \tfrac{1}{3}|1+2\cos(2\pi f)|$ \\[6pt]
+Module dérivateur & $|T(f)| = |\sin(\pi f)|$ \\[6pt]
+Numérisation (Euler) & $p \leftarrow \dfrac{1-z^{-1}}{T_e}$ \\
+\bottomrule
+\end{tabular}
+\end{tcolorbox}
+
+%% ════════════════════════════════════════════════════════════════════════════
+\end{document}
+%% ══════════════════════════════════════════════════════════════════════════

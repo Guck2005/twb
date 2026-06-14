@@ -1,0 +1,906 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning, calc}
+\usepackage{forest}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{ragged2e}
+
+\geometry{margin=2cm}
+\setlength{\parskip}{0.35em}
+\setlist[itemize]{noitemsep, topsep=2pt, leftmargin=1.2em}
+\setlist[enumerate]{noitemsep, topsep=2pt, leftmargin=1.5em}
+
+\definecolor{ifriblue}{RGB}{45,55,120}
+\definecolor{ifrigray}{RGB}{245,246,250}
+\definecolor{wbsblue}{RGB}{70,130,180}
+\definecolor{wbsgreen}{RGB}{60,140,90}
+\definecolor{wbsorange}{RGB}{210,120,50}
+
+\titleformat{\section}{\color{ifriblue}\normalfont\bfseries\large}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalfont\bfseries\normalsize}{\thesubsection}{0.5em}{}
+
+\hypersetup{colorlinks=true, linkcolor=ifriblue, urlcolor=ifriblue}
+
+\newcommand{\metarow}[2]{#1 & #2 \\}
+
+% Style WBS TikZ
+\tikzset{
+    wbsbox/.style={
+        draw=ifriblue,
+        fill=ifrigray,
+        rounded corners=3pt,
+        minimum width=3.2cm,
+        minimum height=0.75cm,
+        align=center,
+        font=\small
+    },
+    wbsroot/.style={
+        wbsbox,
+        fill=ifriblue!15,
+        font=\small\bfseries
+    },
+    orgbox/.style={
+        draw=ifriblue,
+        fill=white,
+        rounded corners=3pt,
+        minimum width=2.8cm,
+        minimum height=0.7cm,
+        align=center,
+        font=\footnotesize
+    },
+    orgroot/.style={
+        orgbox,
+        fill=ifriblue!20,
+        font=\footnotesize\bfseries,
+        minimum width=3.5cm
+    }
+}
+
+\begin{document}
+
+% ===== PAGE DE GARDE =====
+\begin{center}
+    \colorbox{ifriblue}{\parbox{\dimexpr\textwidth-2\fboxsep}{
+        \centering
+        \color{white}
+        \vspace{0.6em}
+        {\LARGE \textbf{Rapport d'exercice --- Gestion de Projet}}\\[0.4em]
+        {\large Plateforme de mise en relation emploi --- \textit{EmploiConnect}}
+        \vspace{0.6em}
+    }}
+\end{center}
+
+\vspace{0.8em}
+
+\noindent
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|}
+    \hline
+    \rowcolor{ifrigray}
+    \metarow{Étudiant}{Juste TOSSOU}
+    \metarow{Filière}{M1-GL / SIRI / SI}
+    \metarow{Établissement}{IFRI --- Institut de Formation et de Recherche en Informatique}
+    \metarow{Enseignant}{Dr. Arnaud AHOUANDJINOU}
+    \metarow{Année académique}{2024--2025}
+    \metarow{Module}{Gestion de Projet Informatique}
+    \metarow{Consignes}{Matrice de traçabilité, liste des activités, WBS, organigramme, charte de projet}
+    \metarow{Référentiel}{PMBOK\textsuperscript{\textregistered} 6\textsuperscript{e} et 7\textsuperscript{e} éditions (PMI)}
+    \hline
+\end{tabularx}
+
+\vspace{0.8em}
+\hrule
+\vspace{0.6em}
+
+% ===== INTRODUCTION =====
+\section{Introduction et contexte du projet}
+
+\subsection{Problématique}
+
+Dans un environnement où le marché de l'emploi est en constante évolution, les chercheurs d'emploi rencontrent des difficultés à accéder rapidement à des offres pertinentes, tandis que les entreprises peinent à identifier efficacement les candidats qualifiés. Les plateformes existantes sont souvent fragmentées, peu adaptées aux besoins locaux et manquent de fonctionnalités de suivi personnalisé. Cette situation crée un décalage entre l'offre et la demande, ralentissant le processus de recrutement et limitant les opportunités pour les candidats.
+
+\subsection{Objectifs du projet}
+
+\begin{enumerate}
+    \item Développer une application intuitive et accessible permettant de centraliser les offres d'emploi.
+    \item Optimiser le recrutement grâce à des outils de filtrage et de correspondance intelligente entre profils et postes.
+    \item Accompagner les candidats via des fonctionnalités de suivi des candidatures, notifications et conseils personnalisés.
+    \item Renforcer la visibilité des entreprises en leur offrant un espace dédié pour publier, gérer et analyser leurs offres.
+    \item Créer un tableau de bord analytique pour suivre les tendances du marché de l'emploi et améliorer les prises de décision.
+\end{enumerate}
+
+\subsection{Livrables attendus}
+
+\begin{itemize}
+    \item Application mobile et web fonctionnelle, avec interface utilisateur ergonomique.
+    \item Base de données centralisée regroupant les offres et profils.
+    \item Système de notifications en temps réel pour les mises à jour.
+    \item Module de matching intelligent basé sur les compétences et expériences.
+    \item Rapports et statistiques sur les candidatures, recrutements et tendances.
+    \item Documentation technique et guide utilisateur pour assurer la maintenance et la formation.
+\end{itemize}
+
+\subsection{Approche de gestion retenue}
+
+Le projet \textbf{EmploiConnect} adopte une approche \textbf{hybride} : planification prédictive pour les phases d'analyse, de conception et de documentation, et approche \textbf{agile (Scrum)} pour le développement itératif des fonctionnalités. Le cycle de vie comporte cinq phases : initialisation, planification, exécution, maîtrise et clôture, avec des \textbf{portes de phase (GO/NO-GO)} en fin de chaque phase majeure.
+
+% ===== SECTION 0 =====
+\section{Matrice de traçabilité des exigences}
+
+La matrice de traçabilité des exigences (MTEx) établit le lien entre les besoins des parties prenantes, les objectifs du projet, les exigences fonctionnelles et non fonctionnelles, les livrables associés et les critères de validation. Elle garantit qu'aucune exigence n'est oubliée et que chaque livrable répond à un besoin identifié (PMBOK --- domaine Périmètre et Parties prenantes).
+
+\vspace{0.4em}
+\small
+\begin{longtable}{|p{0.7cm}|p{2.8cm}|p{2.2cm}|p{2.8cm}|p{2.5cm}|p{2cm}|}
+    \hline
+    \rowcolor{ifrigray}
+    \textbf{ID} & \textbf{Besoin / Exigence} & \textbf{Objectif lié} & \textbf{Exigence détaillée} & \textbf{Livrable} & \textbf{Critère de validation} \\
+    \hline
+    \endfirsthead
+    \hline
+    \rowcolor{ifrigray}
+    \textbf{ID} & \textbf{Besoin / Exigence} & \textbf{Objectif lié} & \textbf{Exigence détaillée} & \textbf{Livrable} & \textbf{Critère de validation} \\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+
+    EX-01 &
+    Centraliser les offres d'emploi &
+    OBJ-01 &
+    L'application doit agréger et afficher les offres publiées par les entreprises partenaires et internes &
+    Application web et mobile &
+    $\geq$ 95\,\% des offres actives consultables en moins de 3 secondes \\
+    \hline
+
+    EX-02 &
+    Recherche et filtrage avancé &
+    OBJ-01, OBJ-02 &
+    Filtrage par secteur, localisation, type de contrat, niveau d'expérience et mots-clés &
+    Module de recherche &
+    Résultats pertinents retournés en $<$ 2 s pour 10\,000 offres \\
+    \hline
+
+    EX-03 &
+    Matching intelligent profil/poste &
+    OBJ-02 &
+    Algorithme de correspondance basé sur compétences, expériences et préférences &
+    Module de matching &
+    Taux de pertinence $\geq$ 80\,\% sur un jeu de test de 100 profils \\
+    \hline
+
+    EX-04 &
+    Suivi des candidatures &
+    OBJ-03 &
+    Tableau de bord candidat avec statuts (envoyée, vue, entretien, refusée, acceptée) &
+    Espace candidat &
+    100\,\% des candidatures tracées avec horodatage \\
+    \hline
+
+    EX-05 &
+    Notifications en temps réel &
+    OBJ-03 &
+    Alertes push et e-mail pour nouvelles offres, changements de statut et messages &
+    Système de notifications &
+    Délai de notification $<$ 30 secondes après événement \\
+    \hline
+
+    EX-06 &
+    Conseils personnalisés &
+    OBJ-03 &
+    Recommandations de compétences à développer et suggestions d'offres similaires &
+    Module d'accompagnement &
+    Au moins 3 conseils générés par profil complet \\
+    \hline
+
+    EX-07 &
+    Espace entreprise dédié &
+    OBJ-04 &
+    Publication, modification, archivage et promotion des offres par les recruteurs &
+    Portail recruteur &
+    CRUD complet validé sur 50 scénarios de test \\
+    \hline
+
+    EX-08 &
+    Analyse des performances de recrutement &
+    OBJ-04 &
+    Statistiques sur vues, candidatures reçues et délais de pourvoi par offre &
+    Tableau de bord recruteur &
+    Indicateurs mis à jour en temps réel \\
+    \hline
+
+    EX-09 &
+    Tableau de bord analytique marché &
+    OBJ-05 &
+    Visualisation des tendances : secteurs en croissance, compétences demandées, taux d'embauche &
+    Module analytics &
+    5 indicateurs clés (KPI) disponibles et exportables \\
+    \hline
+
+    EX-10 &
+    Base de données centralisée &
+    OBJ-01 à OBJ-05 &
+    Schéma relationnel unifié pour profils, offres, candidatures, compétences et logs &
+    Base de données &
+    Intégrité référentielle validée, sauvegarde quotidienne \\
+    \hline
+
+    EX-11 &
+    Interface ergonomique &
+    Transversal &
+    Design responsive, accessibilité WCAG 2.1 niveau AA, navigation intuitive &
+    UI/UX &
+    Score SUS (System Usability Scale) $\geq$ 70 \\
+    \hline
+
+    EX-12 &
+    Sécurité et confidentialité &
+    Transversal &
+    Authentification sécurisée, chiffrement des données sensibles, conformité RGPD &
+    Module sécurité &
+    Audit de sécurité sans faille critique \\
+    \hline
+
+    EX-13 &
+    Documentation technique &
+    Transversal &
+    Architecture, API, schéma BDD, procédures de déploiement et maintenance &
+    Documentation technique &
+    Revue technique validée par le COPIL \\
+    \hline
+
+    EX-14 &
+    Guide utilisateur &
+    Transversal &
+    Manuels candidat, recruteur et administrateur avec captures d'écran &
+    Guide utilisateur &
+    Tests utilisateurs réussis par 3 profils types \\
+    \hline
+\end{longtable}
+\normalsize
+
+\vspace{0.3em}
+\noindent\textit{Note :} Chaque exigence est rattachée à au moins un objectif (OBJ-01 à OBJ-05) et à un livrable mesurable. Les critères de validation serviront de base aux tests d'acceptation en fin de phase d'exécution.
+
+% ===== SECTION 1 =====
+\section{Liste des activités du projet}
+
+La liste des activités recense l'ensemble des tâches nécessaires à la réalisation du projet \textbf{EmploiConnect}, classées par phase du cycle de vie et par groupe de processus PMBOK.
+
+\subsection{Phase 1 --- Initialisation}
+
+\begin{longtable}{|p{1.2cm}|p{5.5cm}|p{2.2cm}|p{2cm}|p{2.5cm}|}
+    \hline
+    \rowcolor{ifrigray}
+    \textbf{ID} & \textbf{Activité} & \textbf{Responsable} & \textbf{Durée} & \textbf{Livrable de sortie} \\
+    \hline
+    \endfirsthead
+    \hline
+    \rowcolor{ifrigray}
+    \textbf{ID} & \textbf{Activité} & \textbf{Responsable} & \textbf{Durée} & \textbf{Livrable de sortie} \\
+    \hline
+    \endhead
+
+    A-01 & Identifier les parties prenantes et analyser leurs attentes & Chef de projet & 3 j & Registre des parties prenantes \\
+    \hline
+    A-02 & Rédiger la charte de projet et obtenir la signature du sponsor & Chef de projet & 2 j & Charte de projet signée \\
+    \hline
+    A-03 & Élaborer le business case (viabilité, ROI, VAN) & Chef de projet & 4 j & Business case validé \\
+    \hline
+    A-04 & Constituer l'équipe projet et définir les rôles & Chef de projet & 2 j & Organigramme, charte d'équipe \\
+    \hline
+    A-05 & Organiser la réunion de lancement (kick-off) & Chef de projet & 1 j & PV de lancement \\
+    \hline
+\end{longtable}
+
+\subsection{Phase 2 --- Planification}
+
+\begin{longtable}{|p{1.2cm}|p{5.5cm}|p{2.2cm}|p{2cm}|p{2.5cm}|}
+    \hline
+    \rowcolor{ifrigray}
+    \textbf{ID} & \textbf{Activité} & \textbf{Responsable} & \textbf{Durée} & \textbf{Livrable de sortie} \\
+    \hline
+    \endfirsthead
+    \hline
+    \rowcolor{ifrigray}
+    \textbf{ID} & \textbf{Activité} & \textbf{Responsable} & \textbf{Durée} & \textbf{Livrable de sortie} \\
+    \hline
+    \endhead
+
+    A-06 & Collecter et formaliser les exigences fonctionnelles et non fonctionnelles & Analyste & 5 j & Cahier des exigences \\
+    \hline
+    A-07 & Établir la matrice de traçabilité des exigences & Analyste & 2 j & MTEx validée \\
+    \hline
+    A-08 & Définir l'énoncé de périmètre (inclusions/exclusions) & Chef de projet & 3 j & Énoncé de périmètre \\
+    \hline
+    A-09 & Construire la WBS et le dictionnaire WBS & Chef de projet & 3 j & WBS + dictionnaire \\
+    \hline
+    A-10 & Élaborer le planning (Gantt) et identifier le chemin critique & Chef de projet & 4 j & Planning projet \\
+    \hline
+    A-11 & Estimer les coûts et établir le budget & Chef de projet & 3 j & Budget prévisionnel \\
+    \hline
+    A-12 & Identifier et analyser les risques (matrice probabilité/impact) & Chef de projet & 3 j & Registre des risques \\
+    \hline
+    A-13 & Définir le plan de qualité et les critères d'acceptation & Responsable QA & 2 j & Plan qualité \\
+    \hline
+    A-14 & Concevoir l'architecture technique (web, mobile, API, BDD) & Architecte & 5 j & Dossier d'architecture \\
+    \hline
+    A-15 & Modéliser les maquettes UI/UX (wireframes, prototypes) & Designer UX/UI & 6 j & Maquettes validées \\
+    \hline
+    A-16 & Planifier les sprints et constituer le Product Backlog & Product Owner & 3 j & Product Backlog priorisé \\
+    \hline
+\end{longtable}
+
+\subsection{Phase 3 --- Exécution}
+
+\begin{longtable}{|p{1.2cm}|p{5.5cm}|p{2.2cm}|p{2cm}|p{2.5cm}|}
+    \hline
+    \rowcolor{ifrigray}
+    \textbf{ID} & \textbf{Activité} & \textbf{Responsable} & \textbf{Durée} & \textbf{Livrable de sortie} \\
+    \hline
+    \endfirsthead
+    \hline
+    \rowcolor{ifrigray}
+    \textbf{ID} & \textbf{Activité} & \textbf{Responsable} & \textbf{Durée} & \textbf{Livrable de sortie} \\
+    \hline
+    \endhead
+
+    A-17 & Mettre en place l'environnement de développement (CI/CD) & DevOps & 4 j & Pipeline CI/CD opérationnel \\
+    \hline
+    A-18 & Concevoir et implémenter le schéma de base de données & DBA & 6 j & BDD déployée \\
+    \hline
+    A-19 & Développer l'API REST backend (authentification, offres, profils) & Dev Backend & 15 j & API fonctionnelle \\
+    \hline
+    A-20 & Développer l'application web (React/Angular) & Dev Frontend & 18 j & Application web \\
+    \hline
+    A-21 & Développer l'application mobile (Flutter/React Native) & Dev Mobile & 18 j & Application mobile \\
+    \hline
+    A-22 & Implémenter le module de matching intelligent & Data Engineer & 10 j & Algorithme de matching \\
+    \hline
+    A-23 & Implémenter le système de notifications (push, e-mail) & Dev Backend & 6 j & Service de notifications \\
+    \hline
+    A-24 & Développer le tableau de bord analytique & Dev Frontend + Data & 8 j & Module analytics \\
+    \hline
+    A-25 & Développer l'espace recruteur (CRUD offres, statistiques) & Dev Fullstack & 10 j & Portail recruteur \\
+    \hline
+    A-26 & Réaliser les sprints Scrum (planning, daily, review, retro) & Scrum Master & Continu & Incréments livrés \\
+    \hline
+    A-27 & Conduire les tests unitaires et d'intégration & QA & 10 j & Rapport de tests \\
+    \hline
+    A-28 & Rédiger la documentation technique & Tech Lead & 5 j & Documentation technique \\
+    \hline
+    A-29 & Rédiger les guides utilisateur & Rédacteur technique & 4 j & Guides utilisateur \\
+    \hline
+\end{longtable}
+
+\subsection{Phase 4 --- Maîtrise (Monitoring \& Control)}
+
+\begin{longtable}{|p{1.2cm}|p{5.5cm}|p{2.2cm}|p{2cm}|p{2.5cm}|}
+    \hline
+    \rowcolor{ifrigray}
+    \textbf{ID} & \textbf{Activité} & \textbf{Responsable} & \textbf{Durée} & \textbf{Livrable de sortie} \\
+    \hline
+    \endfirsthead
+    \hline
+    \rowcolor{ifrigray}
+    \textbf{ID} & \textbf{Activité} & \textbf{Responsable} & \textbf{Durée} & \textbf{Livrable de sortie} \\
+    \hline
+    \endhead
+
+    A-30 & Suivre l'avancement (EVM, burndown chart) & Chef de projet & Continu & Rapports d'avancement \\
+    \hline
+    A-31 & Gérer les changements (demandes, analyse d'impact) & Chef de projet & Continu & Registre des changements \\
+    \hline
+    A-32 & Contrôler la qualité (revues, audits) & Responsable QA & Continu & Rapports qualité \\
+    \hline
+    A-33 & Assurer la communication avec les parties prenantes & Chef de projet & Continu & Comptes-rendus COPIL \\
+    \hline
+    A-34 & Surveiller et traiter les risques & Chef de projet & Continu & Mises à jour registre risques \\
+    \hline
+\end{longtable}
+
+\subsection{Phase 5 --- Clôture}
+
+\begin{longtable}{|p{1.2cm}|p{5.5cm}|p{2.2cm}|p{2cm}|p{2.5cm}|}
+    \hline
+    \rowcolor{ifrigray}
+    \textbf{ID} & \textbf{Activité} & \textbf{Responsable} & \textbf{Durée} & \textbf{Livrable de sortie} \\
+    \hline
+    \endfirsthead
+    \hline
+    \rowcolor{ifrigray}
+    \textbf{ID} & \textbf{Activité} & \textbf{Responsable} & \textbf{Durée} & \textbf{Livrable de sortie} \\
+    \hline
+    \endhead
+
+    A-35 & Réaliser les tests d'acceptation utilisateur (UAT) & QA + Utilisateurs & 5 j & PV de recette \\
+    \hline
+    A-36 & Déployer en production & DevOps & 3 j & Application en production \\
+    \hline
+    A-37 & Former les utilisateurs (candidats, recruteurs, admins) & Chef de projet & 3 j & Sessions de formation \\
+    \hline
+    A-38 & Transférer au support et clôturer les contrats & Chef de projet & 2 j & PV de transfert \\
+    \hline
+    A-39 & Rédiger le rapport de clôture et les leçons apprises & Chef de projet & 3 j & Rapport de clôture \\
+    \hline
+    A-40 & Célébrer la clôture et libérer les ressources & Chef de projet & 1 j & Projet clôturé \\
+    \hline
+\end{longtable}
+
+\noindent\textbf{Synthèse :} Le projet compte \textbf{40 activités} réparties sur \textbf{5 phases}, pour une durée estimée de \textbf{6 mois} (hors activités continues de maîtrise).
+
+% ===== SECTION 2 =====
+\section{WBS et organigramme des travaux}
+
+\subsection{Définition}
+
+La \textbf{Structure de découpage du travail (WBS)} est une décomposition hiérarchique orientée livrables du périmètre total du projet. Chaque niveau inférieur représente une subdivision plus détaillée du travail à accomplir. La règle des 100\,\% stipule que la WBS couvre intégralement le périmètre du projet.
+
+\subsection{WBS --- EmploiConnect (niveau 3)}
+
+\begin{figure}[H]
+\centering
+\begin{forest}
+    for tree={
+        grow'=0,
+        draw=ifriblue,
+        fill=ifrigray,
+        rounded corners=2pt,
+        font=\footnotesize,
+        l sep=1.2cm,
+        s sep=0.4cm,
+        edge={thick, color=ifriblue},
+        anchor=west,
+        child anchor=west,
+        parent anchor=east,
+        tier/.wrap pgfmath={tier=#1}{tier=#1},
+    },
+    [{\textbf{1.0 EmploiConnect}}, tier=0, fill=ifriblue!20, font=\small\bfseries
+        [{\textbf{1.1 Gestion du projet}}, tier=1
+            [{1.1.1 Charte et lancement}, tier=2]
+            [{1.1.2 Planification (WBS, Gantt, budget)}, tier=2]
+            [{1.1.3 Suivi, reporting et COPIL}, tier=2]
+            [{1.1.4 Gestion des risques et changements}, tier=2]
+            [{1.1.5 Clôture et leçons apprises}, tier=2]
+        ]
+        [{\textbf{1.2 Analyse et conception}}, tier=1
+            [{1.2.1 Étude des besoins et exigences}, tier=2]
+            [{1.2.2 Architecture technique (web, mobile, API)}, tier=2]
+            [{1.2.3 Modélisation BDD et modèle de données}, tier=2]
+            [{1.2.4 Maquettes UI/UX et prototypes}, tier=2]
+            [{1.2.5 Spécifications du module de matching}, tier=2]
+        ]
+        [{\textbf{1.3 Développement}}, tier=1
+            [{1.3.1 Backend et API REST}, tier=2]
+            [{1.3.2 Application web}, tier=2]
+            [{1.3.3 Application mobile}, tier=2]
+            [{1.3.4 Module de matching intelligent}, tier=2]
+            [{1.3.5 Système de notifications}, tier=2]
+            [{1.3.6 Tableau de bord analytique}, tier=2]
+            [{1.3.7 Espace recruteur}, tier=2]
+        ]
+        [{\textbf{1.4 Tests et déploiement}}, tier=1
+            [{1.4.1 Tests unitaires et d'intégration}, tier=2]
+            [{1.4.2 Tests de performance et sécurité}, tier=2]
+            [{1.4.3 Tests d'acceptation (UAT)}, tier=2]
+            [{1.4.4 Déploiement et mise en production}, tier=2]
+        ]
+        [{\textbf{1.5 Documentation et formation}}, tier=1
+            [{1.5.1 Documentation technique}, tier=2]
+            [{1.5.2 Guides utilisateur}, tier=2]
+            [{1.5.3 Formation des utilisateurs}, tier=2]
+            [{1.5.4 Transfert au support}, tier=2]
+        ]
+    ]
+\end{forest}
+\caption{WBS --- Structure de découpage du travail du projet EmploiConnect}
+\label{fig:wbs}
+\end{figure}
+
+\subsection{Dictionnaire WBS (extrait des packages de travail)}
+
+\small
+\begin{tabularx}{\textwidth}{|>{\bfseries}p{1.5cm}|p{2.5cm}|X|p{2.5cm}|}
+    \hline
+    \rowcolor{ifrigray}
+    Code WBS & Nom & Description & Responsable \\
+    \hline
+    1.1.1 & Charte et lancement & Rédaction charte, kick-off, constitution équipe & Chef de projet \\
+    \hline
+    1.2.1 & Étude des besoins & Interviews parties prenantes, cahier des exigences, MTEx & Analyste \\
+    \hline
+    1.2.3 & Modélisation BDD & Schéma entité-relation, tables profils/offres/candidatures & DBA \\
+    \hline
+    1.3.1 & Backend et API & Authentification JWT, endpoints CRUD, logique métier & Dev Backend \\
+    \hline
+    1.3.4 & Matching intelligent & Algorithme de scoring compétences/postes, API de recommandation & Data Engineer \\
+    \hline
+    1.3.5 & Notifications & Service push (FCM), e-mails transactionnels, préférences utilisateur & Dev Backend \\
+    \hline
+    1.4.3 & UAT & Scénarios de recette avec candidats et recruteurs pilotes & Responsable QA \\
+    \hline
+    1.5.1 & Doc. technique & Architecture, API Swagger, procédures déploiement & Tech Lead \\
+    \hline
+\end{tabularx}
+\normalsize
+
+\subsection{Organigramme des travaux (structure technique de l'équipe)}
+
+L'organigramme des travaux présente la structure hiérarchique de l'équipe projet et les lignes de reporting. Le projet adopte une structure \textbf{matricielle équilibrée} : les membres relèvent fonctionnellement de leur service et opérationnellement du chef de projet.
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{forest}
+    for tree={
+        draw=ifriblue,
+        rounded corners=3pt,
+        font=\scriptsize,
+        align=center,
+        l sep=7mm,
+        s sep=2.5mm,
+        edge={thick, color=ifriblue},
+        parent anchor=south,
+        child anchor=north,
+        grow=south,
+        inner sep=3pt,
+        minimum width=1.6cm,
+    },
+    [{Sponsor /\\Commanditaire}, fill=ifriblue!20, font=\scriptsize\bfseries
+        [{Comité de Pilotage\\(COPIL)}, fill=ifriblue!15, font=\scriptsize\bfseries
+            [{Chef de Projet}, fill=ifriblue!10, font=\scriptsize\bfseries
+                [{Product Owner}, fill=wbsblue!12, font=\scriptsize\bfseries
+                    [{Dev Frontend\\(Web)}, fill=wbsgreen!10]
+                    [{Dev Mobile}, fill=wbsgreen!10]
+                    [{Dev Backend\\(API)}, fill=wbsgreen!10]
+                ]
+                [{Scrum Master}, fill=wbsblue!12, font=\scriptsize\bfseries
+                    [{DBA}, fill=wbsgreen!10]
+                    [{Responsable QA}, fill=wbsgreen!10]
+                    [{DevOps}, fill=wbsgreen!10]
+                ]
+                [{Architecte SI}, fill=wbsblue!12, font=\scriptsize\bfseries
+                    [{Data Engineer\\(Matching)}, fill=wbsorange!10]
+                    [{Designer\\UX/UI}, fill=wbsorange!10]
+                    [{Rédacteur\\technique}, fill=wbsorange!10]
+                ]
+            ]
+        ]
+    ]
+\end{forest}%
+}
+\caption{Organigramme des travaux --- Équipe projet EmploiConnect}
+\label{fig:org}
+\end{figure}
+
+\subsection{Rôles et responsabilités (extrait)}
+
+\small
+\begin{tabularx}{\textwidth}{|>{\bfseries}p{3cm}|X|p{3.5cm}|}
+    \hline
+    \rowcolor{ifrigray}
+    Rôle & Responsabilités principales & Reporting \\
+    \hline
+    Sponsor & Finance le projet, arbitre les décisions stratégiques, valide la charte & Direction \\
+    \hline
+    Chef de projet & Coordination globale, planning, budget, communication (90\,\% du temps), gestion des risques & Sponsor / COPIL \\
+    \hline
+    Product Owner & Priorise le backlog, définit la valeur métier, valide les incréments & Chef de projet \\
+    \hline
+    Scrum Master & Facilite les cérémonies Scrum, lève les obstacles, protège l'équipe & Chef de projet \\
+    \hline
+    Architecte SI & Définit l'architecture technique, valide les choix technologiques & Chef de projet \\
+    \hline
+    Dev Backend & API REST, logique métier, notifications, sécurité & Tech Lead \\
+    \hline
+    Dev Frontend / Mobile & Interfaces utilisateur web et mobile, intégration API & Tech Lead \\
+    \hline
+    Data Engineer & Algorithme de matching, module analytics & Architecte SI \\
+    \hline
+    Responsable QA & Plan de tests, exécution, rapports qualité, UAT & Chef de projet \\
+    \hline
+\end{tabularx}
+\normalsize
+
+% ===== SECTION 3 =====
+\section{Charte du projet}
+
+La charte de projet est le document d'autorisation formelle qui confère au chef de projet l'autorité nécessaire pour mobiliser les ressources organisationnelles en vue de la réalisation des objectifs du projet (PMBOK --- processus « Établir la charte de projet »).
+
+\subsection{Informations générales}
+
+\noindent
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|}
+    \hline
+    \rowcolor{ifrigray}
+    \metarow{Nom du projet}{EmploiConnect --- Plateforme intelligente de mise en relation emploi}
+    \metarow{Code projet}{EMP-2025-001}
+    \metarow{Date de rédaction}{10 juin 2025}
+    \metarow{Version}{1.0}
+    \metarow{Sponsor / Commanditaire}{M. Koffi ADJOVI --- Directeur des Ressources Humaines, Groupe EmploiPlus}
+    \metarow{Chef de projet}{Juste TOSSOU}
+    \metarow{Organisation porteuse}{IFRI / Groupe EmploiPlus (partenariat académique-industrie)}
+    \hline
+\end{tabularx}
+
+\subsection{Justification du projet (Business Case)}
+
+Le marché de l'emploi local souffre d'une \textbf{fragmentation} des offres et d'un \textbf{manque d'outils de suivi} personnalisés. Le projet EmploiConnect vise à :
+
+\begin{itemize}
+    \item Réduire le délai moyen de mise en relation candidat/employeur de 45 à 15 jours.
+    \item Augmenter le taux de correspondance pertinente profil/poste de 40\,\% à 80\,\%.
+    \item Centraliser plus de 5\,000 offres d'emploi locales dans les 12 premiers mois.
+    \item Générer une valeur estimée (ROI) de 150\,\% sur 3 ans grâce aux gains de productivité en recrutement.
+\end{itemize}
+
+\subsection{Objectifs SMART}
+
+\small
+\begin{tabularx}{\textwidth}{|>{\bfseries}p{1.2cm}|X|}
+    \hline
+    \rowcolor{ifrigray}
+    ID & Objectif SMART \\
+    \hline
+    OBJ-01 &
+    \textbf{S}pécifique : Livrer une application web et mobile centralisant les offres d'emploi.\\
+    & \textbf{M}esurable : $\geq$ 5\,000 offres indexées à M+12.\\
+    & \textbf{A}tteignable : Équipe de 10 personnes, stack éprouvée.\\
+    & \textbf{R}éaliste : Partenariats entreprises existants.\\
+    & \textbf{T}emporel : Livraison V1.0 au 31 décembre 2025. \\
+    \hline
+    OBJ-02 &
+    \textbf{S}pécifique : Déployer un module de matching intelligent.\\
+    & \textbf{M}esurable : Taux de pertinence $\geq$ 80\,\%.\\
+    & \textbf{A}tteignable : Algorithme basé sur compétences et expériences.\\
+    & \textbf{R}éaliste : Jeu de données de test disponible.\\
+    & \textbf{T}emporel : Module opérationnel au Sprint 4 (octobre 2025). \\
+    \hline
+    OBJ-03 &
+    \textbf{S}pécifique : Offrir suivi des candidatures et notifications temps réel.\\
+    & \textbf{M}esurable : 100\,\% des candidatures tracées, notifications $<$ 30 s.\\
+    & \textbf{A}tteignable : Technologies push (FCM) et e-mail.\\
+    & \textbf{R}éaliste : Fonctionnalités standards du marché.\\
+    & \textbf{T}emporel : Disponible en V1.0. \\
+    \hline
+    OBJ-04 &
+    \textbf{S}pécifique : Créer un espace recruteur avec analytics.\\
+    & \textbf{M}esurable : 200 entreprises inscrites à M+6.\\
+    & \textbf{A}tteignable : Interface dédiée et tableau de bord.\\
+    & \textbf{R}éaliste : Demande confirmée par 15 entreprises pilotes.\\
+    & \textbf{T}emporel : Portail recruteur au Sprint 5 (novembre 2025). \\
+    \hline
+    OBJ-05 &
+    \textbf{S}pécifique : Tableau de bord analytique du marché de l'emploi.\\
+    & \textbf{M}esurable : 5 KPI exportables (secteurs, compétences, taux d'embauche).\\
+    & \textbf{A}tteignable : Module BI intégré.\\
+    & \textbf{R}éaliste : Données agrégées anonymisées.\\
+    & \textbf{T}emporel : Livré en V1.0. \\
+    \hline
+\end{tabularx}
+\normalsize
+
+\subsection{Périmètre du projet}
+
+\textbf{Inclus dans le périmètre :}
+\begin{itemize}
+    \item Application web responsive et application mobile (Android et iOS).
+    \item API REST backend avec authentification sécurisée.
+    \item Base de données centralisée (PostgreSQL).
+    \item Module de matching par compétences.
+    \item Système de notifications push et e-mail.
+    \item Espace candidat (profil, recherche, candidatures, conseils).
+    \item Espace recruteur (publication offres, gestion candidatures, statistiques).
+    \item Tableau de bord analytique agrégé.
+    \item Documentation technique et guides utilisateur.
+    \item Formation des utilisateurs pilotes.
+\end{itemize}
+
+\textbf{Exclu du périmètre :}
+\begin{itemize}
+    \item Intégration avec les systèmes RH internes des entreprises (ERP, SIRH).
+    \item Module de visioconférence pour entretiens à distance.
+    \item Campagnes marketing et acquisition utilisateurs à grande échelle.
+    \item Support multilingue au-delà du français (prévu en V2.0).
+    \item Application desktop native.
+\end{itemize}
+
+\subsection{Parties prenantes principales}
+
+\small
+\begin{tabularx}{\textwidth}{|p{3.2cm}|p{2.5cm}|X|p{2cm}|}
+    \hline
+    \rowcolor{ifrigray}
+    \textbf{Partie prenante} & \textbf{Rôle} & \textbf{Attentes} & \textbf{Influence} \\
+    \hline
+    Sponsor (M. ADJOVI) & Commanditaire & ROI, délais, qualité & Élevée \\
+    \hline
+    Chef de projet & Coordinateur & Livraison dans les contraintes & Élevée \\
+    \hline
+    Candidats & Utilisateurs finaux & Offres pertinentes, suivi simple & Moyenne \\
+    \hline
+    Recruteurs / Entreprises & Utilisateurs finaux & Visibilité, candidats qualifiés & Élevée \\
+    \hline
+    Équipe de développement & Réalisation & Objectifs clairs, environnement stable & Moyenne \\
+    \hline
+    IFRI (établissement) & Partenaire académique & Valorisation pédagogique & Moyenne \\
+    \hline
+    CNIL / Autorité données & Régulateur & Conformité RGPD & Élevée \\
+    \hline
+    COPIL & Gouvernance & Décisions GO/NO-GO & Élevée \\
+    \hline
+\end{tabularx}
+\normalsize
+
+\subsection{Contraintes, hypothèses et risques majeurs}
+
+\textbf{Contraintes :}
+\begin{itemize}
+    \item Budget plafonné à \textbf{45\,000\,000 FCFA}.
+    \item Durée maximale : \textbf{6 mois} (juillet -- décembre 2025).
+    \item Équipe limitée à \textbf{10 ressources} à temps partiel (50\,\%).
+    \item Conformité RGPD et loi Informatique et Libertés obligatoire.
+\end{itemize}
+
+\textbf{Hypothèses :}
+\begin{itemize}
+    \item Les entreprises pilotes fourniront un jeu de données de test représentatif.
+    \item L'infrastructure cloud (hébergement) sera disponible dès le Sprint 1.
+    \item Les compétences techniques de l'équipe couvrent la stack retenue (React, Node.js, Flutter, PostgreSQL).
+\end{itemize}
+
+\textbf{Risques majeurs (extrait) :}
+
+\small
+\begin{tabularx}{\textwidth}{|p{3.5cm}|c|c|X|}
+    \hline
+    \rowcolor{ifrigray}
+    \textbf{Risque} & \textbf{Prob.} & \textbf{Impact} & \textbf{Mesure d'atténuation} \\
+    \hline
+    Retard sur le module de matching & M & É & Prototypage précoce, jeu de test dès Sprint 2 \\
+    \hline
+    Faible adoption initiale & M & M & Programme pilote avec 15 entreprises partenaires \\
+    \hline
+    Fuite de données personnelles & F & É & Chiffrement, audit sécurité, conformité RGPD \\
+    \hline
+    Turnover dans l'équipe & M & M & Documentation continue, binômage, charte d'équipe \\
+    \hline
+    Dépassement budgétaire & M & É & Suivi EVM mensuel, réserve de contingence 10\,\% \\
+    \hline
+\end{tabularx}
+\normalsize
+
+\vspace{0.3em}
+\noindent Légende : Prob. = Probabilité (F = Faible, M = Moyenne, É = Élevée) ; Impact idem.
+
+\subsection{Budget prévisionnel (répartition)}
+
+\small
+\begin{tabularx}{\textwidth}{|X|r|r|}
+    \hline
+    \rowcolor{ifrigray}
+    \textbf{Poste budgétaire} & \textbf{Montant (FCFA)} & \textbf{\%} \\
+    \hline
+    Ressources humaines (10 ETP $\times$ 6 mois $\times$ 50\,\%) & 30\,000\,000 & 66,7\,\% \\
+    \hline
+    Infrastructure cloud et licences & 5\,000\,000 & 11,1\,\% \\
+    \hline
+    Outils de développement et design & 2\,000\,000 & 4,4\,\% \\
+    \hline
+    Formation et documentation & 2\,000\,000 & 4,4\,\% \\
+    \hline
+    Tests et recette & 1\,500\,000 & 3,3\,\% \\
+    \hline
+    Contingence (10\,\%) & 4\,500\,000 & 10,0\,\% \\
+    \hline
+    \textbf{Total} & \textbf{45\,000\,000} & \textbf{100\,\%} \\
+    \hline
+\end{tabularx}
+\normalsize
+
+\subsection{Planning macro et jalons}
+
+\small
+\begin{tabularx}{\textwidth}{|p{2.5cm}|p{2.5cm}|X|p{2.5cm}|}
+    \hline
+    \rowcolor{ifrigray}
+    \textbf{Jalon} & \textbf{Date} & \textbf{Livrable} & \textbf{Porte de phase} \\
+    \hline
+    J1 --- Lancement & 15/07/2025 & Charte signée, équipe constituée & GO Phase 2 \\
+    \hline
+    J2 --- Conception validée & 31/08/2025 & Architecture, maquettes, backlog & GO Phase 3 \\
+    \hline
+    J3 --- MVP (Sprint 3) & 30/09/2025 & Auth, offres, profils basiques & Revue intermédiaire \\
+    \hline
+    J4 --- Matching opérationnel & 31/10/2025 & Module de matching + notifications & Revue Sprint 4 \\
+    \hline
+    J5 --- Beta complète & 30/11/2025 & Web + mobile + analytics & GO Phase 4 \\
+    \hline
+    J6 --- Mise en production & 31/12/2025 & V1.0 déployée, docs, formation & Clôture projet \\
+    \hline
+\end{tabularx}
+\normalsize
+
+\subsection{Autorité du chef de projet}
+
+Le sponsor accorde au chef de projet les pouvoirs suivants :
+\begin{itemize}
+    \item \textbf{Autorité opérationnelle} sur l'équipe projet (affectation des tâches, arbitrage technique quotidien).
+    \item \textbf{Gestion du budget} opérationnel jusqu'à 5\,000\,000 FCFA sans validation préalable du sponsor.
+    \item \textbf{Escalade} vers le COPIL pour tout changement de périmètre, dépassement budgétaire $>$ 10\,\% ou retard $>$ 2 semaines sur le chemin critique.
+    \item \textbf{Communication} directe avec toutes les parties prenantes identifiées.
+\end{itemize}
+
+\subsection{Critères de succès et d'acceptation}
+
+\begin{enumerate}
+    \item Application web et mobile déployée et accessible 99,5\,\% du temps.
+    \item Tous les livrables de la WBS (niveau 2) complétés et validés.
+    \item Taux de satisfaction utilisateur (SUS) $\geq$ 70.
+    \item Module de matching avec pertinence $\geq$ 80\,\%.
+    \item Documentation technique et guides utilisateur livrés et validés.
+    \item Recette utilisateur (UAT) signée par le sponsor et le COPIL.
+    \item Projet clôturé dans le budget et le délai convenus ($\pm$ 10\,\%).
+\end{enumerate}
+
+\subsection{Approbations}
+
+\vspace{1.5em}
+\noindent
+\begin{tabularx}{\textwidth}{@{}X X@{}}
+    \textbf{Sponsor / Commanditaire} & \textbf{Chef de Projet} \\[2em]
+    \rule{6cm}{0.4pt} & \rule{6cm}{0.4pt} \\
+    M. Koffi ADJOVI & Juste TOSSOU \\
+    Date : \_\_\_\_ / \_\_\_\_ / 2025 & Date : \_\_\_\_ / \_\_\_\_ / 2025 \\
+\end{tabularx}
+
+\vspace{1em}
+\noindent
+\begin{tabularx}{\textwidth}{@{}X@{}}
+    \textbf{Président du COPIL} \\[2em]
+    \rule{6cm}{0.4pt} \\
+    Dr. Arnaud AHOUANDJINOU \\
+    Date : \_\_\_\_ / \_\_\_\_ / 2025 \\
+\end{tabularx}
+
+% ===== CONCLUSION =====
+\section{Conclusion}
+
+Ce rapport présente les livrables de planification du projet \textbf{EmploiConnect} conformément aux exigences du module de Gestion de Projet Informatique :
+
+\begin{itemize}
+    \item La \textbf{matrice de traçabilité} (section 0) assure le lien entre 14 exigences, 5 objectifs et leurs livrables associés.
+    \item La \textbf{liste des 40 activités} (section 1) couvre l'intégralité du cycle de vie sur 5 phases.
+    \item La \textbf{WBS} (section 2) décompose le périmètre en 5 packages de travail de niveau 2 et 24 work packages de niveau 3, complétée par l'\textbf{organigramme des travaux} et les rôles de l'équipe.
+    \item La \textbf{charte de projet} (section 3) formalise l'autorisation, les objectifs SMART, le périmètre, les contraintes, le budget, le planning et les critères de succès.
+\end{itemize}
+
+L'ensemble de ces documents constitue la base de référence pour le lancement et le pilotage du projet, en cohérence avec les bonnes pratiques du PMBOK\textsuperscript{\textregistered} et les principes de gestion de projet enseignés au cours.
+
+\vspace{0.8em}
+\hrule
+\vspace{0.5em}
+
+\noindent
+\begin{flushright}
+    \textbf{Juste TOSSOU}\\
+    \textit{Rapport d'exercice --- Gestion de Projet Informatique}\\
+    \textit{IFRI --- Année académique 2024--2025}
+\end{flushright}
+
+\end{document}
