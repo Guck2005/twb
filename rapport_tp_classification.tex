@@ -1,0 +1,620 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\lstdefinestyle{python}{
+    language=Python,
+    basicstyle=\ttfamily\scriptsize,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{red!70!black},
+    commentstyle=\color{green!50!black}\itshape,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=6pt,
+    frame=single,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    xleftmargin=1em,
+}
+
+\lstdefinestyle{output}{
+    basicstyle=\ttfamily\scriptsize,
+    frame=single,
+    breaklines=true,
+    backgroundcolor=\color{gray!10},
+    xleftmargin=1em,
+}
+
+\hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=blue!80!black}
+
+\title{\textbf{TP Classification de Chiffres Manuscrits}\\
+\large Reconnaissance de codes postaux par plus proche voisin\\[0.5cm]
+\normalsize Master Intelligence Artificielle}
+\author{Étudiant M1 IA}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Introduction}
+% ============================================================
+
+Ce rapport présente mon travail sur le TP de classification de chiffres manuscrits appliqué au tri postal. L'objectif est de reconnaître automatiquement des codes postaux écrits à la main sur des enveloppes, en utilisant des méthodes de classification par plus proche voisin et plus proche moyenne.
+
+J'ai implémenté l'ensemble du pipeline en Python avec NumPy et scikit-image. Le rapport suit les 9 questions du sujet.
+
+\paragraph{Prétraitement commun.} Avant de répondre aux questions, voici les fonctions de prétraitement que j'utilise pour charger et binariser les images~:
+
+\begin{lstlisting}[style=python, caption={Fonctions de prétraitement.}]
+def charger_image_gris(chemin):
+    img = np.array(Image.open(chemin))
+    if img.ndim == 3:
+        R, G, B = img[:,:,0].astype(np.float64), img[:,:,1].astype(np.float64), img[:,:,2].astype(np.float64)
+        return (0.299*R + 0.587*G + 0.114*B).astype(np.uint8)
+    return img.astype(np.uint8)
+
+def binariser(img_gris, seuil=None):
+    img_clahe = equalize_adapthist(img_gris, clip_limit=0.03)
+    img_uint8 = (img_clahe * 255).astype(np.uint8)
+    try:
+        seuil_otsu = threshold_otsu(img_uint8)
+    except Exception:
+        seuil_otsu = seuil if seuil is not None else SEUIL
+    return img_uint8 < seuil_otsu
+
+def pretraiter(bin_bool, aire_min=AIRE_MIN):
+    b = clear_border(bin_bool)
+    b = remove_small_objects(b, min_size=aire_min)
+    b = binary_fill_holes(b)
+    b = closing(b, disk(2))
+    b = opening(b, disk(1))
+    return b
+
+def localiser_chiffres(bin_propre, aire_min=AIRE_MIN, aire_max=AIRE_MAX,
+                       filtrage_median=False):
+    img_lab = label(bin_propre)
+    props = regionprops(img_lab)
+    filtrees = [r for r in props if aire_min < r.area < aire_max]
+    if filtrage_median and len(filtrees) > NB_CHIFFRES_MAX:
+        aires = np.array([r.area for r in filtrees], dtype=float)
+        med = np.median(aires)
+        filtrees = [r for r in filtrees if 0.15*med < r.area < 5.0*med]
+        if len(filtrees) > NB_CHIFFRES_MAX:
+            filtrees = sorted(filtrees, key=lambda r: abs(r.area - med))[:NB_CHIFFRES_MAX]
+    filtrees.sort(key=lambda r: r.bbox[1])
+    return img_lab, filtrees
+\end{lstlisting}
+
+% ============================================================
+\section{Question 1 -- Espace de décision basé sur les surfaces des cavités}
+% ============================================================
+
+\subsection{Principe}
+
+L'idée est de caractériser chaque chiffre par les surfaces de ses cavités directionnelles. On dilate le masque binaire du chiffre dans les 4 directions (est, ouest, nord, sud) avec des éléments structurants rectangulaires. Ensuite, par des opérations logiques, on détecte les zones ``cavité'' dans chaque direction, plus une cavité centrale.
+
+Chaque chiffre est représenté par un vecteur de 5 attributs~: les surfaces des cavités normalisées par l'aire du chiffre.
+
+\subsection{Code}
+
+\begin{lstlisting}[style=python, caption={Calcul de l'espace de décision (cavités directionnelles).}]
+def dilater_4_directions(chiffre_bool):
+    V, H = chiffre_bool.shape
+    se_est = np.zeros((1, 2*H+1), dtype=bool); se_est[0, H:] = True
+    se_ouest = np.fliplr(se_est)
+    se_sud = np.zeros((2*V+1, 1), dtype=bool); se_sud[V:, 0] = True
+    se_nord = np.flipud(se_sud)
+    return {
+        'est': dilation(chiffre_bool, se_est),
+        'ouest': dilation(chiffre_bool, se_ouest),
+        'sud': dilation(chiffre_bool, se_sud),
+        'nord': dilation(chiffre_bool, se_nord),
+    }
+
+def detecter_cavites(chiffre_bool, dilat):
+    e, o, s, n = dilat['est'], dilat['ouest'], dilat['sud'], dilat['nord']
+    inv = ~chiffre_bool
+    return {
+        'centre': e & o & s & n & inv,
+        'est': e & ~o & s & n & inv,
+        'ouest': ~e & o & s & n & inv,
+        'nord': e & o & ~s & n & inv,
+        'sud': e & o & s & ~n & inv,
+    }
+
+def calculer_vecteur_attributs_base(chiffre_bool):
+    dilat = dilater_4_directions(chiffre_bool)
+    cavites = detecter_cavites(chiffre_bool, dilat)
+    aire_chiffre = max(1, np.sum(chiffre_bool))
+    noms = ['centre', 'est', 'ouest', 'nord', 'sud']
+    return np.array([np.sum(cavites[n]) / aire_chiffre for n in noms])
+\end{lstlisting}
+
+\subsection{Analyse}
+
+Le vecteur d'attributs est~:
+\[
+\mathbf{x} = \left(\frac{S_{\text{centre}}}{S_{\text{chiffre}}},\; \frac{S_{\text{est}}}{S_{\text{chiffre}}},\; \frac{S_{\text{ouest}}}{S_{\text{chiffre}}},\; \frac{S_{\text{nord}}}{S_{\text{chiffre}}},\; \frac{S_{\text{sud}}}{S_{\text{chiffre}}}\right) \in \mathbb{R}^5
+\]
+
+La normalisation par l'aire rend les attributs invariants à la taille. L'intuition est que chaque chiffre a un profil de cavités caractéristique~: le 0 a une grande cavité centre, le 1 n'en a presque pas, le 6 a une cavité sud dominante, etc.
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.7\textwidth]{q1_espace_decision.png}
+% \caption{Projection 2D de l'espace de décision (Cavité Centre vs Sud).}
+% \end{figure}
+
+% ============================================================
+\section{Question 2 -- Apprentissage}
+% ============================================================
+
+\subsection{Principe}
+
+La phase d'apprentissage parcourt les images du dossier d'entraînement (\texttt{Train\_set}), extrait les chiffres de chaque image, calcule leurs vecteurs d'attributs, et construit~:
+\begin{itemize}
+    \item La \textbf{matrice des features} $\mathbf{F} \in \mathbb{R}^{N \times 5}$ (un prototype par ligne)
+    \item Le \textbf{vecteur des classes} $\mathbf{y} \in \{0,...,9\}^N$ (étiquette de chaque prototype)
+    \item La \textbf{matrice des moyennes} $\mathbf{M} \in \mathbb{R}^{10 \times 5}$ (centroïde de chaque classe)
+\end{itemize}
+
+Les attributs sont ensuite normalisés par z-score~: $\hat{f}_{i,j} = (f_{i,j} - \mu_j) / \sigma_j$.
+
+\subsection{Code (extrait)}
+
+\begin{lstlisting}[style=python, caption={Fonction d'apprentissage (structure principale).}]
+def apprentissage(mode='base', verbose=True):
+    # Parcourt DOSSIER_TRAIN, extrait prototypes, calcule features
+    # Pour chaque image c_Nom.ext (c = classe 0-9) :
+    #   1. Binarise et pretraite l'image
+    #   2. Localise les chiffres (composantes connexes)
+    #   3. Calcule le vecteur d'attributs de chaque prototype
+    #   4. Stocke dans matrice_features et vecteur_classes
+    # Puis normalise par z-score et calcule les moyennes par classe
+    # Retourne matrice_features, vecteur_classes, matrice_moyennes, feat_mean, feat_std
+\end{lstlisting}
+
+\subsection{Résultats de l'exécution}
+
+\begin{lstlisting}[style=output, caption={Sortie de l'apprentissage (mode base).}]
+1470 prototypes charges, 5 attributs
+Temps d'apprentissage : 191229.7 ms
+
+Moyennes par classe (normalisees z-score) :
+  Classe 0: -0.33, -0.49, -0.41, -0.36, -0.45
+  Classe 1: +0.03, +0.62, -0.22, +0.63, +0.06
+  Classe 2: +0.25, -0.18, +0.19, -0.32, +0.99
+  Classe 3: -0.02, +0.56, -0.17, -0.17, +0.18
+  Classe 4: +0.60, -0.25, +0.57, -0.12, +0.18
+  Classe 5: -0.16, +0.30, +0.39, +0.08, +0.16
+  Classe 6: -0.27, -0.39, +0.28, -0.26, -0.35
+  Classe 7: +0.72, +0.01, +0.00, +0.76, -0.43
+  Classe 8: -0.46, -0.45, -0.43, -0.11, -0.40
+  Classe 9: -0.46, +0.24, -0.26, -0.19, -0.01
+\end{lstlisting}
+
+\subsection{Analyse}
+
+L'apprentissage a extrait \textbf{1470 prototypes} à partir des images d'entraînement. On observe dans les moyennes normalisées des profils distincts pour chaque classe~:
+\begin{itemize}
+    \item Le \textbf{7} se distingue par de fortes valeurs en cavité centre (+0.72) et nord (+0.76).
+    \item Le \textbf{2} a une cavité sud très élevée (+0.99), ce qui correspond à l'ouverture en bas.
+    \item Le \textbf{8} a des valeurs négatives partout (cavités fermées de tous les côtés).
+    \item Le \textbf{0} est similaire au 8, ce qui laisse présager des confusions.
+\end{itemize}
+
+% ============================================================
+\section{Question 3 -- Classification par plus proche voisin (k-NN)}
+% ============================================================
+
+\subsection{Principe}
+
+Le classifieur k-NN ($k=3$) assigne à un chiffre inconnu la classe majoritaire parmi ses 3 plus proches voisins dans l'espace de décision, en utilisant la distance euclidienne.
+
+\subsection{Code}
+
+\begin{lstlisting}[style=python, caption={Classifieur k-NN.}]
+def classer_knn(vecteur, matrice_features, vecteur_classes, k=3):
+    distances = np.linalg.norm(matrice_features - vecteur, axis=1)
+    k_eff = min(k, len(distances))
+    idx_k = np.argpartition(distances, k_eff)[:k_eff]
+    classes_k = vecteur_classes[idx_k].astype(int)
+    votes = np.bincount(classes_k, minlength=10)
+    classe = int(np.argmax(votes))
+    return classe, float(np.mean(distances[idx_k]))
+\end{lstlisting}
+
+\subsection{Analyse}
+
+L'algorithme est simple~: on calcule toutes les distances entre le chiffre à classer et les 1470 prototypes, on prend les $k=3$ plus proches, et on fait un vote majoritaire. Le choix de $k=3$ (plutôt que $k=1$) rend le classifieur un peu plus robuste aux prototypes bruités.
+
+% ============================================================
+\section{Question 4 -- Validation du k-NN sur la base de test}
+% ============================================================
+
+\subsection{Résultats}
+
+J'ai appliqué le classifieur k-NN sur les 29 images de la base de test. Voici quelques exemples~:
+
+\begin{lstlisting}[style=output, caption={Exemples de résultats k-NN.}]
+57213_Anifath_BAKARY -> predit: 57213 (CORRECT)
+84532_Fred_BIAOU    -> predit: 84532 (CORRECT)
+14059_Patrick_ZOCLI -> predit: 17053 (attendu: 14059)
+19235_HINSON_Marcus -> predit: 10215 (attendu: 19235)
+68606_AHOKPOSSI     -> predit: 68006 (attendu: 68606)
+58317_Igor_TANGNI   -> predit: 57317 (attendu: 58317)
+\end{lstlisting}
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.7\textwidth]{q4_knn_exemple.png}
+% \caption{Exemple de reconnaissance k-NN sur une image de test.}
+% \end{figure}
+
+\subsection{Conclusion}
+
+Le k-NN arrive à reconnaître correctement certains codes (57213, 84532), mais fait des erreurs sur beaucoup d'autres. Les confusions typiques sont entre chiffres visuellement proches (6$\to$0, 4$\to$0, 8$\to$3). L'accuracy globale est de \textbf{40.0\% par chiffre} et \textbf{6.9\% par code complet} (seulement 2 codes sur 29 parfaitement reconnus).
+
+C'est assez faible, ce qui montre que 5 attributs de cavité ne suffisent pas toujours.
+
+% ============================================================
+\section{Question 5 -- Classification par plus proche moyenne}
+% ============================================================
+
+\subsection{Principe}
+
+Au lieu de comparer à tous les prototypes, on compare directement au centroïde (moyenne) de chaque classe~:
+\[
+\hat{c} = \arg\min_{c \in \{0,...,9\}} \|\mathbf{x} - \mathbf{m}_c\|_2
+\]
+
+C'est beaucoup plus rapide (10 distances au lieu de 1470) mais moins précis.
+
+\subsection{Code}
+
+\begin{lstlisting}[style=python, caption={Classifieur par plus proche moyenne.}]
+def classer_moyenne(vecteur, matrice_moyennes):
+    distances = np.linalg.norm(matrice_moyennes - vecteur, axis=1)
+    idx_min = np.argmin(distances)
+    return int(idx_min), float(distances[idx_min])
+\end{lstlisting}
+
+% ============================================================
+\section{Question 6 -- Validation et comparaison k-NN vs Moyenne}
+% ============================================================
+
+\subsection{Résultats}
+
+\begin{lstlisting}[style=output, caption={Comparaison k-NN et Moyenne.}]
+k-NN et Moyenne ne sont d'accord que sur 1 image (14927: 1492/1492)
+Le k-NN est globalement meilleur
+\end{lstlisting}
+
+\begin{table}[H]
+\centering
+\caption{Comparaison des performances k-NN vs Moyenne.}
+\label{tab:comp_knn_moy}
+\begin{tabular}{l|c|c}
+\toprule
+\textbf{Méthode} & \textbf{Acc. chiffre} & \textbf{Acc. code complet} \\
+\midrule
+k-NN (base, $k=3$) & 40.0\% (54/135) & 6.9\% (2/29) \\
+Moyenne (base) & 27.4\% (37/135) & 0.0\% (0/29) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Analyse}
+
+La méthode par moyenne est nettement moins bonne~: 27.4\% contre 40.0\% par chiffre, et aucun code complet correct. Les deux méthodes ne sont d'accord que sur une seule image (14927). Le problème de la moyenne, c'est qu'elle suppose que les classes forment des clusters sphériques autour de leur centroïde, ce qui n'est pas le cas dans la réalité~: les chiffres manuscrits ont des distributions très variées.
+
+Le k-NN, en gardant tous les prototypes en mémoire, capture mieux cette variabilité.
+
+% ============================================================
+\section{Question 7 -- Attributs enrichis (regionprops invariants)}
+% ============================================================
+
+\subsection{Principe}
+
+Pour améliorer la classification, j'ajoute 5 attributs issus de \texttt{regionprops}, tous invariants à l'échelle~:
+\begin{enumerate}
+    \item Excentricité (0 = cercle, 1 = segment)
+    \item Solidité (aire / aire convexe)
+    \item Rapport d'aspect (axe mineur / axe majeur)
+    \item Rondeur ($4\pi A / P^2$)
+    \item Nombre d'Euler normalisé (proxy du nombre de trous)
+\end{enumerate}
+
+On passe ainsi de 5 à 10 attributs.
+
+\subsection{Code}
+
+\begin{lstlisting}[style=python, caption={Calcul des attributs enrichis.}]
+def calculer_vecteur_attributs_enrichi(chiffre_bool, prop=None):
+    vect_base = calculer_vecteur_attributs_base(chiffre_bool)
+    if prop is None:
+        lbl = label(chiffre_bool)
+        prop = max(regionprops(lbl), key=lambda r: r.area, default=None)
+    if prop is None:
+        return np.concatenate([vect_base, np.zeros(5)])
+    aire = max(prop.area, 1)
+    perim = max(prop.perimeter, 1)
+    excentr = prop.eccentricity
+    solidite = prop.solidity
+    rapport_aspect = prop.minor_axis_length / prop.major_axis_length \
+                     if prop.major_axis_length > 0 else 0.0
+    rondeur = (4 * np.pi * aire) / (perim ** 2)
+    euler = prop.euler_number
+    euler_n = np.clip(-euler / 3.0, 0, 1)
+    return np.concatenate([vect_base,
+        np.array([excentr, solidite, rapport_aspect, rondeur, euler_n])])
+\end{lstlisting}
+
+\subsection{Résultats}
+
+Avec les attributs enrichis, certaines images sont mieux classées~:
+
+\begin{lstlisting}[style=output, caption={Améliorations avec les attributs enrichis.}]
+68606_AHOKPOSSI     -> 68606 (CORRECT avec enrichi, etait 68006 en base)
+85027_Nadegde_SALAKO -> 85027 (CORRECT avec enrichi, etait 83017 en base)
+\end{lstlisting}
+
+\subsection{Analyse}
+
+L'ajout de l'excentricité, solidité, rapport d'aspect, rondeur et nombre d'Euler aide à mieux distinguer certaines paires de chiffres~:
+\begin{itemize}
+    \item 0 vs 8~: le nombre d'Euler différencie (1 trou vs 2 trous)
+    \item 1 vs 7~: excentricité et rapport d'aspect différents
+    \item 6 vs 0~: la solidité est différente
+\end{itemize}
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.6\textwidth]{q7_espace_enrichi.png}
+% \caption{Espace de décision enrichi (Excentricité vs Solidité).}
+% \end{figure}
+
+% ============================================================
+\section{Question 8 -- Recalage en rotation}
+% ============================================================
+
+\subsection{Principe}
+
+Si le code postal est écrit en biais, les chiffres ne sont pas bien segmentés. L'idée est de détecter l'angle d'inclinaison à partir de l'alignement des centroïdes des chiffres, puis de corriger en pivotant l'image.
+
+\subsection{Code}
+
+\begin{lstlisting}[style=python, caption={Recalage en rotation par ACP sur les centroïdes.}]
+# Dans traiter_image_code(), si recalage_rotation=True :
+centres = np.array([[p.centroid[1], p.centroid[0]] for p in props_tmp])
+if len(centres) >= 2:
+    cov = np.cov(centres.T)
+    vals, vecs = np.linalg.eigh(cov)
+    v = vecs[:, np.argmax(vals)]
+    angle_deg = np.degrees(np.arctan2(v[1], v[0]))
+    if abs(angle_deg) > ANGLE_ROT_MAX:
+        angle_deg = 0.0
+    if abs(angle_deg) > 1.0:
+        img_gris = ndrotate(img_gris, angle_deg, reshape=False,
+                            order=1, mode='nearest').astype(np.uint8)
+\end{lstlisting}
+
+\subsection{Résultats}
+
+\begin{lstlisting}[style=output, caption={Résultats avec recalage en rotation.}]
+k-NN + Rotation : Acc. chiffre = 40.0% (54/135), Acc. code = 6.9% (2/29)
+(memes resultats que sans rotation sur cette base de test)
+\end{lstlisting}
+
+\subsection{Analyse}
+
+Sur notre base de test, le recalage en rotation n'améliore pas les résultats. Cela s'explique par le fait que les images de test ne présentent pas d'inclinaison significative (la plupart sont déjà bien alignées). L'angle est plafonné à $\pm10°$ pour éviter les corrections aberrantes. Cette méthode serait plus utile sur des images où l'écriture est clairement inclinée.
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.7\textwidth]{q8_rotation_exemple.png}
+% \caption{Exemple de recalage en rotation.}
+% \end{figure}
+
+% ============================================================
+\section{Question 9 -- Séparation des chiffres qui se touchent}
+% ============================================================
+
+\subsection{Principe}
+
+Quand deux chiffres se touchent, ils forment une seule composante connexe trop large. On détecte ces cas par le rapport largeur/hauteur ($> 1.8$), puis on coupe au point où la projection horizontale est minimale.
+
+\subsection{Code}
+
+\begin{lstlisting}[style=python, caption={Séparation des chiffres en contact.}]
+def separer_chiffres_touches(bin_propre):
+    img_lab, props = localiser_chiffres(bin_propre)
+    bin_result = bin_propre.copy()
+    for prop in props:
+        minr, minc, maxr, maxc = prop.bbox
+        h, w = maxr - minr, maxc - minc
+        if h == 0: continue
+        ratio = w / h
+        if ratio > RATIO_CONTACT:
+            proj_h = bin_result[minr:maxr, minc:maxc].sum(axis=0)
+            demi = w // 4
+            plage = proj_h[demi: w - demi]
+            if len(plage) > 0:
+                col_coupe = demi + int(np.argmin(plage))
+                c_abs = minc + col_coupe
+                bin_result[minr:maxr, max(minc,c_abs-1):min(maxc,c_abs+2)] = False
+    return bin_result
+\end{lstlisting}
+
+\subsection{Résultats}
+
+\begin{lstlisting}[style=output, caption={Résultats avec séparation des chiffres.}]
+k-NN + Separation : Acc. chiffre = 40.7% (55/135), Acc. code = 6.9% (2/29)
+(legere amelioration : +1 chiffre correct par rapport au k-NN base)
+\end{lstlisting}
+
+\subsection{Analyse}
+
+La séparation améliore très légèrement les résultats (+0.7\% en accuracy chiffre). L'effet est limité car peu d'images de test contiennent des chiffres qui se touchent. Quand c'est le cas, la méthode par projection horizontale fonctionne bien pour les cas simples (deux chiffres côte à côte).
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.7\textwidth]{q9_separation_exemple.png}
+% \caption{Exemple de séparation de chiffres en contact.}
+% \end{figure}
+
+% ============================================================
+\section{Résultats complets}
+% ============================================================
+
+\subsection{Tableau récapitulatif des 29 images}
+
+Le tableau suivant montre les prédictions de chaque méthode sur toute la base de test. Les colonnes sont~: k-NN base, Moyenne base, k-NN + Rotation, k-NN + Séparation.
+
+\begin{longtable}{l|c|c|c|c|c}
+\caption{Résultats complets sur les 29 images de test.} \label{tab:complet} \\
+\toprule
+\textbf{Image} & \textbf{Attendu} & \textbf{k-NN} & \textbf{Moy.} & \textbf{+Rot.} & \textbf{+Sep.} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Image} & \textbf{Attendu} & \textbf{k-NN} & \textbf{Moy.} & \textbf{+Rot.} & \textbf{+Sep.} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+14059\_Patrick\_ZOCLI & 14059 & 17053 & 30019 & 17053 & 17053 \\
+14927\_ASSOUMA\_AbdouMalick & 14927 & 1492 & 1492 & 1492 & 1492 \\
+19235\_HINSON\_Marcus & 19235 & 10215 & 79217 & 10215 & 10215 \\
+23012\_RUB & 23012 & 31031 & 39812 & 31031 & 31031 \\
+23581\_VIOU\_Nathanael & 23581 & 29131 & 48090 & 29131 & 29131 \\
+30783\_Junior\_AZONNOUDO & 30783 & 5078 & 3078 & 5078 & 5078 \\
+32014\_Ekpaliguidime & 32014 & 13201 & 83401 & 13201 & 13201 \\
+36157\_ATTANASSO\_Emmanuel & 36157 & 154565 & 000065 & 154565 & 154565 \\
+36789\_Yvans\_KANFON & 36789 & 324041 & 008800 & 324041 & 904384 \\
+42175\_Bruno\_ADEN\_HOUESSOU & 42175 & 449195 & 060280 & 449195 & 424998 \\
+52341\_HODE\_Ariane & 52341 & 584279 & 084477 & 584279 & 584279 \\
+52479\_MVOGO\_Samira & 52479 & 45150 & 64759 & 45150 & 45150 \\
+52479\_TELLA\_Rébécca & 52479 & 5247 & 5227 & 5247 & 5247 \\
+52817\_MANINDJI\_Tores & 52817 & 662631 & 060820 & 662631 & 662631 \\
+56321\_DEGBE\_Lionel & 56321 & 55920 & 78929 & 55920 & 55920 \\
+56497\_DOSSA\_Foedéris & 56497 & 58 & 78 & 58 & 58 \\
+57213\_Anifath\_BAKARY & 57213 & 57213 & 97039 & 57213 & 57213 \\
+58317\_Igor\_TANGNI & 58317 & 57317 & 54117 & 57317 & 57317 \\
+63459\_ANATO\_Kodjo\_Freddy & 63459 & 030840 & 130853 & 030840 & 030840 \\
+68606\_AHOKPOSSI & 68606 & 68006 & 08080 & 68006 & 68006 \\
+78145\_OGA\_PRECIEUX & 78145 & 267015 & 878884 & 267015 & 267015 \\
+79140\_Camus\_TOGBE & 79140 & 91 & 80 & 91 & 91 \\
+82570\_laurence\_agbessi & 82570 & 01152 & 00096 & 01152 & 081523 \\
+84532\_Fred\_BIAOU & 84532 & 84532 & 82132 & 84532 & 84532 \\
+85027\_Nadegde\_SALAKO & 85027 & 83017 & 83020 & 83017 & 83017 \\
+85913\_Samuel\_AKABASSI & 85913 & 370144 & 066006 & 370144 & 370144 \\
+8639\_Arielle-GOUDJETO & 8639 & 860973 & 860383 & 860973 & 860973 \\
+96437\_Landry\_IDANI & 96437 & 521914 & 741243 & 521914 & 929147 \\
+98510\_ANATO\_Merveille & 98510 & 19930 & 36517 & 19930 & 19930 \\
+\end{longtable}
+
+\subsection{Métriques de performance}
+
+\begin{table}[H]
+\centering
+\caption{Métriques finales des quatre méthodes.}
+\label{tab:metriques}
+\begin{tabular}{l|c|c}
+\toprule
+\textbf{Méthode} & \textbf{Acc. par chiffre} & \textbf{Acc. par code complet} \\
+\midrule
+k-NN (base, $k=3$) & 40.0\% (54/135) & 6.9\% (2/29) \\
+Moyenne (base) & 27.4\% (37/135) & 0.0\% (0/29) \\
+k-NN + Rotation & 40.0\% (54/135) & 6.9\% (2/29) \\
+k-NN + Séparation & 40.7\% (55/135) & 6.9\% (2/29) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Matrice de confusion (k-NN base)}
+
+Voici la matrice de confusion du k-NN base (lignes = classe réelle, colonnes = classe prédite)~:
+
+\begin{table}[H]
+\centering
+\caption{Matrice de confusion du classifieur k-NN base.}
+\label{tab:confusion}
+\small
+\begin{tabular}{c|cccccccccc}
+\toprule
+& \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} \\
+\midrule
+\textbf{0} & \textbf{6} & 0 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\textbf{1} & 2 & \textbf{7} & 0 & 2 & 1 & 0 & 1 & 2 & 0 & 1 \\
+\textbf{2} & 0 & 3 & \textbf{7} & 2 & 1 & 1 & 1 & 0 & 1 & 0 \\
+\textbf{3} & 1 & 4 & 0 & \textbf{5} & 2 & 1 & 0 & 0 & 0 & 3 \\
+\textbf{4} & 2 & 3 & 1 & 0 & \textbf{4} & 0 & 0 & 1 & 0 & 0 \\
+\textbf{5} & 0 & 3 & 0 & 1 & 1 & \textbf{10} & 1 & 1 & 1 & 2 \\
+\textbf{6} & 2 & 0 & 2 & 0 & 0 & 2 & \textbf{3} & 0 & 1 & 0 \\
+\textbf{7} & 0 & 2 & 1 & 1 & 1 & 2 & 1 & \textbf{5} & 0 & 1 \\
+\textbf{8} & 2 & 0 & 1 & 2 & 0 & 0 & 1 & 1 & \textbf{5} & 1 \\
+\textbf{9} & 3 & 2 & 0 & 1 & 2 & 1 & 0 & 0 & 0 & \textbf{2} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+On observe que~:
+\begin{itemize}
+    \item Le \textbf{5} est le mieux reconnu (10 corrects), probablement grâce à son profil de cavités distinctif.
+    \item Le \textbf{9} est le plus confondu (seulement 2 corrects), souvent classé comme 0 ou 1.
+    \item Le \textbf{3} est fréquemment confondu avec le 1 (4 fois) et le 9 (3 fois).
+    \item La confusion 1$\leftrightarrow$3 et 0$\leftrightarrow$6 est logique vu la proximité des profils de cavités.
+\end{itemize}
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.5\textwidth]{confusion_knn_base.png}
+% \caption{Matrice de confusion k-NN base (visualisation).}
+% \end{figure}
+
+% ============================================================
+\section{Conclusion}
+% ============================================================
+
+Ce TP m'a permis d'implémenter un pipeline complet de reconnaissance de chiffres manuscrits. Voici ce que j'en retiens~:
+
+\begin{enumerate}
+    \item Les \textbf{5 attributs de cavité} sont une idée intéressante mais insuffisante~: 40\% d'accuracy par chiffre, c'est faible.
+    \item Le \textbf{k-NN} est meilleur que la moyenne (+12.6 points), car il capture mieux la variabilité intra-classe.
+    \item Les \textbf{attributs enrichis} (Q7) améliorent certains cas spécifiques.
+    \item Le \textbf{recalage en rotation} (Q8) n'a pas d'effet sur notre base de test (images déjà bien orientées).
+    \item La \textbf{séparation des chiffres} (Q9) apporte un gain marginal (+0.7\%).
+\end{enumerate}
+
+Les principales difficultés rencontrées sont~:
+\begin{itemize}
+    \item La segmentation parfois mauvaise (trop ou pas assez de chiffres détectés)
+    \item La grande variabilité de l'écriture manuscrite
+    \item Le faible nombre d'attributs par rapport à la complexité du problème
+\end{itemize}
+
+Pour améliorer significativement les résultats, il faudrait probablement passer à des méthodes plus puissantes~: descripteurs de Fourier, moments de Hu, ou directement un CNN.
+
+\end{document}

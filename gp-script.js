@@ -56,9 +56,15 @@ let currentIndex = 0;
 let answers = [];
 let validated = new Set();
 
+function isMulti(item) {
+  return Array.isArray(item.correct);
+}
+
 function initQuiz() {
   currentIndex = 0;
-  answers = Array(quiz.items.length).fill(null);
+  answers = quiz.items.map((item) =>
+    isMulti(item) ? new Set() : null
+  );
   validated = new Set();
   resultEl.classList.add("hidden");
   quizCard.style.display = "";
@@ -67,9 +73,26 @@ function initQuiz() {
   render();
 }
 
+function isAnswered(idx) {
+  const item = quiz.items[idx];
+  if (isMulti(item)) return answers[idx] instanceof Set && answers[idx].size > 0;
+  return answers[idx] !== null;
+}
+
+function isCorrectAt(idx) {
+  const item = quiz.items[idx];
+  if (isMulti(item)) {
+    const userSet = answers[idx];
+    if (!(userSet instanceof Set) || userSet.size !== item.correct.length) return false;
+    return item.correct.every((c) => userSet.has(c));
+  }
+  return answers[idx] === item.correct;
+}
+
 function render() {
   const item = quiz.items[currentIndex];
   const total = quiz.items.length;
+  const multi = isMulti(item);
 
   quizCategoryEl.textContent = item.part;
   quizCounterEl.textContent = `Question ${currentIndex + 1} / ${total}`;
@@ -80,39 +103,80 @@ function render() {
   progressText.textContent = pct + "%";
 
   answersEl.innerHTML = "";
+
+  if (multi && item.correct.length > 1 && !validated.has(currentIndex)) {
+    const hint = document.createElement("div");
+    hint.className = "quiz-card__hint";
+    hint.textContent = `\u2139 ${item.correct.length} r\u00e9ponses attendues`;
+    answersEl.appendChild(hint);
+  }
+
   item.options.forEach((opt, idx) => {
     const label = document.createElement("label");
     label.className = "answer-option";
-    if (answers[currentIndex] === idx) label.classList.add("selected");
-    if (validated.has(currentIndex)) {
-      if (idx === item.correct) label.classList.add("correct");
-      else if (answers[currentIndex] === idx) label.classList.add("wrong");
+
+    if (multi) {
+      const userSet = answers[currentIndex];
+      if (userSet.has(idx)) label.classList.add("selected");
+      if (validated.has(currentIndex)) {
+        if (item.correct.includes(idx)) label.classList.add("correct");
+        else if (userSet.has(idx)) label.classList.add("wrong");
+      }
+      label.innerHTML = `
+        <input type="checkbox" name="answer" value="${idx}" ${userSet.has(idx) ? "checked" : ""} ${validated.has(currentIndex) ? "disabled" : ""}>
+        <span class="answer-option__check"></span>
+        <span class="answer-option__text">${opt}</span>
+      `;
+    } else {
+      if (answers[currentIndex] === idx) label.classList.add("selected");
+      if (validated.has(currentIndex)) {
+        if (idx === item.correct) label.classList.add("correct");
+        else if (answers[currentIndex] === idx) label.classList.add("wrong");
+      }
+      label.innerHTML = `
+        <input type="radio" name="answer" value="${idx}" ${answers[currentIndex] === idx ? "checked" : ""} ${validated.has(currentIndex) ? "disabled" : ""}>
+        <span class="answer-option__radio"></span>
+        <span class="answer-option__text">${opt}</span>
+      `;
     }
-    label.innerHTML = `
-      <input type="radio" name="answer" value="${idx}" ${answers[currentIndex] === idx ? "checked" : ""} ${validated.has(currentIndex) ? "disabled" : ""}>
-      <span class="answer-option__radio"></span>
-      <span class="answer-option__text">${opt}</span>
-    `;
+
     answersEl.appendChild(label);
   });
 
-  answersEl.querySelectorAll("input").forEach((input) => {
-    input.addEventListener("change", () => {
-      answers[currentIndex] = parseInt(input.value, 10);
-      render();
+  if (multi) {
+    answersEl.querySelectorAll('input[type="checkbox"]').forEach((input) => {
+      input.addEventListener("change", () => {
+        const val = parseInt(input.value, 10);
+        const userSet = answers[currentIndex];
+        if (input.checked) userSet.add(val);
+        else userSet.delete(val);
+        render();
+      });
     });
-  });
+  } else {
+    answersEl.querySelectorAll('input[type="radio"]').forEach((input) => {
+      input.addEventListener("change", () => {
+        answers[currentIndex] = parseInt(input.value, 10);
+        render();
+      });
+    });
+  }
 
   prevBtn.disabled = currentIndex === 0;
   nextBtn.disabled = currentIndex === total - 1;
   validateBtn.disabled = validated.has(currentIndex);
 
   if (validated.has(currentIndex)) {
-    const ok = answers[currentIndex] === item.correct;
+    const ok = isCorrectAt(currentIndex);
     feedbackEl.className = "quiz-card__feedback visible " + (ok ? "success" : "error");
-    feedbackEl.textContent = ok
-      ? "\u2714 Correct !"
-      : `\u2718 Incorrect. R\u00e9ponse : ${item.options[item.correct]}`;
+    if (ok) {
+      feedbackEl.textContent = "\u2714 Correct !";
+    } else if (multi) {
+      const correctTexts = item.correct.map((c) => item.options[c]);
+      feedbackEl.textContent = `\u2718 Incorrect. R\u00e9ponses : ${correctTexts.join(" \u2014 ")}`;
+    } else {
+      feedbackEl.textContent = `\u2718 Incorrect. R\u00e9ponse : ${item.options[item.correct]}`;
+    }
   } else {
     feedbackEl.className = "quiz-card__feedback";
     feedbackEl.textContent = "";
@@ -120,7 +184,7 @@ function render() {
 }
 
 function validateCurrent() {
-  if (answers[currentIndex] === null) {
+  if (!isAnswered(currentIndex)) {
     feedbackEl.className = "quiz-card__feedback visible warning";
     feedbackEl.textContent = "\u26a0 S\u00e9lectionne une r\u00e9ponse avant de valider.";
     return;
@@ -134,8 +198,8 @@ function validateCurrent() {
 
 function showResult() {
   let score = 0;
-  quiz.items.forEach((item, idx) => {
-    if (answers[idx] === item.correct) score++;
+  quiz.items.forEach((_, idx) => {
+    if (isCorrectAt(idx)) score++;
   });
   const pct = Math.round((score / quiz.items.length) * 100);
   let icon, title;
