@@ -735,6 +735,28 @@ body.menu-open {
 }
 
 /* ===== RESPONSIVE ===== */
+@media (max-width: 1120px) and (min-width: 769px) {
+  .navbar {
+    padding: 0.9rem 1rem;
+  }
+
+  .navbar__brand {
+    font-size: 0.95rem;
+  }
+
+  .navbar__links {
+    gap: 0.55rem;
+  }
+
+  .navbar__links a {
+    font-size: 0.82rem;
+  }
+
+  .navbar__links a.nav-link--page {
+    padding: 0.3rem 0.55rem;
+  }
+}
+
 @media (max-width: 768px) {
   .navbar__toggle {
     display: flex;

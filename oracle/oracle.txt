@@ -1,0 +1,534 @@
+EXAMEN FINAL BASE DE DONNEES ORACLE (Durée : 02h30) – МАI 2025
+EXERCIСЕ1
+(Pour Chacune des questions ci-dessous, choisissez la Bonne Réponse)
+1-Vous venez d'être embauché en tant que DBA pour une grande entreprise. Quelles sont les définitions de
+poste précises d'DBA Oracle ?
+A-Installer et configurer le logiciel Oracle 11g.
+B-Mettre en œuvre la stratégie de sauvegarde et de restauration de la base de données.
+C-Créer les utilisateurs et leur donner les privilèges.
+D-Tout de ce qui précède peut avoir été inclus sur la description du poste DBА.
+2- Quel est l'utilité d'un Tablespace?
+A- Pour organiser les tables et index dans des groupes définis.
+B- S'assurer que les données enregistrées dans les Tablespaces ne changent pas.
+C- Pouvoir transférer des données d'un Tablespace à un autre.
+D- Toutes les réponses.
+3-Lesquels des composants suivants fait partie de l'architecture Oracle ?
+A- Processus d'arrière-plan liés à la base de données
+C- Datafiles
+B-Tablespaces
+D-Toutes les réponses sont bonnes
+4. Une collection d'informations stockées dans une base de données à un moment donné est appelée
+?
+A- Instance du base de donnée
+C- Structure de donnéel
+B- Objets dans la base de donnée
+D- Schéma de base de donnée
+5. Un est un ensemble de tables physiquement stockées ensemble sous la forme d'une table qui
+partagent une colonne commune?
+A- Index
+C- Datafiles
+B- Objet
+D-Cluster
+6.Un
+A-Database
+C- Datafiles
+est utilisé pour regrouper des données de manière logique?
+B-Tablespace
+D- Object
+Page
+7. Quelle ligne suivants produira une erreur?
+A- SELECT * FROM personne WHERE personne_id=1;
+B- SELECT nom FROM personne;
+C- SELECT nom, prenom, personne_id FROM personne;
+D- Aucun de ces réponses
+8. Qu'est-ce qu'un SGBD?
+A- Collection de nombreux programmes pour accéder aux données
+B- Collection de données interconnectées
+C- Collection de commandes
+D- Aucune de ces réponses
+9.Sélectionnez les avantages d'une vue.
+A- Colonnes dérivées
+C- Masquage des requêtes complexes
+B- Sécurité des données
+D-Toutes les réponses sont vraies
+10.Lequel des énoncés suivants n'est pas un type de données de caractère qui peut être utilisé dans une
+définition de colonne de table ?
+A- Char
+C- Nvarchar2
+B- Varchar
+D- String
+11.Quelle est l'utilisation du «< Library cache » dans Oracle?
+A- Contient des informations sur l'utilisateur, telles que des privilèges d'utilisateur
+B- Utilisé pour stocker le shared SQL
+C- Contient les modifications apportées à la base de données
+D- Toutes les réponses sont vrais
+12.Quel processus est une instance d'Oracle?
+A- Processus d'arrière-plan(Background processes)
+B- Processus de mémoire (Memory processes)
+C- Processus de données (Data processes)
+D-Toutes les réponses sont vrais
+Page
+EXERCICE2
+Soit la base de données dont le schéma relationnel est donné ci-dessous.
+Facility (facNo, facName)
+Customer (custNo, custName, custContact, custPhone, custAddress, custCity, custState, custZip)
+EventRequest (eventNo, facNo#, custNo#, dateHeld, dateReq, dateAuth, status, estCost, estAudience)
+1. Écrire une procédure stockée de nom custProfile qui affiche toutes les caractéristiques du client dont le
+numéro (custNo) est passé en paramètre de la procédure.
+2: Ajouter à la procédure custProfile un traitement d'exception au cas où le numéro de client n'existe pas dans
+la table Customer. Ne pas réécrire toute la procédure, indiquer par des numéros dans la réponse à la
+question 1 les endroits où il faut insérer du code et écrire le code correspondant à part en l'associant aux
+numéros.
+3. Écrire un bloc PL/SQL anonyme permettant d'afficher les informations-(eventNo, facName, custName,
+estCost, status) triées par coût estimé (estCost) décroissant.
+4
+le
+Écrire un déclencheur de nom eventCheck permettant de vérifier que, pour chaque nouvelle demande
+(EventRequest) ou modification de demande, la date d'autorisation dateAuth est renseignée. Si ce n'est pas
+cas, interrompre l'exécution avec le message « Erreur d'autorisation ». Sinon, vérifier que la date
+d'autorisation dateAuth est supérieure ou égale à la date de demande dateReq et que la date tenue dateHeld
+est supérieure ou égale à la date d'autorisation dateAuth. Si ce n'est pas le cas, interrompre l'exécution avec
+le message « Erreur de date ».
+5. Écrire un bloc PL/SQL anonyme permettant de créer, pour chaque établissement (Facilíty), une vue de nor
+facilityNom_de l'établissement et de schéma (eventNo, status, estCost, estAudience). Attention: les noms
+d'établissements (facName) peuvent contenir des espaces !
+EXERCIСЕЗ
+Soit la base de données suivante (simplifiée) de gestion de la mémoire d'un ordinateur:
+DISQUE (CodeDisque, nom,capacité, vitesse, fabricant)
+PARTITION (NumPartition, nomPartition, taille, # CodeDisque)
+Écrivez en PL/SQL le déclencheur (trigger) qui lors de l'insertion d'une nouvelle ligne dans la
+Table PARTITION vérifie que la taille totale des partitions sur le disque concerné (y compris la
+partition qui est en cours d'être ajoutée) ne dépasse pas la capacité du disque.
+Si tel n'est pas le cas, l'enregistrement de la nouvelle cage ne doit pas être fait et un message
+doit être affiché pour indiquer cette anomalie
+Page
+EXERCICE4
+Soit la table de schéma ETIQUETTES (Et1, Et2), ne contenant aucun enregistrement.
+Donner le contenu de cette table à l'issue de la séquence de commandes SQL*Plus suivante :
+INSERT INTO ETIQUETTES VALUES ('A', ‘A');
+INSERT INTO ETIQUETTES VALUES ('A', 'В');
+INSERT INTO ETIQUETTES VALUES ('A', 'C');
+INSERT INTO ETIQUETTES VALUES ('B', 'A');
+INSERT INTO ETIQUETTES VALUES ('B', 'В');
+ROLLBAСК;
+INSERT INTO ETIQUETTES VALUES ('B', 'C');
+COMMIT;
+UPDATE ETIQUETTES SET Et2='Z' WHERE Et1='B';
+INSERT INTO ETIQUETTES VALUES ('B', 'В');
+COMMIT;
+INSERT INTO ETIQUETTES VALUES ('C', 'A');
+INSERT INTO ETIQUETTES VALUES ('C', 'B');
+INSERT INTO ETIQUETTES VALUES ('C', 'C');
+DELETE FROM ETIQUETTES;
+ROLLBAСК;
+UPDATE ETIQUETTES SET Et1='Z';
+UPDATE ETIQUETTES SET Et1='B' where Et2='B';
+UPDATE ETIQUETTES SET Et1='C' where Et2='C';
+UPDATE ETIQUETTES SET Et2='B' where Et1='A';
+COMMIT;
+
+Voici une série d'exercices PL/SQL pour vos revisions
+
+## Schéma de base
+
+Considérons les tables suivantes :
+
+
+CREATE TABLE Departement (
+    id_dept NUMBER PRIMARY KEY,
+    nom_dept VARCHAR2(50)
+);
+
+CREATE TABLE Employe (
+    id_emp NUMBER PRIMARY KEY,
+    nom VARCHAR2(50),
+    salaire NUMBER(10,2),
+    date_embauche DATE,
+    id_dept NUMBER,
+    CONSTRAINT fk_dept FOREIGN KEY (id_dept)
+        REFERENCES Departement(id_dept)
+);
+
+CREATE TABLE Historique_Salaire (
+    id_hist NUMBER PRIMARY KEY,
+    id_emp NUMBER,
+    ancien_salaire NUMBER(10,2),
+    nouveau_salaire NUMBER(10,2),
+    date_modification DATE
+);
+
+
+Partie 1 : Procédures
+
+Exercice 1 : Augmentation de salaire
+
+Créer une procédure qui :
+
+* reçoit l'identifiant d'un employé et un pourcentage ;
+* augmente son salaire du pourcentage indiqué.
+
+Exercice 2 : Prime départementale
+
+Créer une procédure qui :
+
+* reçoit un département ;
+* augmente de 5 % le salaire de tous les employés du département.
+
+Exercice 3 : Embauche d'un employé
+
+Créer une procédure permettant :
+
+* d'ajouter un nouvel employé ;
+* de vérifier que le département existe avant l'insertion.
+
+En cas d'erreur, lever une exception personnalisée.
+
+Exercice 4 : Rapport départemental
+
+Créer une procédure qui affiche :
+
+* le nombre d'employés ;
+* le salaire moyen ;
+* le salaire maximum ;
+
+pour un département donné.
+
+Utiliser `DBMS_OUTPUT.PUT_LINE`.
+
+Partie 2 : Fonctions
+
+Exercice 5 : Salaire annuel
+
+Créer une fonction qui retourne le Salaire annuel d un employe donne en parametre:
+
+Salaire annuel = salaire mensuel × 12
+
+Exercice 6 : Ancienneté
+
+Créer une fonction qui retourne :
+
+* le nombre d'années d'ancienneté d'un employé.
+
+ Exercice 7 : Classification salariale
+
+Créer une fonction retournant :
+
+| Salaire   | Catégorie |
+| --------- | --------- |
+| < 1000    | Junior    |
+| 1000-3000 | Confirmé  |
+| > 3000    | Senior    |
+
+
+Exercice 8 : Masse salariale
+
+Créer une fonction retournant :
+
+la masse salariale totale d'un département.
+
+
+Partie 3 : Triggers
+
+Exercice 9 : Historisation des salaires
+
+Créer un trigger qui :
+
+* s'exécute avant toute modification de salaire ;
+* enregistre automatiquement les changements dans `Historique_Salaire`.
+
+Exercice 10 : Contrôle du salaire
+
+Créer un trigger empêchant :
+
+* l'insertion ou la mise à jour d'un salaire négatif.
+
+
+Exercice 11 : Date d'embauche automatique
+
+Créer un trigger qui :
+
+* renseigne automatiquement la date d'embauche avec `SYSDATE`
+* si elle n'est pas fournie lors de l'insertion.
+
+Exercice 12 : Limitation des augmentations
+
+Créer un trigger qui interdit :
+
+* une augmentation supérieure à 30 %.
+
+* la suppression d un employé s'il appartient à un département contenant moins de 3 employés.
+Voici une solution complète en PL/SQL pour chacun des exercices.
+
+Partie 1 : Procédures
+Exercice 1 : Augmentation de salaire
+CREATE OR REPLACE PROCEDURE augmenter_salaire (
+    p_id_emp IN Employe.id_emp%TYPE,
+    p_pourcentage IN NUMBER
+)
+IS
+BEGIN
+    UPDATE Employe
+    SET salaire = salaire + (salaire * p_pourcentage / 100)
+    WHERE id_emp = p_id_emp;
+
+    COMMIT;
+END;
+/
+Exercice 2 : Prime départementale
+CREATE OR REPLACE PROCEDURE prime_departement (
+    p_id_dept IN Departement.id_dept%TYPE
+)
+IS
+BEGIN
+    UPDATE Employe
+    SET salaire = salaire * 1.05
+    WHERE id_dept = p_id_dept;
+
+    COMMIT;
+END;
+/
+Exercice 3 : Embauche d'un employé
+CREATE OR REPLACE PROCEDURE embaucher_employe (
+    p_id_emp IN NUMBER,
+    p_nom IN VARCHAR2,
+    p_salaire IN NUMBER,
+    p_id_dept IN NUMBER
+)
+IS
+    v_count NUMBER;
+
+    dept_inexistant EXCEPTION;
+BEGIN
+    SELECT COUNT(*)
+    INTO v_count
+    FROM Departement
+    WHERE id_dept = p_id_dept;
+
+    IF v_count = 0 THEN
+        RAISE dept_inexistant;
+    END IF;
+
+    INSERT INTO Employe(
+        id_emp,
+        nom,
+        salaire,
+        date_embauche,
+        id_dept
+    )
+    VALUES(
+        p_id_emp,
+        p_nom,
+        p_salaire,
+        SYSDATE,
+        p_id_dept
+    );
+
+    COMMIT;
+
+EXCEPTION
+    WHEN dept_inexistant THEN
+        RAISE_APPLICATION_ERROR(
+            -20001,
+            'Département inexistant'
+        );
+END;
+/
+Exercice 4 : Rapport départemental
+CREATE OR REPLACE PROCEDURE rapport_departement (
+    p_id_dept IN NUMBER
+)
+IS
+    v_nb NUMBER;
+    v_moyenne NUMBER;
+    v_max NUMBER;
+BEGIN
+    SELECT COUNT(*),
+           AVG(salaire),
+           MAX(salaire)
+    INTO v_nb,
+         v_moyenne,
+         v_max
+    FROM Employe
+    WHERE id_dept = p_id_dept;
+
+    DBMS_OUTPUT.PUT_LINE(
+        'Nombre employés : ' || v_nb
+    );
+
+    DBMS_OUTPUT.PUT_LINE(
+        'Salaire moyen : ' || NVL(v_moyenne,0)
+    );
+
+    DBMS_OUTPUT.PUT_LINE(
+        'Salaire maximum : ' || NVL(v_max,0)
+    );
+END;
+/
+Partie 2 : Fonctions
+Exercice 5 : Salaire annuel
+CREATE OR REPLACE FUNCTION salaire_annuel (
+    p_id_emp IN NUMBER
+)
+RETURN NUMBER
+IS
+    v_salaire Employe.salaire%TYPE;
+BEGIN
+    SELECT salaire
+    INTO v_salaire
+    FROM Employe
+    WHERE id_emp = p_id_emp;
+
+    RETURN v_salaire * 12;
+END;
+/
+Exercice 6 : Ancienneté
+CREATE OR REPLACE FUNCTION anciennete (
+    p_id_emp IN NUMBER
+)
+RETURN NUMBER
+IS
+    v_date DATE;
+BEGIN
+    SELECT date_embauche
+    INTO v_date
+    FROM Employe
+    WHERE id_emp = p_id_emp;
+
+    RETURN TRUNC(MONTHS_BETWEEN(
+        SYSDATE,
+        v_date
+    ) / 12);
+END;
+/
+Exercice 7 : Classification salariale
+CREATE OR REPLACE FUNCTION classification_salariale (
+    p_salaire IN NUMBER
+)
+RETURN VARCHAR2
+IS
+BEGIN
+    IF p_salaire < 1000 THEN
+        RETURN 'Junior';
+
+    ELSIF p_salaire <= 3000 THEN
+        RETURN 'Confirme';
+
+    ELSE
+        RETURN 'Senior';
+    END IF;
+END;
+/
+Exercice 8 : Masse salariale
+CREATE OR REPLACE FUNCTION masse_salariale (
+    p_id_dept IN NUMBER
+)
+RETURN NUMBER
+IS
+    v_total NUMBER;
+BEGIN
+    SELECT NVL(SUM(salaire),0)
+    INTO v_total
+    FROM Employe
+    WHERE id_dept = p_id_dept;
+
+    RETURN v_total;
+END;
+/
+Partie 3 : Triggers
+Exercice 9 : Historisation des salaires
+
+Comme id_hist est une clé primaire, on crée d'abord une séquence :
+
+CREATE SEQUENCE seq_hist
+START WITH 1
+INCREMENT BY 1;
+
+Trigger :
+
+CREATE OR REPLACE TRIGGER trg_historique_salaire
+BEFORE UPDATE OF salaire
+ON Employe
+FOR EACH ROW
+BEGIN
+    INSERT INTO Historique_Salaire(
+        id_hist,
+        id_emp,
+        ancien_salaire,
+        nouveau_salaire,
+        date_modification
+    )
+    VALUES(
+        seq_hist.NEXTVAL,
+        :OLD.id_emp,
+        :OLD.salaire,
+        :NEW.salaire,
+        SYSDATE
+    );
+END;
+/
+Exercice 10 : Contrôle du salaire
+CREATE OR REPLACE TRIGGER trg_controle_salaire
+BEFORE INSERT OR UPDATE OF salaire
+ON Employe
+FOR EACH ROW
+BEGIN
+    IF :NEW.salaire < 0 THEN
+        RAISE_APPLICATION_ERROR(
+            -20002,
+            'Salaire negatif interdit'
+        );
+    END IF;
+END;
+/
+Exercice 11 : Date d'embauche automatique
+CREATE OR REPLACE TRIGGER trg_date_embauche
+BEFORE INSERT
+ON Employe
+FOR EACH ROW
+BEGIN
+    IF :NEW.date_embauche IS NULL THEN
+        :NEW.date_embauche := SYSDATE;
+    END IF;
+END;
+/
+Exercice 12 : Limitation des augmentations et suppression protégée
+a) Augmentation maximale de 30 %
+CREATE OR REPLACE TRIGGER trg_limite_augmentation
+BEFORE UPDATE OF salaire
+ON Employe
+FOR EACH ROW
+BEGIN
+    IF :NEW.salaire >
+       :OLD.salaire * 1.30 THEN
+
+       RAISE_APPLICATION_ERROR(
+           -20003,
+           'Augmentation superieure a 30% interdite'
+       );
+    END IF;
+END;
+/
+b) Interdire la suppression si le département contient moins de 3 employés
+CREATE OR REPLACE TRIGGER trg_interdire_suppression
+BEFORE DELETE
+ON Employe
+FOR EACH ROW
+DECLARE
+    v_nb NUMBER;
+BEGIN
+    SELECT COUNT(*)
+    INTO v_nb
+    FROM Employe
+    WHERE id_dept = :OLD.id_dept;
+
+    IF v_nb < 3 THEN
+        RAISE_APPLICATION_ERROR(
+            -20004,
+            'Suppression interdite : moins de 3 employes dans le departement'
+        );
+    END IF;
+END;
+/
+Remarque importante pour l'exercice 12(b)
+
+Dans Oracle, ce trigger peut provoquer une erreur de table mutante (mutating table) car il interroge la table Employe pendant une suppression sur cette même table.

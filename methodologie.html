@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>M&eacute;thodologie de D&eacute;veloppement Logiciel | QCM</title>
+    <link
+      rel="stylesheet"
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar__brand">
+        <span class="navbar__icon">&#9670;</span> M&eacute;thodologie Dev
+      </div>
+      <button
+        class="navbar__toggle"
+        type="button"
+        aria-label="Ouvrir le menu"
+        aria-expanded="false"
+        aria-controls="navbar-menu"
+      >
+        <span class="navbar__toggle-bar"></span>
+        <span class="navbar__toggle-bar"></span>
+        <span class="navbar__toggle-bar"></span>
+      </button>
+      <ul class="navbar__links" id="navbar-menu">
+        <li><a href="index.html" class="nav-link nav-link--page">Technologies Web &amp; Mobile</a></li>
+        <li><a href="gp.html" class="nav-link nav-link--page">Gestion de Projet</a></li>
+        <li><a href="oracle.html" class="nav-link nav-link--page">BD Oracle</a></li>
+        <li><a href="#revision" class="nav-link active" data-section="revision">R&eacute;vision</a></li>
+        <li><a href="#pieges" class="nav-link" data-section="pieges">Pi&egrave;ges</a></li>
+        <li><a href="#qcm" class="nav-link" data-section="qcm">QCM (100)</a></li>
+      </ul>
+    </nav>
+
+    <section class="section" id="revision">
+      <div class="section__header">
+        <h2>M&eacute;thodologie de d&eacute;veloppement logiciel</h2>
+        <p>Banque pr&eacute;dictive construite uniquement &agrave; partir des questions et corrig&eacute;s envoy&eacute;s</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="sdlc">SDLC</button>
+        <button class="tab" data-tab="cdc">CdC &amp; FT</button>
+        <button class="tab" data-tab="predictif">Cascade / V</button>
+        <button class="tab" data-tab="agile">Agile</button>
+        <button class="tab" data-tab="scrum">Scrum</button>
+      </div>
+
+      <div class="tab-panels">
+        <div class="tab-panel active" id="panel-sdlc">
+          <h3>SDLC, logiciel et qualit&eacute;</h3>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>SDLC</strong>
+              <p><mark>Software Development Life Cycle</mark> : d&eacute;marche organis&eacute;e pour d&eacute;velopper efficacement un logiciel.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>Bon logiciel</strong>
+              <p>Il respecte le cahier des charges, reste fiable, limite les bugs et suit des crit&egrave;res de qualit&eacute; : fonctionnalit&eacute;, performance, maintenance, fiabilit&eacute; et portabilit&eacute;.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">3</span>
+            <div>
+              <strong>Cycle standard</strong>
+              <p>Sp&eacute;cifications &rarr; conception/mod&eacute;lisation &rarr; impl&eacute;mentation &rarr; tests &rarr; validation &rarr; d&eacute;ploiement.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-cdc">
+          <h3>Cahier des charges, fiche technique et documentation</h3>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>Cahier des charges</strong>
+              <p>Document qui clarifie les besoins du client, les sp&eacute;cifications fonctionnelles et non fonctionnelles, les contraintes, les livrables, le chronogramme et le budget.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>Fiche technique</strong>
+              <p>Elle traduit les sp&eacute;cifications en mod&egrave;les de d&eacute;veloppement : architecture MVC/API, diagrammes UML, choix logiciels, maquettes et gestion des donn&eacute;es.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">3</span>
+            <div>
+              <strong>Guides et rapport</strong>
+              <p>Le guide de d&eacute;veloppement vise l'&eacute;quipe technique. Le guide d'utilisation vise l'utilisateur final. Le rapport de d&eacute;veloppement synth&eacute;tise les documents du logiciel.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-predictif">
+          <h3>Mod&egrave;les pr&eacute;dictifs et it&eacute;ratifs</h3>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>Mod&egrave;le en cascade</strong>
+              <p>Approche s&eacute;quentielle : besoins, conception, d&eacute;veloppement, tests, d&eacute;ploiement. Elle convient mieux aux besoins stables et aux projets contractuels.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>Cycle en V</strong>
+              <p>Il met en correspondance les phases de conception avec les phases de validation/test, avec une forte tra&ccedil;abilit&eacute; des exigences.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">3</span>
+            <div>
+              <strong>M&eacute;thode it&eacute;rative</strong>
+              <p>Le produit est d&eacute;velopp&eacute; par cycles successifs. Une m&eacute;thode it&eacute;rative n'est pas automatiquement agile : Scrum ajoute des r&ocirc;les, artefacts, c&eacute;r&eacute;monies et sprints time-box&eacute;s.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-agile">
+          <h3>Agile, manifeste et principes</h3>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>Culture agile</strong>
+              <p>L'agilit&eacute; est empirique, it&eacute;rative et incr&eacute;mentale. Elle accueille le changement comme une opportunit&eacute;.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>Manifeste Agile</strong>
+              <p>Il date de 2001 et contient <mark>4 valeurs</mark> et <mark>12 principes</mark> : individus et interactions, logiciel op&eacute;rationnel, collaboration client et adaptation au changement.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">3</span>
+            <div>
+              <strong>Principes &agrave; retenir</strong>
+              <p>Satisfaction client, livraisons fr&eacute;quentes, communication directe, rythme soutenable, excellence technique, simplicit&eacute;, auto-organisation et am&eacute;lioration continue.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-scrum">
+          <h3>Scrum et cas MINIP</h3>
+          <div class="correction-item">
+            <span class="num">1</span>
+            <div>
+              <strong>Framework Scrum</strong>
+              <p>Scrum g&egrave;re des produits complexes dans un environnement changeant. Ses piliers sont transparence, inspection et adaptation.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">2</span>
+            <div>
+              <strong>R&ocirc;les, artefacts et c&eacute;r&eacute;monies</strong>
+              <p>R&ocirc;les : Product Owner, Scrum Master, &eacute;quipe de d&eacute;veloppement. Artefacts : Product Backlog, Sprint Backlog, Incr&eacute;ment. C&eacute;r&eacute;monies : Sprint Planning, Daily Scrum, Sprint Review, Sprint Retrospective.</p>
+            </div>
+          </div>
+          <div class="correction-item">
+            <span class="num">3</span>
+            <div>
+              <strong>MINIP et Definition of Done</strong>
+              <p>Les User Stories suivent le mod&egrave;le : "En tant que [r&ocirc;le], je veux [action] afin de [b&eacute;n&eacute;fice]". La Definition of Done indique quand une story ou un incr&eacute;ment est termin&eacute;.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--hidden" id="pieges">
+      <div class="section__header">
+        <h2>Pi&egrave;ges probables</h2>
+        <p>Confusions r&eacute;currentes dans la banque envoy&eacute;e</p>
+      </div>
+
+      <div class="correction-item">
+        <span class="num">1</span>
+        <div>
+          <strong>Mots absolus</strong>
+          <p>Les formulations avec <mark>toujours</mark>, <mark>automatiquement</mark>, <mark>uniquement</mark> ou <mark>garantit</mark> signalent souvent un pi&egrave;ge.</p>
+        </div>
+      </div>
+      <div class="correction-item">
+        <span class="num">2</span>
+        <div>
+          <strong>CdC &ne; FT</strong>
+          <p>Le CdC parle besoin client, accord, sp&eacute;cifications, livrables, budget et d&eacute;lai. La FT parle architecture, UML, choix techniques, maquettes et donn&eacute;es.</p>
+        </div>
+      </div>
+      <div class="correction-item">
+        <span class="num">3</span>
+        <div>
+          <strong>Review &ne; Retrospective</strong>
+          <p>La Sprint Review pr&eacute;sente l'incr&eacute;ment et recueille les retours. La Sprint Retrospective am&eacute;liore le fonctionnement interne de l'&eacute;quipe.</p>
+        </div>
+      </div>
+      <div class="correction-item">
+        <span class="num">4</span>
+        <div>
+          <strong>Product Backlog &ne; Sprint Backlog</strong>
+          <p>Le Product Backlog contient les besoins prioris&eacute;s du produit. Le Sprint Backlog contient les &eacute;l&eacute;ments choisis pour le sprint en cours.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark section--hidden" id="qcm">
+      <div class="section__header">
+        <h2>QCM &mdash; 100 questions</h2>
+        <p>SDLC, CdC, FT, cascade, cycle en V, it&eacute;ratif, Agile, Scrum et MINIP</p>
+      </div>
+
+      <div class="progress-wrapper">
+        <div class="progress-bar">
+          <div class="progress-bar__fill" id="progress-fill"></div>
+        </div>
+        <span class="progress-text" id="progress-text">0%</span>
+      </div>
+
+      <div class="quiz-card" id="quiz-card">
+        <div class="quiz-card__header">
+          <span id="quiz-category" class="quiz-category"></span>
+          <span id="quiz-counter" class="quiz-counter"></span>
+        </div>
+
+        <h3 id="question-text" class="quiz-card__question"></h3>
+        <div id="answers" class="quiz-card__answers"></div>
+        <div id="feedback" class="quiz-card__feedback" aria-live="polite"></div>
+
+        <div class="quiz-card__actions">
+          <button type="button" id="prev-btn" class="btn btn--ghost" disabled>&#8592; Pr&eacute;c&eacute;dent</button>
+          <button type="button" id="validate-btn" class="btn btn--primary">Valider</button>
+          <button type="button" id="next-btn" class="btn btn--ghost">Suivant &#8594;</button>
+        </div>
+      </div>
+
+      <div id="result" class="quiz-result hidden">
+        <div class="quiz-result__icon" id="result-icon"></div>
+        <h3 id="result-title"></h3>
+        <p id="result-score"></p>
+        <button type="button" id="restart-btn" class="btn btn--primary">Recommencer</button>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>M&eacute;thodologie de D&eacute;veloppement Logiciel &mdash; Banque QCM pr&eacute;dictive</p>
+    </footer>
+
+    <script src="./nav.js"></script>
+    <script src="./methodologie-data.js"></script>
+    <script src="./methodologie-script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1365 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{tcolorbox}
+
+\usetikzlibrary{
+    arrows.meta,
+    positioning,
+    shapes.geometric,
+    shapes.symbols,
+    calc,
+    matrix,
+    fit,
+    backgrounds,
+    decorations.pathreplacing
+}
+\pgfplotsset{compat=1.18}
+
+\geometry{top=2.2cm,bottom=2.3cm,left=2.2cm,right=2.2cm}
+\setstretch{1.16}
+\setlength{\parskip}{0.45em}
+\setlength{\parindent}{0pt}
+\setlist[itemize]{topsep=3pt,itemsep=3pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=3pt,itemsep=4pt,leftmargin=1.55em}
+\renewcommand{\arraystretch}{1.28}
+
+\definecolor{spiralblue}{RGB}{0,0,0}
+\definecolor{spiralgreen}{RGB}{35,35,35}
+\definecolor{spiralorange}{RGB}{70,70,70}
+\definecolor{spiralred}{RGB}{0,0,0}
+\definecolor{spiralviolet}{RGB}{45,45,45}
+\definecolor{lightblue}{RGB}{250,250,250}
+\definecolor{lightgreen}{RGB}{248,248,248}
+\definecolor{lightorange}{RGB}{246,246,246}
+\definecolor{lightred}{RGB}{242,242,242}
+\definecolor{lightviolet}{RGB}{245,245,245}
+\definecolor{softgray}{RGB}{248,248,248}
+\definecolor{textgray}{RGB}{45,45,45}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=black,
+    citecolor=black
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small\textbf{Groupe 3 -- Approche Spirale}}
+\rhead{\small Méthodologies de développement de logiciels}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.35pt}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}{0.6em}{}
+\titleformat{\subsection}
+  {\large\bfseries}
+  {\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}
+  {\normalsize\bfseries}
+  {\thesubsubsection}{0.5em}{}
+
+\tcbset{
+    colback=white,
+    colframe=black,
+    arc=1mm,
+    boxrule=0.5pt,
+    left=1.2mm,
+    right=1.2mm,
+    top=1mm,
+    bottom=1mm
+}
+
+\newtcolorbox{definitionbox}[1]{
+    colback=white,
+    colframe=black,
+    title=\textbf{#1}
+}
+\newtcolorbox{examplebox}[1]{
+    colback=white,
+    colframe=black,
+    title=\textbf{#1}
+}
+\newtcolorbox{warningbox}[1]{
+    colback=white,
+    colframe=black,
+    title=\textbf{#1}
+}
+\newtcolorbox{riskbox}[1]{
+    colback=white,
+    colframe=black,
+    title=\textbf{#1}
+}
+\newtcolorbox{iaabox}[1]{
+    colback=white,
+    colframe=black,
+    title=\textbf{#1}
+}
+
+\newcommand{\important}[1]{\textbf{#1}}
+\newcommand{\risque}[1]{\textbf{#1}}
+\newcommand{\acteur}[1]{\textbf{#1}}
+
+\begin{document}
+
+% ---------------------------------------------------------------------
+% Page de garde
+% ---------------------------------------------------------------------
+\begin{titlepage}
+    \centering
+    \vspace*{0.8cm}
+
+    {\Large \textbf{Méthodologies de développement de logiciels}}\\[0.7cm]
+    {\Huge \textbf{L'Approche Spirale}}\\[0.4cm]
+    {\Large Exposé complet en français simple}\\[1.1cm]
+
+    \begin{tikzpicture}[scale=1.05, every node/.style={font=\small}]
+        \draw[gray!18, line width=14pt] (0,0) circle (2.55);
+        \draw[gray!10, line width=10pt] (0,0) circle (1.75);
+        \draw[-{Latex[length=4mm]}, line width=2.1pt, black]
+            plot[smooth, domain=25:820, samples=170]
+            ({0.0041*\x*cos(\x)}, {0.0041*\x*sin(\x)});
+        \node[font=\bfseries] at (0,0) {SPIRALE};
+        \node[fill=white, draw=black, rounded corners=1mm, line width=0.6pt, align=center, text width=4.9cm]
+            at (0,-3.35) {\textbf{Idée centrale}\\avancer petit à petit\\en contrôlant les risques};
+    \end{tikzpicture}
+
+    \vfill
+
+    \begin{tcolorbox}[colback=lightblue,colframe=spiralblue,width=0.92\textwidth]
+        \centering
+        \Large \textbf{Groupe 3 : Approche Spirale}
+    \end{tcolorbox}
+
+    \vspace{0.4cm}
+
+    \begin{tabular}{>{\bfseries}p{0.42\textwidth} p{0.42\textwidth}}
+        ANATO Kodjo Freddy & GUENANON Kouadio Christday Ulysse \\
+        N'TCHA Joseph & TIKO Bélerin \\
+        KODONON M. Sunday & DOUGLOUI Adine e \\
+    \end{tabular}
+
+    \vfill
+
+    {\large Année académique 2025--2026}\\[0.2cm]
+    {\large \today}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ---------------------------------------------------------------------
+\section*{Résumé}
+\addcontentsline{toc}{section}{Résumé}
+
+Ce rapport présente l'\important{approche spirale}, une méthode de développement de logiciels qui avance par étapes, comme une spirale qui grandit tour après tour.
+
+L'idée est simple. On ne construit pas tout le logiciel d'un seul coup. On commence par comprendre ce que l'on veut faire. Ensuite, on cherche les risques. Puis on réalise une petite partie du produit. Enfin, on montre le résultat aux utilisateurs pour recevoir leurs remarques.
+
+La méthode spirale est très utile quand le projet est complexe, risqué ou encore mal compris au départ. Elle aide l'équipe à apprendre progressivement. Elle permet aussi de corriger tôt les erreurs, avant qu'elles deviennent trop coûteuses.
+
+Dans ce rapport, nous expliquons la méthode étape par étape. Nous faisons aussi une simulation complète avec une application universitaire. Cette application permet de gérer les inscriptions, les profils des étudiants, les cours et les notes. Enfin, nous comparons l'approche spirale avec les autres méthodes vues dans les groupes : méthode en itération, Scrum, Kanban, Lean et Extreme Programming.
+
+\paragraph{Objectif du rapport.}
+Donner une explication claire, simple et complète de l'approche spirale, avec des exemples concrets et des schémas lisibles.
+
+\newpage
+
+% ---------------------------------------------------------------------
+\section{Introduction}
+
+Développer un logiciel n'est pas seulement écrire du code. C'est aussi comprendre un besoin, faire des choix, éviter les erreurs, travailler en équipe et livrer un produit utile.
+
+Dans la réalité, un projet informatique change souvent. Au début, le client ne connaît pas toujours tous ses besoins. L'équipe technique ne connaît pas toujours toutes les difficultés. Certaines fonctions peuvent paraître simples, puis devenir compliquées. Par exemple, une simple connexion utilisateur peut poser des problèmes de sécurité, de mots de passe, de rôles et de protection des données.
+
+C'est pour gérer ce type de situation que plusieurs méthodologies existent. Chaque méthodologie propose une manière d'organiser le travail. Certaines méthodes sont très planifiées. D'autres sont plus flexibles. L'approche spirale se place entre ces deux mondes. Elle garde une organisation claire, mais elle accepte que le projet évolue.
+
+\subsection{Pourquoi parler de l'approche spirale ?}
+
+L'approche spirale est intéressante parce qu'elle met les \important{risques} au centre du projet. Dans cette méthode, on ne se demande pas seulement : « Que devons-nous construire ? » On se demande aussi : « Qu'est-ce qui peut mal se passer ? »
+
+Cette question est très importante. Un projet peut échouer pour plusieurs raisons :
+
+\begin{itemize}
+    \item les besoins sont mal compris ;
+    \item le budget est trop petit ;
+    \item la technologie choisie n'est pas adaptée ;
+    \item les utilisateurs n'aiment pas le produit ;
+    \item la sécurité est faible ;
+    \item l'équipe découvre trop tard une difficulté importante.
+\end{itemize}
+
+L'approche spirale aide à voir ces problèmes tôt. Elle permet de tester, de discuter, de corriger et d'améliorer le logiciel au fur et à mesure.
+
+\subsection{Phrase simple pour retenir}
+
+\paragraph{Définition très simple.}
+L'approche spirale est une méthode qui construit le logiciel en plusieurs tours. À chaque tour, on fixe les objectifs, on analyse les risques, on produit quelque chose, puis on demande un retour aux utilisateurs.
+
+% ---------------------------------------------------------------------
+\section{Origine et idée générale de la méthode}
+
+L'approche spirale a été proposée par Barry W. Boehm à la fin des années 1980. Elle est née d'un constat simple : les méthodes classiques ne suffisent pas toujours pour les grands projets logiciels.
+
+Dans une méthode très linéaire, comme le modèle en cascade, on fait souvent les étapes dans cet ordre : analyse, conception, codage, test, livraison. Cela peut fonctionner si le besoin est très clair dès le début. Mais dans beaucoup de projets, le besoin n'est pas clair. Le client peut changer d'avis. Les utilisateurs peuvent découvrir de nouvelles attentes en voyant un prototype. L'équipe peut aussi découvrir des risques techniques.
+
+L'approche spirale propose donc une autre logique. Le projet avance en \important{cycles}. Chaque cycle est appelé un \important{tour de spirale}. Plus on avance, plus le logiciel devient complet.
+
+\subsection{Pourquoi une spirale ?}
+
+La spirale représente deux idées :
+
+\begin{itemize}
+    \item \textbf{Le mouvement circulaire} : on répète les mêmes grandes activités à chaque tour.
+    \item \textbf{L'agrandissement progressif} : à chaque tour, le produit devient plus complet et plus fiable.
+\end{itemize}
+
+On peut imaginer une équipe qui construit une application universitaire. Au premier tour, elle réalise une petite maquette. Au deuxième tour, elle ajoute la connexion. Au troisième tour, elle ajoute les inscriptions aux cours. Au quatrième tour, elle ajoute les notes et les bulletins. À chaque fois, l'équipe regarde les risques avant de continuer.
+
+\subsection{La place du risque}
+
+Le mot le plus important dans l'approche spirale est \risque{risque}. Un risque est un problème possible qui peut empêcher le projet de réussir.
+
+\paragraph{Exemples de risques.}
+\begin{itemize}
+    \item Le serveur peut devenir lent si beaucoup d'étudiants se connectent en même temps.
+    \item Les notes peuvent être modifiées par une personne non autorisée.
+    \item Les étudiants peuvent ne pas comprendre l'interface.
+    \item Le budget peut ne pas suffire pour développer toutes les fonctions.
+    \item La base de données peut être mal conçue et devenir difficile à maintenir.
+\end{itemize}
+
+Dans l'approche spirale, on ne cache pas les risques. On les écrit. On les classe. On cherche des solutions. Ensuite, seulement, on développe.
+
+\newpage
+
+% ---------------------------------------------------------------------
+\section{Les 4 grands mouvements de la spirale}
+
+Chaque tour de spirale suit quatre grands mouvements. Les noms peuvent changer selon les cours ou les livres, mais l'idée reste la même.
+
+\begin{enumerate}
+    \item Définir les objectifs.
+    \item Identifier et réduire les risques.
+    \item Développer et vérifier une solution.
+    \item Évaluer avec les utilisateurs et planifier la suite.
+\end{enumerate}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    font=\small,
+    stepbox/.style={
+        rectangle,
+        rounded corners=1mm,
+        draw=black,
+        fill=white,
+        line width=0.8pt,
+        minimum width=4.35cm,
+        minimum height=1.2cm,
+        align=center,
+        text width=4.1cm
+    },
+    arrow/.style={-{Latex[length=3mm]}, line width=1.0pt, draw=black}
+]
+    \node[stepbox] (a) at (0,2.65)
+        {\textbf{1. Objectifs}\\Que veut-on faire ?};
+    \node[stepbox] (b) at (7.0,2.65)
+        {\textbf{2. Risques}\\Qu'est-ce qui peut bloquer ?};
+    \node[stepbox] (c) at (7.0,-2.0)
+        {\textbf{3. Développement}\\Que peut-on produire ?};
+    \node[stepbox] (d) at (0,-2.0)
+        {\textbf{4. Évaluation}\\Qu'en pensent les utilisateurs ?};
+
+    \draw[arrow] (a) -- (b);
+    \draw[arrow] (b) -- (c);
+    \draw[arrow] (c) -- (d);
+    \draw[arrow] (d) -- (a);
+
+    \node[align=center, text width=4.7cm, font=\small\itshape] at (3.5,0.35)
+        {Un tour de spirale = une décision claire, un risque traité, puis une amélioration visible.};
+\end{tikzpicture}
+\caption{Les quatre mouvements de base dans un tour de spirale.}
+\end{figure}
+
+\subsection{Mouvement 1 : définir les objectifs}
+
+L'équipe commence par répondre à des questions simples :
+
+\begin{itemize}
+    \item Quel problème voulons-nous résoudre ?
+    \item Quelles fonctions voulons-nous ajouter ?
+    \item Qui va utiliser le logiciel ?
+    \item Quelles contraintes devons-nous respecter ?
+    \item Quel résultat doit être visible à la fin du tour ?
+\end{itemize}
+
+Cette étape évite de travailler dans le flou. Elle donne une direction claire au tour de spirale.
+
+\paragraph{Exemple.}
+Dans notre application universitaire, l'objectif du premier tour peut être : permettre à un étudiant de voir une page d'accueil et une liste simple de cours disponibles.
+
+\subsection{Mouvement 2 : identifier et réduire les risques}
+
+Après les objectifs, l'équipe cherche les risques. Elle ne se contente pas d'une liste générale. Elle regarde les vrais dangers du tour en cours.
+
+Pour chaque risque, on peut se poser trois questions :
+
+\begin{enumerate}
+    \item Quelle est la probabilité que ce risque arrive ?
+    \item Quel serait son impact sur le projet ?
+    \item Que peut-on faire pour le réduire ?
+\end{enumerate}
+
+Cette étape est le cœur de la méthode. Elle peut conduire à faire une maquette, un test technique, une étude ou un prototype.
+
+\paragraph{Exemple de réduction de risque.}
+Si l'équipe a peur que les étudiants ne comprennent pas l'interface, elle peut créer une maquette simple et la montrer à quelques étudiants avant de coder toute l'application.
+
+\subsection{Mouvement 3 : développer et vérifier une solution}
+
+Quand les risques importants sont étudiés, l'équipe développe une solution. Cette solution peut être :
+
+\begin{itemize}
+    \item une maquette papier ;
+    \item un prototype d'écran ;
+    \item une petite version fonctionnelle ;
+    \item un module complet ;
+    \item un test technique.
+\end{itemize}
+
+Le but n'est pas toujours de livrer un produit final. Le but est souvent d'apprendre, de valider une idée et de réduire les incertitudes.
+
+\subsection{Mouvement 4 : évaluer et préparer le tour suivant}
+
+À la fin du tour, l'équipe montre le résultat. Les utilisateurs, le client ou le responsable du projet donnent leurs remarques.
+
+Ensuite, l'équipe décide :
+
+\begin{itemize}
+    \item ce qui est validé ;
+    \item ce qui doit être corrigé ;
+    \item ce qui doit être ajouté ;
+    \item les risques du prochain tour ;
+    \item les priorités de la suite.
+\end{itemize}
+
+Ce retour est très important. Il évite de continuer longtemps dans une mauvaise direction.
+
+\newpage
+
+% ---------------------------------------------------------------------
+\section{Grand schéma de l'approche spirale}
+
+Le schéma suivant montre une spirale complète. Chaque tour ajoute de la valeur. Chaque tour permet aussi de mieux comprendre le projet.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    scale=0.98,
+    every node/.style={font=\small},
+    axislabel/.style={font=\small\bfseries, align=center},
+    labelbox/.style={rectangle, rounded corners=1mm, draw=black, fill=white, line width=0.7pt, align=center, text width=3.25cm},
+    note/.style={align=center, font=\footnotesize}
+]
+    % Axes
+    \draw[-{Latex[length=3mm]}, line width=0.9pt, black] (-4.05,0) -- (4.35,0)
+        node[right, axislabel] {Produit plus complet};
+    \draw[-{Latex[length=3mm]}, line width=0.9pt, black] (0,-3.85) -- (0,4.1)
+        node[above, axislabel] {Connaissance\\du projet};
+
+    % Quadrants
+    \node[labelbox] at (-5.05,3.25)
+        {Définir les\\objectifs};
+    \node[labelbox] at (5.05,3.25)
+        {Analyser les\\risques};
+    \node[labelbox] at (5.05,-3.25)
+        {Développer\\et tester};
+    \node[labelbox] at (-5.05,-3.25)
+        {Évaluer\\et décider};
+
+    % Spiral path
+    \draw[-{Latex[length=3.4mm]}, line width=1.9pt, black]
+        plot[smooth, domain=25:1120, samples=260]
+        ({0.0028*\x*cos(\x)}, {0.0028*\x*sin(\x)});
+
+    % Milestones
+    \fill[black] ({0.0028*180*cos(180)}, {0.0028*180*sin(180)}) circle (2pt);
+    \node[note] at (-1.75,0.75) {Tour 1\\maquette};
+
+    \fill[black] ({0.0028*430*cos(430)}, {0.0028*430*sin(430)}) circle (2pt);
+    \node[note] at (1.65,1.65) {Tour 2\\connexion};
+
+    \fill[black] ({0.0028*700*cos(700)}, {0.0028*700*sin(700)}) circle (2pt);
+    \node[note] at (3.05,-1.25) {Tour 3\\inscriptions};
+
+    \fill[black] ({0.0028*970*cos(970)}, {0.0028*970*sin(970)}) circle (2pt);
+    \node[note] at (-2.55,-2.95) {Tour 4\\notes};
+
+    \node[draw=black, fill=white, rounded corners=1mm, line width=0.6pt,
+          align=center, text width=7.2cm] at (0,-4.85)
+        {La spirale commence petit. Elle grandit avec les retours, les décisions et la maîtrise des risques.};
+\end{tikzpicture}
+\caption{Représentation globale de l'approche spirale.}
+\end{figure}
+
+\paragraph{À retenir.}
+Dans la méthode spirale, le projet n'avance pas au hasard. Il avance par tours contrôlés. Chaque tour sert à apprendre, réduire les risques et construire une partie du logiciel.
+
+\newpage
+
+% ---------------------------------------------------------------------
+\section{Description étape par étape de la méthodologie}
+
+Cette partie répond directement à la première consigne : décrire la méthodologie étape par étape.
+
+\subsection{Étape 1 : comprendre le besoin général}
+
+Avant de commencer les tours de spirale, l'équipe doit comprendre le projet. Elle discute avec le client, les futurs utilisateurs et les responsables.
+
+Le but est de répondre à des questions simples :
+
+\begin{itemize}
+    \item Quel logiciel veut-on construire ?
+    \item Pour qui ?
+    \item Pourquoi ?
+    \item Quel problème existe aujourd'hui ?
+    \item Quel résultat serait considéré comme une réussite ?
+\end{itemize}
+
+Cette étape donne une vision globale. Elle ne cherche pas encore tous les détails. Elle sert surtout à éviter un mauvais départ.
+
+\subsection{Étape 2 : choisir les objectifs du premier tour}
+
+Ensuite, l'équipe choisit un premier objectif. Cet objectif doit être réaliste. Il ne faut pas vouloir tout faire au premier tour.
+
+\paragraph{Exemple simple.}
+Pour une application universitaire, le premier objectif peut être : créer une page d'accueil avec trois boutons : Étudiant, Enseignant, Administrateur.
+
+Ce premier objectif permet de commencer. Il donne aussi un support de discussion. Les utilisateurs peuvent réagir : « Ce bouton n'est pas clair », « Il manque une rubrique », « L'interface est trop chargée ».
+
+\subsection{Étape 3 : identifier les alternatives}
+
+Une alternative est une manière possible de réaliser le travail.
+
+Par exemple, pour gérer les comptes utilisateurs, l'équipe peut choisir :
+
+\begin{itemize}
+    \item une connexion avec email et mot de passe ;
+    \item une connexion avec matricule et mot de passe ;
+    \item une connexion avec un compte Google institutionnel ;
+    \item une connexion avec double vérification.
+\end{itemize}
+
+Chaque solution a des avantages et des limites. La méthode spirale demande de comparer ces possibilités avant de choisir.
+
+\subsection{Étape 4 : analyser les risques}
+
+L'équipe analyse les risques liés aux objectifs et aux alternatives. Elle peut utiliser un tableau simple.
+
+\begin{longtable}{p{0.23\textwidth} p{0.18\textwidth} p{0.18\textwidth} p{0.30\textwidth}}
+\caption{Exemple de tableau d'analyse des risques.}\\
+\toprule
+\textbf{Risque} & \textbf{Probabilité} & \textbf{Impact} & \textbf{Réponse possible} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Risque} & \textbf{Probabilité} & \textbf{Impact} & \textbf{Réponse possible} \\
+\midrule
+\endhead
+Les étudiants ne comprennent pas l'interface & Moyenne & Moyen & Faire tester une maquette par 5 étudiants \\
+La connexion est peu sécurisée & Moyenne & Fort & Utiliser un hachage solide des mots de passe et des rôles \\
+Le serveur devient lent & Faible au début & Fort plus tard & Prévoir des tests de charge avant la livraison finale \\
+Les règles d'inscription changent & Forte & Moyen & Garder une conception flexible et vérifier avec l'administration \\
+\bottomrule
+\end{longtable}
+
+\subsection{Étape 5 : construire un prototype ou une solution partielle}
+
+Après l'analyse des risques, l'équipe construit quelque chose. Ce n'est pas toujours une version complète.
+
+Un prototype peut être très simple. Il peut montrer seulement les écrans. Il peut aussi être une petite application qui fonctionne avec des données de test.
+
+\paragraph{Prototype.}
+Un prototype est une version incomplète mais utile du logiciel. Il sert à tester une idée, montrer une interface ou vérifier une solution technique.
+
+\subsection{Étape 6 : vérifier et tester}
+
+L'équipe vérifie si le résultat répond à l'objectif du tour.
+
+Elle peut tester :
+
+\begin{itemize}
+    \item l'affichage ;
+    \item la navigation ;
+    \item la base de données ;
+    \item la sécurité ;
+    \item la compréhension par les utilisateurs ;
+    \item la performance.
+\end{itemize}
+
+Ces tests peuvent être simples au début. Ils deviennent plus sérieux à mesure que le produit grandit.
+
+\subsection{Étape 7 : faire évaluer par les utilisateurs}
+
+Le client et les utilisateurs regardent le résultat. Ils donnent leurs avis.
+
+Les remarques peuvent être positives ou négatives. Dans les deux cas, elles sont utiles.
+
+\paragraph{Exemples de retours.}
+\begin{itemize}
+    \item « La page d'accueil est claire. »
+    \item « Le bouton pour consulter les notes doit être plus visible. »
+    \item « Un enseignant ne doit pas voir les notes des autres matières. »
+    \item « Les étudiants veulent recevoir une notification quand une note est publiée. »
+\end{itemize}
+
+\subsection{Étape 8 : décider de la suite}
+
+Après l'évaluation, l'équipe décide quoi faire.
+
+Elle peut :
+
+\begin{itemize}
+    \item continuer avec un nouveau tour ;
+    \item modifier l'objectif ;
+    \item refaire un prototype ;
+    \item abandonner une fonction trop risquée ;
+    \item ajouter une nouvelle priorité ;
+    \item arrêter le projet si le risque est trop grand.
+\end{itemize}
+
+Cette décision est importante. La spirale n'est pas seulement une répétition. C'est une répétition avec apprentissage.
+
+\newpage
+
+% ---------------------------------------------------------------------
+\section{Matrice des risques}
+
+La matrice des risques aide l'équipe à décider ce qu'il faut traiter en priorité. Elle croise deux informations :
+
+\begin{itemize}
+    \item la probabilité du risque ;
+    \item l'impact du risque.
+\end{itemize}
+
+Un risque très probable et très grave doit être traité rapidement. Un risque faible et peu grave peut être surveillé.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    scale=1,
+    cell/.style={draw=white, line width=1.1pt, minimum width=3.0cm, minimum height=1.55cm, align=center, font=\small},
+    label/.style={font=\bfseries\small, align=center},
+    note/.style={font=\scriptsize, align=center}
+]
+    \node[cell, fill=lightgreen] at (0,0) {Faible\\surveiller};
+    \node[cell, fill=lightorange] at (3,0) {Moyen\\prévoir action};
+    \node[cell, fill=lightred] at (6,0) {Élevé\\agir vite};
+
+    \node[cell, fill=lightgreen] at (0,1.55) {Faible\\surveiller};
+    \node[cell, fill=lightorange] at (3,1.55) {Moyen\\réduire};
+    \node[cell, fill=spiralred!25] at (6,1.55) {Très élevé\\priorité};
+
+    \node[cell, fill=lightorange] at (0,3.10) {Moyen\\réduire};
+    \node[cell, fill=spiralred!25] at (3,3.10) {Élevé\\priorité};
+    \node[cell, fill=spiralred!45] at (6,3.10) {\textbf{Critique}\\traiter d'abord};
+
+    \node[label, rotate=90] at (-2.35,1.55) {Probabilité};
+    \node[label] at (3,-1.25) {Impact};
+
+    \node[note] at (0,-0.98) {Faible};
+    \node[note] at (3,-0.98) {Moyen};
+    \node[note] at (6,-0.98) {Fort};
+
+    \node[note, rotate=90] at (-1.35,0) {Faible};
+    \node[note, rotate=90] at (-1.35,1.55) {Moyenne};
+    \node[note, rotate=90] at (-1.35,3.10) {Forte};
+
+    \node[draw=spiralblue, fill=white, rounded corners=2mm, align=center,
+          text width=8.2cm, font=\small] at (3,4.65)
+        {Dans l'approche spirale, les risques rouges sont étudiés avant de développer beaucoup de code.};
+\end{tikzpicture}
+\caption{Matrice simple pour classer les risques d'un projet logiciel.}
+\end{figure}
+
+\subsection{Lecture de la matrice}
+
+La lecture est simple. Si un risque a une forte probabilité et un fort impact, il devient critique. L'équipe doit le traiter dès que possible.
+
+Dans notre application universitaire, un risque critique peut être : « une personne non autorisée peut modifier les notes ». Ce risque touche la sécurité, la confiance et la réputation de l'université. Il doit être traité avant la mise en production.
+
+\newpage
+
+% ---------------------------------------------------------------------
+\section{Simulation complète : application universitaire}
+
+Cette partie répond à la deuxième consigne : illustrer la méthodologie en mode simulation.
+
+\subsection{Contexte de la simulation}
+
+Imaginons qu'une université veut développer une application web. Cette application doit aider à gérer la vie académique.
+
+Les utilisateurs principaux sont :
+
+\begin{itemize}
+    \item les étudiants ;
+    \item les enseignants ;
+    \item l'administration ;
+    \item le service informatique.
+\end{itemize}
+
+L'application doit permettre :
+
+\begin{itemize}
+    \item de créer et gérer les profils étudiants ;
+    \item de consulter les cours ;
+    \item de faire les inscriptions aux cours ;
+    \item de publier les notes ;
+    \item de consulter les notes ;
+    \item de protéger les données.
+\end{itemize}
+
+\paragraph{Pourquoi ce projet convient à l'approche spirale ?}
+Ce projet contient des risques importants : sécurité, confidentialité, règles administratives, performance, compréhension par les utilisateurs. Il est donc adapté à une méthode qui analyse les risques à chaque tour.
+
+\subsection{Vue globale des tours de spirale}
+
+\begin{longtable}{p{0.13\textwidth} p{0.24\textwidth} p{0.26\textwidth} p{0.25\textwidth}}
+\caption{Simulation de plusieurs tours de spirale.}\\
+\toprule
+\textbf{Tour} & \textbf{Objectif principal} & \textbf{Risque étudié} & \textbf{Résultat attendu} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Tour} & \textbf{Objectif principal} & \textbf{Risque étudié} & \textbf{Résultat attendu} \\
+\midrule
+\endhead
+1 & Comprendre le besoin et créer une maquette & Les utilisateurs ne comprennent pas l'organisation des écrans & Maquette validée par quelques étudiants et agents \\
+2 & Ajouter les comptes utilisateurs & Problèmes de sécurité et de rôles & Connexion avec profils Étudiant, Enseignant, Admin \\
+3 & Ajouter les inscriptions aux cours & Règles d'inscription mal comprises & Module d'inscription testé avec des cas simples \\
+4 & Ajouter les notes & Modification non autorisée des notes & Gestion des notes avec contrôle des droits \\
+5 & Améliorer performance et qualité & Trop de connexions en période d'examen & Tests de charge, corrections et préparation livraison \\
+\bottomrule
+\end{longtable}
+
+\subsection{Tour 1 : maquette et compréhension du besoin}
+
+\subsubsection{Objectifs}
+
+Le premier tour ne cherche pas à construire toute l'application. Il cherche à comprendre le besoin.
+
+Objectifs du tour :
+
+\begin{itemize}
+    \item identifier les utilisateurs ;
+    \item lister les fonctions principales ;
+    \item créer une maquette simple ;
+    \item vérifier si les écrans sont compréhensibles.
+\end{itemize}
+
+\subsubsection{Risques}
+
+Les principaux risques du premier tour sont :
+
+\begin{itemize}
+    \item l'équipe peut mal comprendre le besoin ;
+    \item les utilisateurs peuvent trouver l'interface confuse ;
+    \item certaines fonctions importantes peuvent être oubliées.
+\end{itemize}
+
+\subsubsection{Prototype}
+
+L'équipe crée une maquette avec quatre pages :
+
+\begin{itemize}
+    \item page d'accueil ;
+    \item page étudiant ;
+    \item page enseignant ;
+    \item page administration.
+\end{itemize}
+
+La maquette peut être faite avec un outil graphique ou directement en HTML très simple. Elle n'a pas besoin d'une vraie base de données.
+
+\subsubsection{Évaluation}
+
+L'équipe présente la maquette à quelques utilisateurs. Les étudiants demandent un accès rapide aux notes. Les enseignants veulent voir rapidement leurs cours. L'administration demande un menu pour gérer les inscriptions.
+
+Décision : la maquette est acceptée, mais l'organisation du menu doit être améliorée.
+
+\subsection{Tour 2 : comptes utilisateurs et rôles}
+
+\subsubsection{Objectifs}
+
+Le deuxième tour ajoute la connexion. L'application doit distinguer trois rôles :
+
+\begin{itemize}
+    \item étudiant ;
+    \item enseignant ;
+    \item administrateur.
+\end{itemize}
+
+\subsubsection{Risques}
+
+Le risque principal est la sécurité. Une personne ne doit pas accéder à une page interdite. Par exemple, un étudiant ne doit pas modifier ses notes.
+
+Autres risques :
+
+\begin{itemize}
+    \item mots de passe mal protégés ;
+    \item droits mal configurés ;
+    \item erreur entre les rôles ;
+    \item oubli de la déconnexion.
+\end{itemize}
+
+\subsubsection{Solution}
+
+L'équipe développe un prototype de connexion. Les mots de passe sont stockés de manière sécurisée. Chaque utilisateur a un rôle.
+
+\subsubsection{Évaluation}
+
+L'équipe teste plusieurs cas :
+
+\begin{itemize}
+    \item un étudiant se connecte et voit ses informations ;
+    \item un enseignant se connecte et voit ses cours ;
+    \item un administrateur se connecte et voit les outils de gestion ;
+    \item un étudiant essaie d'accéder à une page administrateur : l'accès est refusé.
+\end{itemize}
+
+Décision : continuer, mais ajouter une règle claire pour les permissions.
+
+\subsection{Tour 3 : inscriptions aux cours}
+
+\subsubsection{Objectifs}
+
+Le troisième tour ajoute l'inscription aux cours. Un étudiant doit pouvoir choisir des cours autorisés.
+
+\subsubsection{Risques}
+
+Les règles d'inscription peuvent être compliquées :
+
+\begin{itemize}
+    \item certains cours ont des prérequis ;
+    \item certains cours ont un nombre de places limité ;
+    \item certaines inscriptions sont interdites selon le niveau ;
+    \item les règles peuvent changer selon l'année académique.
+\end{itemize}
+
+\subsubsection{Prototype}
+
+L'équipe construit un module simple. L'étudiant voit une liste de cours. Il clique sur « s'inscrire ». Le système vérifie les règles de base.
+
+\subsubsection{Évaluation}
+
+L'administration teste plusieurs cas. Elle remarque qu'il faut garder l'historique des inscriptions. Elle demande aussi une validation finale avant confirmation.
+
+Décision : le module est utile, mais il faut ajouter l'historique et une étape de confirmation.
+
+\subsection{Tour 4 : gestion des notes}
+
+\subsubsection{Objectifs}
+
+Le quatrième tour ajoute la gestion des notes.
+
+Objectifs :
+
+\begin{itemize}
+    \item un enseignant peut saisir les notes de ses cours ;
+    \item un étudiant peut consulter ses propres notes ;
+    \item un administrateur peut valider ou corriger selon les règles ;
+    \item toutes les modifications importantes sont tracées.
+\end{itemize}
+
+\subsubsection{Risques}
+
+Les risques sont forts :
+
+\begin{itemize}
+    \item une note peut être modifiée par erreur ;
+    \item une personne non autorisée peut modifier une note ;
+    \item un étudiant peut voir les notes d'un autre étudiant ;
+    \item une panne peut faire perdre des notes.
+\end{itemize}
+
+\subsubsection{Solution}
+
+L'équipe met en place :
+
+\begin{itemize}
+    \item des droits stricts ;
+    \item un journal des modifications ;
+    \item une sauvegarde régulière ;
+    \item une confirmation avant validation des notes.
+\end{itemize}
+
+\subsubsection{Évaluation}
+
+Des enseignants testent la saisie. Des étudiants testent la consultation. L'administration vérifie les règles.
+
+Décision : la fonction est acceptée, mais l'export PDF des relevés sera ajouté dans un tour suivant.
+
+\subsection{Tour 5 : performance, qualité et préparation à la livraison}
+
+\subsubsection{Objectifs}
+
+Le cinquième tour prépare une version plus stable. L'équipe améliore la performance et la qualité.
+
+\subsubsection{Risques}
+
+Pendant les périodes d'inscription ou d'examen, beaucoup d'étudiants peuvent se connecter en même temps. L'application peut devenir lente.
+
+Autres risques :
+
+\begin{itemize}
+    \item erreurs difficiles à détecter ;
+    \item manque de documentation ;
+    \item mauvaise sauvegarde ;
+    \item support utilisateur insuffisant.
+\end{itemize}
+
+\subsubsection{Solution}
+
+L'équipe fait des tests de charge. Elle corrige les lenteurs. Elle prépare une documentation simple. Elle crée aussi une procédure de sauvegarde.
+
+\subsubsection{Évaluation}
+
+La version est testée avec un groupe pilote. Si les retours sont bons, l'université peut planifier la mise en production.
+
+\newpage
+
+% ---------------------------------------------------------------------
+\section{Cas d'usage de l'application universitaire}
+
+Cette partie répond à la troisième consigne : présenter des use cases.
+
+\subsection{Acteurs}
+
+Les principaux acteurs sont :
+
+\begin{itemize}
+    \item \acteur{Étudiant} : consulte les cours, s'inscrit, consulte ses notes.
+    \item \acteur{Enseignant} : consulte ses cours, saisit les notes.
+    \item \acteur{Administrateur} : gère les utilisateurs, les cours, les inscriptions et les règles.
+    \item \acteur{Système de notification} : envoie des messages automatiques.
+\end{itemize}
+
+\subsection{Diagramme de cas d'usage}
+
+\begin{figure}[H]
+\centering
+\resizebox{0.98\textwidth}{!}{%
+\begin{tikzpicture}[
+    font=\small,
+    actor/.style={draw=black, fill=white, rounded corners=1mm, minimum width=2.65cm, minimum height=0.78cm, align=center},
+    usecase/.style={ellipse, draw=black, fill=white, minimum width=2.95cm, minimum height=0.9cm, align=center},
+    link/.style={line width=0.75pt, draw=black},
+    lane/.style={draw=gray!45, dashed, line width=0.45pt}
+]
+    \node[draw=black, rounded corners=2mm, minimum width=10.8cm, minimum height=7.2cm,
+          label={[font=\bfseries]above:Application universitaire}] (system) at (2.4,0) {};
+
+    \draw[lane] (-2.65,1.25) -- (7.45,1.25);
+    \draw[lane] (-2.65,-1.15) -- (7.45,-1.15);
+
+    \node[actor] (etu) at (-5.6,2.55) {Étudiant};
+    \node[actor] (ens) at (-5.6,0.05) {Enseignant};
+    \node[actor] (adm) at (-5.6,-2.55) {Administrateur};
+    \node[actor] (notif) at (9.4,1.0) {Système de\\notification};
+
+    \node[usecase] (uc1) at (-0.55,3.0) {Consulter\\les cours};
+    \node[usecase] (uc2) at (-0.55,2.05) {S'inscrire\\à un cours};
+    \node[usecase] (uc3) at (-0.55,1.10) {Consulter\\ses notes};
+
+    \node[usecase] (uc4) at (3.25,0.45) {Se connecter};
+    \node[usecase] (uc5) at (3.25,-0.55) {Saisir\\les notes};
+
+    \node[usecase] (uc6) at (3.25,-2.05) {Gérer\\utilisateurs};
+    \node[usecase] (uc7) at (3.25,-3.00) {Valider\\inscriptions};
+
+    \node[usecase] (uc8) at (5.95,1.0) {Envoyer\\notification};
+
+    \draw[link] (etu.east) -- (uc1.west);
+    \draw[link] (etu.east) -- (uc2.west);
+    \draw[link] (etu.east) -- (uc3.west);
+
+    \draw[link] (ens.east) -- (uc4.west);
+    \draw[link] (ens.east) -- (uc5.west);
+
+    \draw[link] (adm.east) -- (uc6.west);
+    \draw[link] (adm.east) -- (uc7.west);
+
+    \draw[link] (notif.west) -- (uc8.east);
+    \draw[link, dashed] (uc8.west) -- (uc2.east);
+    \draw[link, dashed] (uc8.west) -- (uc3.east);
+\end{tikzpicture}
+}
+\caption{Diagramme simplifié des cas d'usage de l'application universitaire.}
+\end{figure}
+
+\subsection{Use case 1 : consulter ses notes}
+
+\begin{longtable}{p{0.28\textwidth} p{0.62\textwidth}}
+\caption{Cas d'usage : consulter ses notes.}\\
+\toprule
+\textbf{Élément} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Élément} & \textbf{Description} \\
+\midrule
+\endhead
+Acteur principal & Étudiant \\
+Objectif & Voir les notes publiées pour ses cours \\
+Précondition & L'étudiant est connecté \\
+Scénario normal & L'étudiant ouvre son tableau de bord, clique sur « Mes notes », choisit l'année ou le semestre, puis consulte les notes disponibles \\
+Risque principal & L'étudiant peut voir des notes qui ne lui appartiennent pas \\
+Réponse spirale & Tester les droits d'accès dès le tour où la fonction est développée \\
+Résultat attendu & L'étudiant voit seulement ses propres notes \\
+\bottomrule
+\end{longtable}
+
+\subsection{Use case 2 : saisir les notes}
+
+\begin{longtable}{p{0.28\textwidth} p{0.62\textwidth}}
+\caption{Cas d'usage : saisir les notes.}\\
+\toprule
+\textbf{Élément} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Élément} & \textbf{Description} \\
+\midrule
+\endhead
+Acteur principal & Enseignant \\
+Objectif & Saisir les notes des étudiants pour un cours donné \\
+Précondition & L'enseignant est connecté et autorisé sur ce cours \\
+Scénario normal & L'enseignant choisit son cours, voit la liste des étudiants, saisit les notes, vérifie, puis enregistre \\
+Risque principal & Une note peut être enregistrée par erreur ou modifiée sans trace \\
+Réponse spirale & Ajouter une confirmation et un journal des modifications \\
+Résultat attendu & Les notes sont enregistrées avec sécurité et traçabilité \\
+\bottomrule
+\end{longtable}
+
+\subsection{Use case 3 : valider une inscription}
+
+\begin{longtable}{p{0.28\textwidth} p{0.62\textwidth}}
+\caption{Cas d'usage : valider une inscription.}\\
+\toprule
+\textbf{Élément} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Élément} & \textbf{Description} \\
+\midrule
+\endhead
+Acteur principal & Administrateur \\
+Objectif & Vérifier et valider les inscriptions des étudiants \\
+Précondition & Les étudiants ont fait une demande d'inscription \\
+Scénario normal & L'administrateur consulte les demandes, vérifie les règles, accepte ou refuse, puis le système notifie l'étudiant \\
+Risque principal & Une mauvaise règle peut accepter une inscription incorrecte \\
+Réponse spirale & Tester les règles avec des cas réels avant généralisation \\
+Résultat attendu & Les inscriptions respectent les règles de l'université \\
+\bottomrule
+\end{longtable}
+
+\newpage
+
+% ---------------------------------------------------------------------
+\section{Forces et limites de l'approche spirale}
+
+\subsection{Forces}
+
+\begin{itemize}
+    \item \textbf{Elle traite les risques tôt.} C'est sa grande force. L'équipe ne découvre pas les grands problèmes à la fin.
+    \item \textbf{Elle accepte le changement.} Les besoins peuvent évoluer entre les tours.
+    \item \textbf{Elle donne de la visibilité.} Le client voit des prototypes et des versions partielles.
+    \item \textbf{Elle favorise l'apprentissage.} L'équipe apprend à chaque tour.
+    \item \textbf{Elle convient aux projets complexes.} Elle est adaptée quand il y a beaucoup d'incertitudes.
+    \item \textbf{Elle évite de tout miser sur une seule livraison.} Le projet progresse par validations successives.
+\end{itemize}
+
+\subsection{Limites}
+
+\begin{itemize}
+    \item \textbf{Elle peut coûter cher.} L'analyse des risques demande du temps et des compétences.
+    \item \textbf{Elle peut être lourde pour un petit projet.} Pour une simple page web, elle peut être excessive.
+    \item \textbf{Elle demande une bonne gestion.} Sans discipline, les tours peuvent devenir flous.
+    \item \textbf{Elle dépend de la qualité de l'analyse des risques.} Si les risques sont mal évalués, la méthode perd sa force.
+    \item \textbf{Elle peut être difficile à expliquer au client.} Certains clients veulent une date fixe et un périmètre figé.
+\end{itemize}
+
+\subsection{Domaines d'utilisation}
+
+L'approche spirale est utile dans les projets :
+
+\begin{itemize}
+    \item grands ou complexes ;
+    \item avec des risques techniques ;
+    \item avec des risques de sécurité ;
+    \item où les besoins ne sont pas totalement connus ;
+    \item où le client veut voir des prototypes ;
+    \item où une erreur peut coûter cher.
+\end{itemize}
+
+Exemples de domaines :
+
+\begin{itemize}
+    \item systèmes universitaires ;
+    \item applications bancaires ;
+    \item logiciels de santé ;
+    \item systèmes militaires ;
+    \item plateformes administratives ;
+    \item logiciels embarqués critiques.
+\end{itemize}
+
+\subsection{Ressenti sur la méthode}
+
+Notre ressenti est que l'approche spirale est une méthode rassurante. Elle ne fait pas semblant que tout est connu dès le début. Elle accepte l'incertitude, mais elle l'organise.
+
+Elle est aussi très logique. Avant de construire beaucoup de choses, on regarde ce qui peut poser problème. Cela évite de perdre du temps sur une mauvaise solution.
+
+Cependant, elle demande de la maturité. Une équipe débutante peut avoir du mal à bien identifier les risques. Il faut aussi que le client accepte de participer régulièrement.
+
+\paragraph{Ressenti résumé.}
+L'approche spirale est une bonne méthode quand on veut avancer prudemment, apprendre à chaque étape et éviter les mauvaises surprises.
+
+\newpage
+
+% ---------------------------------------------------------------------
+\section{Comparaison avec les autres approches}
+
+Cette partie répond à la quatrième consigne : comparer notre approche avec les autres approches.
+
+Nous comparons l'approche spirale avec :
+
+\begin{itemize}
+    \item la méthode en itération ;
+    \item Agile -- Scrum ;
+    \item Agile -- Kanban ;
+    \item Agile -- Lean ;
+    \item Extreme Programming.
+\end{itemize}
+
+\subsection{Tableau comparatif général}
+
+\begin{longtable}{p{0.16\textwidth} p{0.20\textwidth} p{0.21\textwidth} p{0.20\textwidth} p{0.15\textwidth}}
+\caption{Comparaison simple entre les méthodes.}\\
+\toprule
+\textbf{Méthode} & \textbf{Idée principale} & \textbf{Forces} & \textbf{Limites} & \textbf{Quand l'utiliser ?} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Méthode} & \textbf{Idée principale} & \textbf{Forces} & \textbf{Limites} & \textbf{Quand l'utiliser ?} \\
+\midrule
+\endhead
+Spirale & Avancer par tours en analysant les risques & Très bonne pour les projets risqués et complexes & Peut être lourde et coûteuse & Projets avec incertitude, sécurité ou forte complexité \\
+\midrule
+Itération & Répéter des cycles pour améliorer le produit & Simple à comprendre, progression visible & Le risque n'est pas toujours au centre & Projets évolutifs mais pas trop critiques \\
+\midrule
+Scrum & Travailler en sprints avec rôles et cérémonies & Bon cadre d'équipe, priorités régulières & Demande discipline et disponibilité du Product Owner & Produit qui évolue avec retours fréquents \\
+\midrule
+Kanban & Visualiser le flux de travail et limiter le travail en cours & Très flexible, simple à suivre & Moins structurant si l'équipe manque de discipline & Maintenance, support, flux continu \\
+\midrule
+Lean & Réduire le gaspillage et maximiser la valeur & Évite les tâches inutiles, cherche l'efficacité & Peut négliger certains besoins si mal appliqué & Organisation qui veut livrer utile et vite \\
+\midrule
+Extreme Programming & Améliorer la qualité du code par de bonnes pratiques techniques & Tests, pair programming, intégration continue & Peut être exigeante pour l'équipe & Projet où la qualité technique est centrale \\
+\bottomrule
+\end{longtable}
+
+\subsection{Tableau visuel de comparaison}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    font=\scriptsize,
+    method/.style={draw=spiralblue, fill=lightblue, rounded corners=1mm, minimum width=2.7cm, minimum height=0.65cm, align=center},
+    score/.style={draw=white, minimum width=1.7cm, minimum height=0.65cm, align=center},
+    head/.style={draw=spiralblue, fill=spiralblue!12, minimum width=1.7cm, minimum height=0.75cm, align=center, font=\scriptsize\bfseries}
+]
+    \node[head, minimum width=2.7cm] at (0,0) {Méthode};
+    \node[head] at (2.7,0) {Risque};
+    \node[head] at (4.4,0) {Flexibilité};
+    \node[head] at (6.1,0) {Simplicité};
+    \node[head] at (7.8,0) {Qualité};
+    \node[head] at (9.5,0) {Projet\\complexe};
+
+    \foreach \y/\name/\riskScore/\flexScore/\simpScore/\qualScore/\complexScore in {
+        -0.85/Spirale/Très fort/Fort/Moyen/Fort/Très fort,
+        -1.70/Itération/Moyen/Fort/Fort/Moyen/Moyen,
+        -2.55/Scrum/Moyen/Fort/Moyen/Fort/Fort,
+        -3.40/Kanban/Faible/Fort/Fort/Moyen/Moyen,
+        -4.25/Lean/Moyen/Fort/Moyen/Moyen/Moyen,
+        -5.10/Extreme Programming/Moyen/Fort/Faible/Très fort/Moyen
+    }{
+        \node[method] at (0,\y) {\name};
+        \node[score, fill=lightred] at (2.7,\y) {\riskScore};
+        \node[score, fill=lightgreen] at (4.4,\y) {\flexScore};
+        \node[score, fill=lightorange] at (6.1,\y) {\simpScore};
+        \node[score, fill=lightviolet] at (7.8,\y) {\qualScore};
+        \node[score, fill=lightblue] at (9.5,\y) {\complexScore};
+    }
+\end{tikzpicture}
+\caption{Comparaison visuelle des méthodes selon quelques critères.}
+\end{figure}
+
+\subsection{Spirale et méthode en itération}
+
+Les deux méthodes avancent par cycles. Elles se ressemblent donc sur un point important : le produit évolue progressivement.
+
+La différence principale est la place du risque. Dans une méthode en itération, on répète des cycles pour améliorer le produit. Dans l'approche spirale, on répète aussi des cycles, mais chaque cycle commence par une analyse forte des risques.
+
+\paragraph{Exemple.}
+Dans une méthode itérative, l'équipe peut dire : « Dans cette itération, nous ajoutons la gestion des notes. » Dans l'approche spirale, elle dira aussi : « Quels sont les risques liés aux notes ? Qui peut les modifier ? Comment tracer les changements ? »
+
+\subsection{Spirale et Scrum}
+
+Scrum est une méthode agile très organisée. Elle utilise des sprints, un Product Owner, un Scrum Master, une équipe de développement, un backlog et des réunions régulières.
+
+Scrum est très bon pour livrer souvent et recevoir des retours. Mais Scrum ne met pas toujours l'analyse des risques au centre de chaque sprint. Une équipe Scrum peut bien sûr gérer les risques, mais ce n'est pas l'idée principale du cadre.
+
+L'approche spirale est plus orientée risque. Elle convient mieux si le projet contient des dangers importants dès le départ.
+
+\subsection{Spirale et Kanban}
+
+Kanban sert à visualiser le travail. On utilise souvent un tableau avec des colonnes : À faire, En cours, En test, Terminé.
+
+Kanban est très flexible. Il convient bien aux équipes qui reçoivent des demandes en continu. Par exemple, une équipe de maintenance peut utiliser Kanban pour suivre les corrections.
+
+La spirale, elle, est plus adaptée à un projet avec des grandes décisions et des risques à contrôler. Kanban montre le flux de travail. La spirale guide les décisions du projet.
+
+\subsection{Spirale et Lean}
+
+Lean cherche à réduire le gaspillage. L'idée est de produire de la valeur sans perdre du temps dans des tâches inutiles.
+
+Lean pose souvent la question : « Est-ce que cette activité apporte vraiment de la valeur ? »
+
+La spirale pose surtout la question : « Quel risque devons-nous réduire avant de continuer ? »
+
+Les deux approches peuvent être complémentaires. Une équipe peut utiliser la spirale pour gérer les risques, tout en utilisant Lean pour éviter les tâches inutiles.
+
+\subsection{Spirale et Extreme Programming}
+
+Extreme Programming, souvent appelé XP, met l'accent sur la qualité technique. Il encourage les tests automatisés, la programmation en binôme, l'intégration continue et les petites livraisons.
+
+XP est très utile quand le code doit rester propre et fiable. L'approche spirale est plus large. Elle regarde aussi les risques de besoin, de budget, de sécurité, d'organisation et d'acceptation par les utilisateurs.
+
+Une équipe peut combiner les deux. Par exemple, elle peut utiliser la spirale pour décider des tours du projet, puis utiliser les pratiques XP pendant le développement.
+
+\subsection{Résumé comparatif}
+
+\paragraph{Résumé.}
+L'approche spirale se distingue surtout par sa gestion des risques. Les autres méthodes peuvent aussi gérer les risques, mais ce n'est pas toujours leur point central. La spirale est donc très utile quand une erreur peut coûter cher ou quand le projet est incertain.
+
+\newpage
+
+% ---------------------------------------------------------------------
+\section{Exemple de déroulement pratique en classe}
+
+Pour présenter la méthode pendant l'exposé, le groupe peut faire une petite simulation orale.
+
+\subsection{Mise en scène}
+
+Le groupe joue le rôle d'une équipe projet. Le professeur ou un camarade joue le rôle du client : l'université.
+
+\begin{itemize}
+    \item Une personne présente le besoin.
+    \item Une personne joue l'étudiant.
+    \item Une personne joue l'enseignant.
+    \item Une personne joue l'administrateur.
+    \item Une personne présente les risques.
+    \item Une personne conclut le tour de spirale.
+\end{itemize}
+
+\subsection{Mini-scénario}
+
+L'université dit : « Nous voulons une application pour gérer les cours, les inscriptions et les notes. »
+
+L'équipe répond : « Nous allons commencer par un premier tour de spirale. Dans ce tour, nous ne construisons pas tout. Nous allons d'abord créer une maquette pour vérifier si les utilisateurs comprennent l'organisation. »
+
+Ensuite, l'équipe liste les risques :
+
+\begin{itemize}
+    \item les étudiants ne trouvent pas les notes ;
+    \item les enseignants ne comprennent pas la saisie ;
+    \item l'administration veut des règles d'inscription particulières ;
+    \item les données doivent être protégées.
+\end{itemize}
+
+Puis l'équipe montre une maquette. Le client donne son avis. L'équipe prépare le tour suivant.
+
+\paragraph{Phrase de transition pour l'oral.}
+« Comme nous venons de le voir, la spirale ne cherche pas à tout livrer directement. Elle cherche d'abord à apprendre, à réduire les risques et à valider les choix avec les utilisateurs. »
+
+% ---------------------------------------------------------------------
+\section{Conseils pour appliquer correctement l'approche spirale}
+
+\subsection{Bien écrire les risques}
+
+Un risque doit être précis. Il ne faut pas écrire seulement : « sécurité ». C'est trop vague.
+
+Il vaut mieux écrire :
+
+\begin{itemize}
+    \item un étudiant peut accéder aux notes d'un autre étudiant ;
+    \item un enseignant peut modifier une note après validation sans trace ;
+    \item un compte administrateur peut être volé ;
+    \item une sauvegarde peut être absente en cas de panne.
+\end{itemize}
+
+Plus le risque est précis, plus il est facile de trouver une réponse.
+
+\subsection{Ne pas faire des tours trop longs}
+
+Un tour trop long perd l'esprit de la méthode. Si l'équipe travaille pendant plusieurs mois sans montrer de résultat, elle risque de découvrir trop tard que le besoin a changé.
+
+Il faut garder des tours raisonnables. Le bon rythme dépend du projet. Pour une application universitaire, un tour peut durer deux à quatre semaines dans une simulation simple.
+
+\subsection{Impliquer les utilisateurs}
+
+La spirale fonctionne mieux si les utilisateurs participent. Ils doivent voir les prototypes, donner leurs avis et confirmer les priorités.
+
+Sans retour utilisateur, l'équipe peut construire un logiciel techniquement correct mais peu utile.
+
+\subsection{Documenter les décisions}
+
+À chaque tour, il faut garder une trace :
+
+\begin{itemize}
+    \item objectifs du tour ;
+    \item risques identifiés ;
+    \item solutions choisies ;
+    \item tests réalisés ;
+    \item retours reçus ;
+    \item décisions pour le tour suivant.
+\end{itemize}
+
+Cette documentation n'a pas besoin d'être compliquée. Elle doit surtout être claire.
+
+\newpage
+
+% ---------------------------------------------------------------------
+\section{Disclosure IA used}
+
+Cette partie répond à la cinquième consigne : expliquer l'utilisation de l'intelligence artificielle.
+
+\paragraph{Outils IA déclarés.}
+Pour préparer ce rapport, nous avons utilisé ChatGPT/Codex comme outil d'aide à la rédaction, à la structuration et à la mise en forme.
+
+\subsection{Méthodologie de travail avec l'IA}
+
+L'IA a été utilisée comme un assistant de travail. Elle n'a pas remplacé le rôle du groupe. Elle a aidé à organiser les idées et à produire une première version claire du rapport.
+
+La démarche suivie est la suivante :
+
+\begin{enumerate}
+    \item Nous avons donné la consigne complète de l'exposé.
+    \item Nous avons précisé que notre groupe travaille sur l'approche spirale.
+    \item Nous avons demandé un français très simple, humain et direct.
+    \item Nous avons choisi un exemple principal : une application universitaire.
+    \item Nous avons demandé des schémas en LaTeX avec TikZ.
+    \item Nous avons vérifié que les parties demandées par la consigne sont présentes.
+\end{enumerate}
+
+\subsection{Comment l'IA a été utilisée}
+
+L'IA a aidé à :
+
+\begin{itemize}
+    \item proposer une structure complète du rapport ;
+    \item reformuler les explications en français simple ;
+    \item construire une simulation concrète ;
+    \item proposer des cas d'usage ;
+    \item organiser la comparaison entre les méthodes ;
+    \item générer des schémas TikZ ;
+    \item améliorer la clarté du style.
+\end{itemize}
+
+\subsection{Responsabilité du groupe}
+
+Le groupe reste responsable du contenu final. Cela signifie que nous devons relire, corriger, adapter et maîtriser le rapport avant la présentation.
+
+L'IA peut aider à produire du contenu, mais elle ne doit pas être utilisée sans vérification. Le groupe doit comprendre ce qu'il présente.
+
+\paragraph{Engagement.}
+Nous avons utilisé l'IA comme un outil d'aide. Nous gardons la responsabilité de la vérification, de l'adaptation et de la présentation finale.
+
+% ---------------------------------------------------------------------
+\section{Vérification des consignes}
+
+Le tableau suivant montre que le rapport couvre les consignes données.
+
+\begin{longtable}{p{0.08\textwidth} p{0.50\textwidth} p{0.32\textwidth}}
+\caption{Contrôle des consignes de l'exposé.}\\
+\toprule
+\textbf{N°} & \textbf{Consigne} & \textbf{Où est-elle traitée ?} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{N°} & \textbf{Consigne} & \textbf{Où est-elle traitée ?} \\
+\midrule
+\endhead
+1 & Description de la méthodologie étape par étape & Les quatre mouvements et la description étape par étape \\
+2 & Exemplification / illustration en mode simulation & Simulation complète : application universitaire \\
+3 & Use cases & Cas d'usage de l'application universitaire \\
+4 & Comparaison avec les autres approches & Comparaison avec les autres approches \\
+5 & Disclosure IA used & Disclosure IA used \\
+6 & Livrable : rapport & Tout le document LaTeX \\
+\bottomrule
+\end{longtable}
+
+\newpage
+
+% ---------------------------------------------------------------------
+\section{Conclusion}
+
+L'approche spirale est une méthode de développement de logiciels qui avance progressivement. Elle construit le produit tour après tour. À chaque tour, l'équipe définit les objectifs, analyse les risques, développe une solution et demande un retour aux utilisateurs.
+
+Sa grande force est la gestion des risques. Elle aide à détecter tôt les problèmes importants. Elle convient donc très bien aux projets complexes, aux projets incertains et aux projets où la sécurité compte beaucoup.
+
+Dans notre simulation, l'application universitaire montre bien l'intérêt de cette méthode. Au lieu de développer directement toute l'application, l'équipe commence par une maquette. Ensuite, elle ajoute la connexion, les inscriptions, les notes et les améliorations de qualité. À chaque étape, elle vérifie les risques.
+
+La comparaison montre aussi que la spirale n'est pas la seule bonne méthode. Scrum est très utile pour organiser une équipe agile. Kanban est pratique pour suivre un flux de tâches. Lean aide à réduire le gaspillage. Extreme Programming améliore la qualité du code. La méthode en itération permet d'améliorer progressivement un produit.
+
+Mais l'approche spirale garde une identité forte : elle met le risque au centre. C'est ce qui la rend particulièrement intéressante pour les projets sérieux, sensibles ou difficiles.
+
+\paragraph{Dernière phrase à retenir.}
+La méthode spirale permet de construire un logiciel petit à petit, en apprenant à chaque tour et en réduisant les risques avant qu'ils deviennent trop graves.
+
+\newpage
+
+% ---------------------------------------------------------------------
+\section*{Bibliographie courte}
+\addcontentsline{toc}{section}{Bibliographie courte}
+
+\begin{itemize}
+    \item Boehm, B. W. \textit{A Spiral Model of Software Development and Enhancement}. Computer, IEEE, 1988.
+    \item Sommerville, I. \textit{Software Engineering}. Pearson.
+    \item Pressman, R. S. et Maxim, B. R. \textit{Software Engineering: A Practitioner's Approach}. McGraw-Hill.
+    \item Schwaber, K. et Sutherland, J. \textit{The Scrum Guide}. Guide officiel de Scrum.
+    \item Beck, K. \textit{Extreme Programming Explained}. Addison-Wesley.
+    \item Womack, J. P. et Jones, D. T. \textit{Lean Thinking}. Simon \& Schuster.
+\end{itemize}
+
+\end{document}

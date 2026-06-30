@@ -1,0 +1,764 @@
+INSTITUT DE FORMATION ET DE REC HERCHЕ ЕТ
+EN INFORMA QUE
+EXAMEN DE FIN DE MODULE
+Année: 2024-2025
+(Documents autorisés: aucun)
+EXERCICE I: Questions à choix multiples
+M1-GL /SIRI/SI
+MODULE DE GESTION DE PROJET INFORMATIQUE
+Prof: Dr. Arnaud AHOUANDJINOU Durée : 2h00mn
+Date: 12/05/2025
+non corrigé
+Consigne: Répondez à chaque question en mettant en correspondance la lettre et le chiffre (1-a)
+1. Parmi les affirmaticns suivar tes. laquelle no
+s'applique pas ax carac:éristiques de:
+projets?
+a. Les projets utilisert tcus la même
+méthodologie.
+b. Les projets représentent ure initiative
+temporaire.
+c. Les projets génèrent ur bénéfice
+quantifiable.
+d. Les projets induise nt la chan gemient.
+2. Vous reprenez en roa in un projet ce conc eptior
+et d'installation d'un rés eau lo al. l.e pré éden
+chef de projet se pla gn: it dere jmais coteni
+les ressources adéquates par :e que le oroje
+n'avait que très peu de valeur pou la directior
+de l'entreprise. Que devriez-voL; faire pou
+obtenir du support four votre projet?
+- a. Établir de bonnes relations a vec es membre:
+de la direction
+b. Discuter du prob e ne avec l'équipe de projet
+Xc. M'assurer que la charte du projet léfini
+clairement que les objactifs: ont: étroit emen
+lié au plan stratégi que de l'entre orise
+d. Impliquer dans e projet le; ressources le:
+plus qualifiées et s plus exp érimentées
+3. Vous facilitez le cé eur er-rer conitre mensue
+dans la communaut die gestion de projet de
+votre organisation la d scussion :'aujot rd'hu
+porte sur la meille ure façor d: définir ur
+projet. Lesquels de: deux él iments suivant:
+peuvent être qualiiés de projet?.
+a. Projet
+b. Pas projet
+4. Qu'est-ce qui devrait char ger dans und
+entreprise qui se veu t prformant:?
+a. Leaders et directon
+b. Membres d'équipes
+X c. Pratiques opérationnelles et stratégies
+commerciales
+d. Valeurs et résolu:ins ondanercales
+5. Vous reprenez en raa in un proj et de conceptior
+et d'installation d'un réseau lo al. le préc édent
+chef de projet se pa gnait de re ja mais o oteni
+les ressources adéq iatas pare que le projet
+n'avait que très pe. de valeur ou la dir ectior
+de l'entreprise. Que devriez-vous faire pour
+obtenir du support pour votre projet?
+a. M'assurer que la charte du projet définit
+clairement que les objectifs sont étroitement
+liés au plan stratégique de l'entreprise
+b. Impliquer dans le projet les ressources les
+plus qualifiées et les plus expérimentées
+C. Discuter du problème avec l'équipe de projet
+d. Établir de bonnes relations avec les membres
+de la direction
+6. Parmi les critères de succès d'un projet, il y a le
+respect des mesures financières énoncées dans
+le business case. Ces mesures financières sont
+7.
+diverses: parmi celles citées, laquelle n'est pas
+pertinente?.aro n eLF
+a.Taux interne de rentabilité
+b.Valeur actuelle nette
+c. Retour sur investissement
+d. Valeur acquise
+c5
+bgitiative Tes
+Parmi les documents suivants, lequel pourrait
+présenter une liste des membres déjà attribués
+à l'équipe qui travaillera sur le projet?
+a. La liste des postes budgétaires
+b. L'énoncé du périmètre du projet
+Xc.La charte du projet
+d. L'échéancier du projet
+8. Une entreprise de construction met sur pied un
+projet de création d'une piste cyclable dans un
+parc national. La première phase du projet est
+l'étude de faisabilité. Quel pourrait être le
+résultat de cette phase du projet?
+a. L'équipe projet
+Xb. La décision de clore le projet
+9.
+c. L'échéancier détaillé du projet
+d. Les mesures de performance
+Afin de développer et lancer un nouveau
+produit, une société initle 5 projets. Un des
+projets est considéré comme étant stratégique
+et les autres comme support de l'initiative. Les
+projets utiliseront des ressources provenant de
+différents départements au sein de
+l'organisation et sont sponsorisés par deux
+organismes privés. Pour améliorer le
+management et l'efficacité des projets dont il
+est question, quelle serait la meilleure chose à
+faire?
+1/6
+a. Intégrer les projets dans un programme
+b. Obtenir un seul sponsor pour les projets
+c. Affecter des chefs de projet expérimentés aux
+projets
+d. S'assurer que les sponsors comprennent les
+dépendances entre les projets
+10. Vous travaillez sur un projet informatiquе
+interne et vous facilitez un alignement entre les
+parties prenantes clés sur les objectifs
+appropriés. Lequel des éléments suivants serait
+un objectif approprié?
+a. Convivialité - mise en page de l'écran
+b. Interface fiabilité
+c. Vitesse satisfaction
+Xd. Délais coûts
+11. Votre sponsor vous a présenté une liste
+d'objectifs proposés pour le projet. Quelles
+sont les deux formulations les plus
+appropriées? (2 réponses)
+a. Réduire les plaintes des clients à un niveau
+acceptable
+b. Réduire le nombre d'articles retournés par les
+clients allemands de 2% en six mois
+Xc. Réduire la durée du cycle pour le traitement
+des nouvelles commandes de 10% dans les 3
+mois
+d. Organiser un nouveau service de contrôle en
+réponse au nombre croissant d'articles
+retournés
+12. Parmi les parties prenantes d'un projet,
+laquelle, lors de la clôture du projet, devrait
+être impliquée dans la création des leçons
+apprises? (3 réponses)
+a. Personne
+X b. L'équipe projet
+X c. Le sponsor du projet
+d. Le bureau des projets
+13. Lesquels des éléments suivants sont des
+exemples de contraintes à un projet ? (3
+réponses)
+x a. Le coût des matériaux de construction ne doit
+pas dépasser $ 100000.
+yb. Parmi les collaborateurs, les femmes ne sont
+pas autorisées à travailler la nuit.
+c. L'architecte le plus expérimenté sera
+disponible pour la phase de conception du
+projet.
+d. Le toit doit être terminé avant la saison des
+pluies.
+14. Votre sponsor souhaite que l'équipe
+commence à travailler sur le nouveau projet
+d'amélioration des processus de la chaîne
+d'approvisionnement. En tant que chef de
+projet certifié PNIP, vous savez que le
+démarrag est une etape critique. Toutefois, le
+sponsor vous dil qu'il souhaite commencer à
+planifier e prcjet mmédiatement et vous
+donne une chate de projet d'une page avec
+très peu d'infermations. Parmi les raisons
+suivar es, quelles soit les bonnes raisons de
+consa :rer plus d: temps à l'étape de
+démar ag: du proje:? (3 réponses)
+a. Le fuit 'avoir une charte bien documentée
+fera en sorte que le sponsor soit entièrement
+responsable da l'é chec du projet.
+b. La gouv ernance du projet est claire et
+accepté.
+c.Le cémarrage laisse le temps d'étudier la
+comolex té du pro e:
+d. La creati on de la ch arte assure des discussions
+et l'alig nement des principales parties
+prenantes.
+15. Lesquels des élénients suivants sont des
+exemples de cont aintes à un projet? (3
+réponies)
+a. Le coût c es matéri aux de construction ne doit
+pas lép: sser $ 100000.
+b. Le toit doit être terminé avant la saison des
+pluies.
+c. Parni le collal or teurs, les temmes ne sont
+pas auto risées tr a'vailler la nuit.
+d. L'archite cte le plus expérimenté sera
+disponib e pour la phase de conception du
+projet.
+16. 'équipe de gestion ce projet clôt la phase de
+nise en a uvre. equel des éléments suivants
+seront tou ché pa cette activité? (3 réponses)
+xa. Arch ves du projet
+b. Autorisa ion de dé rarrer la phase suivante
+c. Acce:tat on forme le des livrable achevés de
+la phase
+17.
+d. Reto irs l'expé ier ce
+Au col s ce votre retnion mensuelle d'équipe
+de poje, vous avez passé en revue
+'avancement du proet et l'avez comparé au
+olan initial. Les renseignements qui en
+ésultent pourraient être utilisés pour
+nfluer cer lequel des éléments suivants? (2
+épon: es)
+a. Estimer les ressources des activités
+X b. Reto.r sur la perfo 'mance de l'équipe
+xc. Communications avec les parties prenantes
+d. Reto.rs 'expérien :
+18. l.esquelles des act vités suivantes peuvent
+:'effec.uer durart le démarrage du projet? (3
+léponses)
+21
+a. Définir les buts du prcjet
+b. Constituer l'équice de base up ojet
+c. Clarifier les attertes di clien
+d. Créer le diagram ne de résea u du projet
+19. Votre entreprise a dézidé ce passer d'un
+approche traditiornelle à une méthode Agile.
+Auparavant vous avez occupé le poste da che
+de projet et vous réalisez mair tenant qu vou
+devez passer au rôle de servan lea der. La quell
+des activités suivantes est a oprc priée de co
+nouveau rôle? (2 rép onses)
+a. Comprendre les tesoins de fo mation de:
+équipes et rechener des solutions
+b. Coaching pour es nouveaux nembres de
+l'équipe
+c. Un servant leader doit recommander à
+l'équipe quelles leçons ils devraient mettre en
+œuvre
+d. Les équipes de projet doivent recueillir et
+utiliser les leçons apprises tout au long du
+projet.
+22. En tant que chef de projet récemment certifié,
+vous réalisez l'importance de la gestion des
+connaissances au niveau de l'équipe de projet.
+Lesquelles des compétences suivantes
+trouveriez-vous les plus utiles pour assurer une
+bonne gestion des connaissances? (2 réponses)
+a. Intelligence émotionnelle
+b. Compétences en facilitation
+c. Compétences en négociation
+d. Gestion des conflits
+23. Un haut responsable veut que vous meniez à
+bien un nouveau projet: il s'agit de construire le
+réseau de l'entreprise. Avant toute chose, vous
+demandez s'il existe une charte pour le projet.
+Pourquoi est-ce si important pour vous?
+Xc. Travailler avec l'éq sipe pour cormprenc re les
+opportunités d'am ilio ration
+d. S'assurer que es user stories sor:
+correctement prioriséas dan:. le backlo
+e. Validation des den andes de mc dification du
+périmètre du prcjet
+f. Donner des conseils en dévelc opeme nt de
+carrière aux mebres de l'éc uipe
+a. Parce que la charte me donne le niveau
+d'autorité
+b. Parce que la charte décrit les ressources
+affectées au projet
+20. Lors de la création de la cł art du rojet
+certaines parties puenantes :e révèlent trè:
+sceptiques quant aux avantages cue le oroje
+va délivrer. LorsTie vous abordez cett
+question avec le sponsor, il vous dit de le:
+ignorer car ils sont tc ujc urs pe isimistes. l eque
+des éléments suivants pourraient aider cette
+situation? (2 réporses)
+a. Dites au sponsor q ue vous no pensez pas qu
+ces parties prenantes ont pssirnistes
+b. Réduire les avantages à un r ivea u app oprit
+en fonction de vos disc ussions avec les p arties
+prenantes
+c. Mettre à jour le registre des isq. es du oroje
+Xd. Suggérez au sponsor de co-organis er là
+création d'un plar des bén fic:s du rojc
+avec les parties prenartes.
+Ye. Encourager le sponsor à org aniser un telie
+de cartographie des avantag:s ave: le:
+principales parties prerantes.
+21. Profiter des leçors apprises peut ame lioren
+significativementa performince du rojet
+Lequel des éléments suivants (st vrai en e qu
+concerne les leçonsi ppr ses?
+a. Le sponsor du pro et est la ineilleure sourct
+de leçons apprises
+b. Les leçons apprises do vent ê re dentifiées et
+consignées lors de la réunicn de clôture d.
+projet
+c. Parce que la charte définit mon salaire
+d. Parce que la charte décrit comment le projet
+devrait être fait
+24. Votre projet est exécuté selon une approche
+hybride sur mesure. Lorsque vous planifiez
+comment engager votre équipe de façon
+optimale, vous pourriez considérer laquelle des
+approches suivantes?
+a. Toujours accorder un maximum d'attention
+au chemin critique du projet
+b. Changez le projet en Agile uniquement et
+organisez régulièrement des réunions Scrum
+c. Tenir des daily stand-ups pour prioriser les
+livrables
+x d. Tenir régulièrement des réunions
+rétrospectives
+25. Lors d'une rencontre avec le sponsor du projet,
+vous passez en revue la charte du projet. Vous
+demandez au sponsor de définir ce qu'il
+considère comme un succès pour le projet. En
+plus des objectifs habituels de temps et de
+budget, il vous dit qu'il est important que le
+résultat du projet soit de haute qualité. Vous
+craignez qu'il s'agisse d'un objectif difficile à
+mesurer. Le sponsor est d'accord et il vous
+demande de définir les objectifs. Laquelle des
+approches suivantes prendriez-vous? (2
+réponses)
+316
+a. Étudier les exigences de conformité qui
+pourraient s'appliquer à votre projet
+b. Rencontrez les principales parties prenantes
+et demandez-leur de définir ce que la qualité
+signifie pour eux
+c. Revoir les contraintes et hypothèses globales
+du projet
+d. Demandez au service d'assurance qualité de
+définir les objectifs
+e. Refusez l'objectif et insistez pour que le
+sponsor définisse ce que signifie la qualité
+f. Organiser un brainstorming avec les
+membres de l'équipe du projet
+26. Dans votre charte de projet, il y a des jalons
+définis à un niveau général. Après une
+planification détaillée avec votre équipe de
+projet, vous présentez votre diagramme de
+Gantt au sponsor avec un plan réaliste. Il est
+choqué de voir que votre plan rate tous les
+jalons identifiés dans la charte. Qu'est-ce que
+vous devez faire ? (2 réponses)
+a. Demandez au sponsor de définir quels
+éléments du périmètre il souhaite supprimer
+b. Profitez de l'occasion pour mettre à jour le
+registre des risques afin de refléter cette
+lacune dans les attentes
+jalons ide tifiés dar s la charte. Qu'est-ce que
+vous ceve: faire ? (2 réponses)
+a. Prof :ez de l'o:casion pour mettre à jour le
+regisre des risques afin de refléter cette
+lacu e dans les attentes
+b. Ajus:ez otre o agia mme de Gantt pour tenir
+comote les ja ons ce la charte
+c. Assurez-vous que dans les projets futurs,
+vous déf nissez cla rement si les jalons sont ou
+non des contra ntos de projet
+d. Demandez au sponsor de définir quels
+éléments du périn ère il souhaite supprimer
+e. Dites-lui que ces alons haut niveau dans la
+charte sont étab is sans tenir compte du
+travail ré el qui doit écre réalisé par l'équipe du
+projet
+29. Votre entreprise a clécidé de passer d'une
+approche traditionnelle à une méthode Agile.
+Aupar: var t vous avez occupé le poste de chef
+de prcjet et vous réalisez maintenant que vous
+devez asser au r5le de servant leader. Laquelle
+des activi és suivantes est appropriée de ce
+nouveau rile? (? ré conses)
+a. Donner des conseis en développement de
+carrière aux memt res de l'équipe
+b. Coaching; pour le; nouveaux membres de
+c. Dites-lui que des jalons haut niveau dans la l'équipe
+charte sont établis sans tenir compte du
+travail réel qui doit être réalisé par l'équipe du
+projet
+c. Comorerdre les besoins de formation des
+équices et rechercner des solutions
+d. Assurez-vous que, dans les projets futurs,
+vous définissez clairement si les jalons sont ou
+non des contraintes de projet
+d. Valicaticn des dernandes de modification du
+périrmètre du projet
+e. Trav.aille avec 'écuipe pour comprendre les
+opportunités c am ál oration
+e. Ajustez votre diagramme de Gantt pour tenir
+compte des jalons de la charte
+f. S'assurer que es user stories sont
+correcte nent prio isées dans le backlog
+27. Lors de votre dernière réunion Scrum, l'un des 30.
+membres de l'équipe vous suggère d'utiliser
+une approche KANBAN pour mieux
+comprendre ce qui se passe dans le projet.
+Laquelle des affirmations suivante concernant
+KANBAN est vraie?
+Xa. Un tableau KANBAN suit le travail en cours
+b. KANBAN est une technique utile pour gérer
+les risques
+с. KANBAN est le mot japonais pour scrum
+d. Un tableau kanban montre graphiquement le
+progrès réalisé dans le backlog
+28. Dans votre charte de projet, il y a des jalons
+définis à un niveau général. Après une
+planification détaillée avec votre équipe de
+projet, vous présentez votre diagramme de
+Gantt au sponsor avec un plan réaliste. Il est
+choqué de voir que votre plan rate tous les
+Dans votre charte ce projet, il y a des jalons
+définis à un riiveau général. Après une
+olanifi :aticon détaillee avec votre équipe de
+orojet, vo us prser tez votre diagramme de
+Gantt au ponso avec un plan réaliste. Il est
+choqu de voir que votre plan rate tous les
+alons ider tifiés dars la charte. Qu'est-ce que
+vous deve: faire ? (2 reponses)
+a. Profitez de l'occas on pour mettre à jour le
+registre des risques afin de refléter cette
+lacune d.ins les att e tes
+b. Ajustez votre diagrarnme de Gantt pour tenir
+compte des jalons de la charte
+с. Dites-lui que des jaons haut niveau dans la
+charte sont établs sans tenir compte du
+travail ré el qui cloit être réalisé par l'équipe du
+proje:
+4/6
+95
+31.
+d. Demandez au sponsor de céfinir quel
+éléments du périnèetre il sou naite supp imer
+e. Assurez-vous que, dans les projets futurs
+vous définissez cli ement si les j: lons s :nt o
+non des contrain:es de proje
+Lors de la créaticn de la cłart: du projet
+certaines parties :renantes e évèlent trè
+sceptiques quant aux avantag es que le oroje
+va délivrer. Lorsque vous abordez cett
+question avec le sponsor, il vou; dit de le
+ignorer car ils sont tcujours pe simistes. l.eque
+des éléments suivar ts pourraient aider cett
+situation? (2 répor ses)
+a. Mettre à jour le reg istre des isq. es du oroje
+b. Réduire les avan:a ;es à un r ive: u appropri:
+en fonction de vos lisc.ussions avecles artie
+prenantes
+c. Encourager le sposor à org aniser un itelie
+de cartographie des avartag:s avec le
+principales parties orenantes
+d. Dites au sponsor q ue vous ne pensez p.is qu
+ces parties prenartes sont pe ssirnistes
+e. Suggérez au sponsor de co-organi:er
+création d'un plar des bén éfices du proje
+avec les parties pre nantes.
+32. Ted gère un proje: de dévelocpement d
+plusieurs spots puol citaires pour un fat ricar
+de parfums. Deux mos apres le début du
+projet, deux spots sont lerminés et Ted :onvit
+les sponsors au démarrage cu processus de
+validation du conte n 1. Par quo Te: est-ille plus
+concerné ici?
+a. La conformité des livrables ave: les norme
+de qualité
+b. La complétude des livrables
+Xc. L'acceptation forrnelle des liv rat es
+d. La conformité des livraisons: ve: l'éché ancie
+33. Le sponsor examine, pour appob: tion, le pla
+de gestion du pér mètre d'un petit proje
+d'acquisition, qui esta la phase 2 ck
+l'amélioration des trottoirs cde la villo
+Concernant ce pla spécific ue, lequel de
+énoncés suivants n'est pas cor ect
+a. Il est toujours très détaillé et de manièr
+formelle.
+b. C'est une directive pour ('accep tatio
+formelle des livrab es.
+c. Il établit la procedure à suive pour un
+demande de chaem ent du pé imètre.
+d. Il décrit la maniè e de créer le W'BS.
+34. Lucia est cheffe cde projet dns une banqu
+commerciale. Elle dirige actuel ement un proje
+visant à mettre en ceuve une so stion inobil
+qui permettra aux clients de gérer leurs
+comptes et d'utiliser divers services bancaires
+de n'importe où dans le monde. Le projet a
+démarré il y a juste un mois et en est à la phase
+de conception lorsque le sponsor demande
+Lucia si elle a déjà collecté les avis de tous les
+utilisateurs potentiels concernant les
+fonctionnalités du service en cours
+d'élaboration. Que devrait faire Lucia pour
+obtenir assez tôt ces commentaires des
+utilisateurs sur les caractéristiques du service?
+a. Rencontrer les utilisateurs, leur expliquer en
+détail comment fonctionne le service et
+recueillir leurs suggestions
+b. Utiliser l'étalonnage
+Xc. Fournir aux utilisateurs un modèle de travail
+du service
+d. Envoyer un questionnaire à tous ceux qui
+peuvent utiliser le service et analyser les
+réponses
+35. De quoi font partie les attentes et besoins des
+parties prenantes du projet quantifiés et
+documentés?
+☑
+a. Des hypothèses
+b. Des contraintes
+c. Des exigences
+d. Des demandes de changement
+36. Voici quatre affirmations concernant l'énoncé
+du périmètre du projet. Laquelle est correcte?
+X a. L'énoncé du périmètre du projet établit la
+base. pour un accord entre les parties
+prenantes du projet.
+b. L'énoncé du périmètre du projet ne doit
+jamais être révisé.
+c. L'énoncé du périmètre du projet permet une
+estimation précise des délais, des coûts et des
+besoins en ressources.
+d. L'énoncé du périmètre du projet autorise le
+projet.
+37. Votre équipe de projet a installé les
+composants finaux du nouveau contrôle
+d'accès de sécurité à l'usine du client. Le
+nouveau système utilise la technologie de
+reconnaissance faciale. En cas de défaillance, la
+porte de sécurité ne s'ouvrira pas et le
+personnel devra recourir à un système de
+lecteur de carte. Quelles méthodes l'équipe at-elle utilisées lors de la conception du
+système?
+a. Analyse Koichi de sauvegarde
+b. Analyse des modes de défaillance et de leurs
+effets
+c. Le principe 80/20 de Pareto
+A
+d. Conception pour une maintenance faci e
+38. Les membres de l'équipe projet réalisent un
+travail qui sort du périmètre du projet.
+Résultat: le projet est en retard sur l'échéancier
+et dépasse le budget. Quelle serait la cause la
+plus probable de cette situation?
+a. La mauvaise gestion des coûts
+b. Des conflits d'intérêts
+c. L'absence de plan de réponse aux risques
+d. Des lacunes dans le plan de gestion du
+périmètre
+39. Voici quatre affirmations concernant l'énoncé
+du périmètre du projet. Laquelle est correcte?
+a. L'énoncé du périmètre du projet autorise le
+projet.
+b. L'énoncé du périmètre du projet permet une
+estimation précise des délais, des coûts et des
+besoins en ressources.
+c. L'énoncé du périmètre du projet ne doit
+jamais être révisé.
+d. L'énoncé du périmètre du projet établit la
+base pour un accord entre les pårties
+prenantes du projet.
+40. Le timeboxing, ou méthode du temps limité,
+définit une période de temps volontairement et
+strictement limitée destinée à la réalisation
+d'une activité donnée. Pourquoi utilise-t-on
+cette méthode dans les environnements
+agiles?
+a. Pour donner la priorité aux résultats
+progressifs
+b. Pour minimiser l'importance accordée aux
+coûts
+c. Pour éviter des estimations inutiles de la date
+d'achèvement
+d. Pour élargir le périmètre à moindre effort
+
+INSTITUT DE FORMATION ET DE RECHERCHE ET
+EN INFORMATIQUE
+EXAMEN DE SSEION DE RATTRAPAGE
+Année: 2024-2025
+(Documents autorisés: aucun)
+M1-GL/SIRI/SI
+MODULE DE GESTION DE PROJET INFORMATIQUE
+Prof: Dr. Arnaud AHOUANDJINOU Durée: 1h00mn
+Date: 31/07/2025
+Question 1:
+Question 2:
+Question 3:
+Question 4:
+Une société d'électronique avalt projeté le développement d'un nouveau disque dur
+multimédia. Le projet s'est achevé avec succès et la production des appareils démarre.
+Qui endosse désormals la responsabilité de la qualité du disque dur?
+Question 7
+Le client
+Le responsable de la production
+Le vendeur
+Le chef de projet
+Vous devez choisir le type de contrat qui sera utilisé pour le développement d'un
+nouveau logiciel. Comme acheteur, quel est le contrat que vous considérez comme le
+moins préférable?
+Question 8
+Contrat en régie
+Contrat en régie avec honoraires fixes
+Contrat à prix forfaitaire
+Contrat en régle avec Intéressement
+L'équipe projet est en train de discuter à propos d'un diagramme; celui-ci montre la
+decomposition orientée livrable du travail du projet et définit le périmètre global du
+projet. De quel diagramme s'agit-il?
+Question 9
+De la SDR (structure de découpage des ressources)
+Du WBS (organigramme des travaux du projet)
+Du diagramme de Gantt
+Du diagrarnme des jalens
+Pour un petit projet, demandez-vous une approbation formelle de la charte du projet par
+le sponsor?
+Question 1
+Oui, une charte du projet complète est toujours requise.
+Non, ce n'est pas si important pour un petit projet.
+Non, une approbation informelle suffira.
+Oui, bien sûr, mais un mémo devrait suffire.
+Question 5:
+Votre équipe a Invité un expert en qualité pour faciliter la création du plan de gestion de
+la qualité de votre projet. II vous dit que la qualité du projet est encore plus importante
+que la qualité du produit comme d'habitude l'un conduit à l'autre. Lequel des éléments
+suivants sont des outils et des techniques que vous pourriez utiliser pour assurer la
+qualité du projet.
+Question 1: Ily a plusieurs réponses. (2)
+Un plan de gestion des exigences bien défini et communiqué
+Tests basés sur le risque des livrables
+Des accords de nlveau de service bien définis
+Un processus discipliné de gestion du changement
+Question 6:
+Afin de structurer votre premier plan de management du projet, vous voulez utiliser les
+données historiques provenant de projets précédents. Vous constatez que des
+éléments clés sont présents dans tous les plans de projet, quels que soient leur taille et
+leurs objectifs. Lequel des objets suivants n'est pas un exemple de ces éléments?
+Question 8
+Question 7:
+Question 8:
+Les jalons
+Les archives du projet
+L'organigramme des travaux du projet
+Le plan de gestion des communications
+Vous êtes en train d'estimer les besoins en ressources pour un petit projet
+informatique. De quel élément n'auriez-vous pas besoin pour compléter ce processus?
+Question 5
+La disponibilité des ressources
+La liste des activités
+L'information concernant la date à laquelle les ressources sont nécessaires
+Les attributs des activités
+YOyzpBkbTNWZHGZQ8
+Question 4
+Qu'est-ce qui devrait changer dans une entreprise qui se veut performante?
+Pratiques cpérationnelles et stratégies commerciales
+Valeurs et résolutions fondamentales
+Leaders et direction
+Membres d'équipes
+Question 9:
+Vous gérez un projet de développement d'un site web pour une compagnie bancaire.
+Lors d'une réunion préliminaire, vous décrivez les fonctionnalités du site web et les
+Question 6
+services qui seront offerts aux clients. De quoi êtes-vous en train de parler?
+Des critères de sélection du projet
+De l'échelle du projet
+Du contenu du produit
+Du périmètre du projet
+Question 10:
+On vient de remettre une charte du projet au chef de projet et on lui demande de fournir
+l'énoncé du périmètre du projet pour le mois suivant. Dans cette optique, quelle serait la
+première chose que le chef de projet devrait faire?
+Question 5
+Développer un organigramme des travaux du projet
+Démarrer la définition du périmètre
+Identifier les besoins d'affaires pour lesquels le projet a été entrepris
+Identifier les parties prenantes et leurs besoins, leurs exigences
+Question 11.:
+Question 6
+Que signifie le terme "leader-serviteur" pour un chef de projet Agile?
+wmloauoos OXSYOf
+Le chef do projet travaille sous la direction d'autres dirigeants.
+Hiérarchiquement, le chef de projet est un responsable, mais n'assume pas le leadership.
+Le chef de projet dirige son projet en répondant aux besoins de son équipe et de son client.
+Le chef de projet doit établir une hiérarchie forte avec ses subordonnés.
+Question 12:
+Parmi les affirmations suivantes, laquelle ne s'applique pas aux caractéristiques des
+projets?
+Question 1 Xwwkpy.JvpbeFgu2tux
+Les projets utilisent tous la même méthodologie.
+Les projets représentent une initiative temporaire.
+Les projets indulsent le changement.
+Les projets génèrent un bénéfice quantifiable.
+Question 13:
+Une entreprise de construction met sur pied un projet de création d'une piste cyclable
+dans un parc national. La première phase du projet est l'étude de faisabilité. Quel
+pourrait être le résultat de cette phase du projet?
+Question 14:
+Question 15:
+Question 1
+L'équipe projet
+Les mesures de performance
+L'échéancier détaillé du projet
+La décision de clore le projet
+gCbZIQPAd5aQ7DL5M
+On initie un projet de construction d'un pont reliant deux quartiers d'une ville séparés
+par une rivière. Parmi les propositions suivantes, laquelle désigne une partie prenante
+du projet?
+Question 2
+Un groupe local de Greenpeace qui s'oppose à la construction du pont
+Un propriétaire de ferry naviguant entre les rives
+Le concepteur du pont
+Toutes les entités mentionnées
+v02weC22QXN6qmX
+Lequel des éléments suivants n'est pas un élément de charte de projet Agile?
+Question 5
+Svo3 SX14kB48 328
+Préparer une étude d'opportunité et la documentation connexe
+Question 16:
+Solliciter une consultation externe sur les plans de marketing produit et les phases de projet
+Tenir un meeting de vision
+Utiliser la méthodologle de développement logiciel Agile et se préparer en conséquence
+Vous reprenez en main un projet de conception et d'installation d'un réseau local. Le
+précédent chef de projet se plaignait de ne jamais obtenir les ressources adéquates
+parce que le projet n'avait que très peu de valeur pour la direction de l'entreprise. Que
+devriez-vous faire pour obtenir du support pour votre projet?
+Question 4 JAB4pC0eHew3DI Impliquer dans le projet les ressources les plus qualifiées et les plus expérimentées
+M'assurer que la charte du projet définit clairement que les objectifs sont étroitement liés au
+plan stratégique de l'entreprise
+Établir de bonnes relations avec les membres de la direction
+Discuter du problème avec l'équipe de projet
+Question 17:
+Un ami vous dit qu'il a été affecté à un projet destiné à améliorer la qualité de l'air près
+d'une raffinerie. En ne considérant que le titre du projet, vous avez quelques difficultés
+à déterminer les éléments tangibles qui seraient produits par le projet. $Parmi les
+éléments suivants, lequel vous aiderait à clarifier cela?
+Question 18:
+Question 8
+Les livrables du projet
+Les activités du projet
+Les objectifs du projet
+Les phases du projet
+Quel est l'aspect le plus important du management de projet?
+Question 7 jowk7cBZdoWmbOLC
+Le regroupement des parties prenantes
+L'identification de toutes les partles prenantes
+Lorganisatlon de réunions avec les parties prenantes clés
+La non-divulgation des informations confidentielles aux partles prenantes externes
+Question 19:
+Compte tenu de votre expérience et de vos succès dans votre activité d'ingénieur, la
+direction de votre entreprise veut vous nommer responsable d'un projet de conception
+et de construction d'un complexe administratif de 10000 mètres carrés. Votre PDG vous
+remet une feuille de papier sur laquelle sont résumés le contenu du produit, le besoin
+économique à l'origine du projet et les liens avec le plan stratégique de l'entreprise.
+Comment s'appelle ce document?
+Question 4
+Facteurs environnementaux de l'entreprise
+Actifs organisationnels
+Business case
+Charte du projet
+Question 20:
+Votre équipe projet a commencé à déterminer quels risques pourraient affecter le projet
+Intranet que vous planifiez. Par quoi commence l'identification des risques?
+Question 6
+Revue de la liste des réponses aux risques potentiels
+Détermination des éléments déclencheurs
+Revue des plans et des hypothèses du projet
+Description des risques du projet
+7TzJ78RQS395389d
